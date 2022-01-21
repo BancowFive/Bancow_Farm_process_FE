@@ -1,5 +1,6 @@
 import { css } from "styled-components";
 
+// position을 중앙에 배치
 export function positionCenter(type = "absolute") {
   return css`
     position: ${type};
@@ -9,6 +10,7 @@ export function positionCenter(type = "absolute") {
   `;
 }
 
+// position을 가로축 기준으로 중앙에 배치
 export function positionCenterX(type = "absolute") {
   return css`
     position: ${type};
@@ -17,6 +19,7 @@ export function positionCenterX(type = "absolute") {
   `;
 }
 
+// position을 세로축 기준으로 중앙에 배치
 export function positionCenterY(type = "absolute") {
   return css`
     position: ${type};

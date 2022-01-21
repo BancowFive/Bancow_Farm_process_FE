@@ -1,5 +1,6 @@
 import { css } from "styled-components";
 
+// flexbox 사용할 때, 편하게 사용하기 위한 단축어 설정
 function convertFullName(value) {
   switch (value) {
     case "start":
@@ -15,6 +16,7 @@ function convertFullName(value) {
   }
 }
 
+// flexbox 설정
 export function flexbox(jc = "center", ai = "center") {
   return css`
     display: flex;
@@ -23,6 +25,7 @@ export function flexbox(jc = "center", ai = "center") {
   `;
 }
 
+// inline-flexbox 설정
 export function inlineFlexbox(jc = "center", ai = "center") {
   return css`
     display: inline-flex;

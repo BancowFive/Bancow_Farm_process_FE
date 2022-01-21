@@ -73,6 +73,7 @@ const boxShadows = {
   popupReversed: `0 -4px 20px rgba(63, 65, 80, 0.3)`,
 };
 
+// styled-components에서 사용할 theme
 export const theme = {
   breakpoints,
   boxShadows,

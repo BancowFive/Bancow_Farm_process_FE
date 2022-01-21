@@ -1,5 +1,6 @@
 import { css } from "styled-components";
 
+// 태그는 존재하지만 브라우저에서 숨김 (스크린 리더에는 읽힘)
 export function visuallyHidden() {
   return css`
     position: absolute !important;

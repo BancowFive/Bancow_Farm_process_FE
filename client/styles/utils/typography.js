@@ -2,6 +2,7 @@ import { css } from "styled-components";
 
 import { theme } from "../index";
 
+// text style 별로 font-size, line-height, letter-spacing를 묶은 겁니다.
 export function textStyle(size) {
   return css`
     font-size: ${theme.fontSizes[size]};
@@ -10,6 +11,7 @@ export function textStyle(size) {
   `;
 }
 
+// 한 줄짜리 말줄임
 export function truncate() {
   return css`
     overflow: hidden;
@@ -18,6 +20,7 @@ export function truncate() {
   `;
 }
 
+// 여러 줄에 대한 말줄임
 export function lineClamp(line) {
   return css`
     display: -webkit-box;
