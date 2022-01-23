@@ -30,6 +30,7 @@ export const Button = ({
       </StyledButton>
     );
   }
+
   return (
     <StyledButton
       size={size}

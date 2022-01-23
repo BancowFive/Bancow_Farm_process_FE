@@ -91,8 +91,12 @@ export const StyledInputGroup = styled.div`
 export const StyledSelectGroup = styled.div`
   position: relative;
 
-  input {
+  button {
+    justify-content: flex-start;
     padding-right: 40px;
+    border-radius: 10px;
+    ${textStyle("body1")}
+    color: ${({ theme }) => theme.colors.tertiary}
   }
 
   .icon {
@@ -102,5 +106,10 @@ export const StyledSelectGroup = styled.div`
     width: 26px;
     height: 26px;
     transform: rotate(90deg) translate(-50%, -50%);
+    transition: transform 200ms ease-in-out;
+
+    &.is-open {
+      transform: translate(50%, -50%) rotate(-90deg);
+    }
   }
 `;

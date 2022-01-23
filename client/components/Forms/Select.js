@@ -1,19 +1,26 @@
 import PropTypes from "prop-types";
-import { StyledSelectGroup, StyledInput } from "./style";
+import { StyledSelectGroup } from "./style";
+import { Button } from "../Button";
 
-function getSelectIcon(icon) {
+function getSelectIcon(icon, isOpen) {
   switch (icon) {
     case "more":
-      return <img src="/more.svg" className="icon" alt="more icon" />;
+      return (
+        <img
+          src="/more.svg"
+          className={icon && isOpen ? "icon is-open" : "icon"}
+          alt="more icon"
+        />
+      );
     default:
       return null;
   }
 }
 
 export const Select = ({
+  isOpen,
   size,
   variant,
-  placeholder,
   onBlur,
   onChange,
   onClick,
@@ -22,20 +29,21 @@ export const Select = ({
   name,
 }) => {
   const element = (
-    <StyledInput
-      size={size}
+    <Button
       variant={variant}
+      size={size}
       name={name}
-      placeholder={placeholder}
-      onBlur={onBlur}
       onClick={onClick}
-      onFocus={onFocus}
+      onBlur={onBlur}
       onChange={onChange}
-    ></StyledInput>
+      onFocus={onFocus}
+    >
+      사료
+    </Button>
   );
   return (
     <StyledSelectGroup>
-      {icon && getSelectIcon(icon)}
+      {icon && getSelectIcon(icon, isOpen)}
       {element}
     </StyledSelectGroup>
   );
@@ -51,6 +59,7 @@ Select.propTypes = {
   onFocus: PropTypes.func,
   icon: PropTypes.string,
   name: PropTypes.string,
+  isOpen: PropTypes.bool,
 };
 
 export default Select;
