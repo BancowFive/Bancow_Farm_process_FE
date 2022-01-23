@@ -1,8 +1,8 @@
-import Button from "../Button";
+import { Button } from "../Button";
 import StyledButtonGroup from "./style";
 import PropTypes from "prop-types";
 
-const ButtonGroup = ({ size, disabled }) => {
+export const ButtonGroup = ({ size, disabled }) => {
   return (
     <StyledButtonGroup>
       <Button variant="ghost" size={size}>
@@ -19,5 +19,3 @@ ButtonGroup.propTypes = {
   size: PropTypes.number.isRequired,
   disabled: PropTypes.bool.isRequired,
 };
-
-export default ButtonGroup;

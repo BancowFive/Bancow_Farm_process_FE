@@ -2,7 +2,7 @@ import Link from "next/link";
 import { StyledButton } from "./style";
 import PropTypes from "prop-types";
 
-const Button = ({
+export const Button = ({
   variant,
   children,
   disabled,
@@ -62,5 +62,3 @@ Button.propTypes = {
 Button.defaultProps = {
   width: "100%",
 };
-
-export default Button;
