@@ -19,7 +19,7 @@ export const Header = () => {
         <Image src="/bancow_logo.png" alt="logo" width="68" height="18" />
       </LogoWrapper>
       <CallBtn onClick={openModal}>전화문의</CallBtn>
-      <Modal open={modalOpen} close={closeModal} title="Modal heading" />
+      <Modal open={modalOpen} close={closeModal} />
     </Container>
   );
 };
