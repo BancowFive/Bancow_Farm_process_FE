@@ -10,7 +10,7 @@ border: 1px solid black;
 const Submit = () => {
   return (
     <Layout>
-      <ProgressStep />
+      <ProgressStep activeStep={1}/>
     </Layout>
   );
 };
