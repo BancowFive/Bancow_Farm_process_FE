@@ -8,7 +8,12 @@ const primaryButtonStyle = css`
   transition: background-color 200ms ease-in-out;
 
   &:not(:disabled):hover {
-    background-color: ${({ theme }) => theme.colors.blueText};
+    background-color: ${({ theme }) => theme.colors.hover};
+  }
+
+  &:active,
+  &:focus {
+    background-color: ${({ theme }) => theme.colors.active};
   }
 `;
 
@@ -18,15 +23,20 @@ const ghostButtonStyle = css`
   transition: background-color 200ms ease-in-out;
 
   &:not(:disabled):hover {
-    background-color: ${({ theme }) => theme.colors.backgroundGray};
+    background-color: ${({ theme }) => theme.colors.placeholder};
   }
 `;
 
 const checkedButtonStyle = css`
-  color: ${({ theme }) => theme.colors.blueText};
+  color: ${({ theme }) => theme.colors.blue};
   background-color: ${({ theme }) => theme.colors.backgroundBlue};
   border: 1px solid ${({ theme }) => theme.colors.borderBlue};
   border-radius: 10px;
+  transition: background-color 200ms ease-in-out;
+
+  &:not(:disabled):hover {
+    background-color: ${({ theme }) => theme.colors.available};
+  }
 `;
 
 const uncheckedButtonStyle = css`
@@ -34,6 +44,11 @@ const uncheckedButtonStyle = css`
   background-color: ${({ theme }) => theme.colors.white};
   border: 1px solid ${({ theme }) => theme.colors.borderGray};
   border-radius: 10px;
+  transition: background-color 200ms ease-in-out;
+
+  &:not(:disabled):hover {
+    background-color: ${({ theme }) => theme.colors.backgroundGray};
+  }
 `;
 
 function setButtonVariant(variant) {
@@ -87,15 +102,38 @@ function setButtonSize(size) {
 }
 
 export const StyledButton = styled.button`
-  ${inlineFlexbox()};
-  width: ${({ width }) => width};
-  padding: 0 16px;
+  ${({ block }) => block && `width: 100%;`}
+  padding: 0 18px;
   font-weigth: 700;
 
   &:disabled {
     cursor: not-allowed;
   }
 
-  ${({ variant }) => setButtonVariant(variant)}
+  ${({ variant }) => {
+    if (variant === "unchecked" || variant === "checked") {
+      return css`
+        ${inlineFlexbox("between")};
+
+        div {
+          position: relative;
+          width: 24px;
+          height: 24px;
+          border: 1px solid ${({ theme }) => theme.colors.placeholder};
+          border-radius: 50%;
+
+          &.is-active {
+            border: none;
+          }
+        }
+
+        ${setButtonVariant(variant)}
+      `;
+    }
+    return css`
+      ${inlineFlexbox()};
+      ${setButtonVariant(variant)}
+    `;
+  }}
   ${({ size }) => setButtonSize(size)}
 `;
