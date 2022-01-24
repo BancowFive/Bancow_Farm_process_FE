@@ -60,6 +60,11 @@ export const StyledInput = styled.input`
     color: ${({ theme }) => theme.colors.placeholder};
   }
 
+  &:not(:disabled):hover {
+    background-color: ${({ theme }) => theme.colors.backgroundGray};
+  }
+
+  &:focus,
   &:active {
     border-color: ${({ theme }) => theme.colors.primary};
   }

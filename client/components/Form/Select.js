@@ -27,6 +27,7 @@ export const Select = ({
   onFocus,
   icon,
   name,
+  block,
 }) => {
   const element = (
     <Button
@@ -37,6 +38,7 @@ export const Select = ({
       onBlur={onBlur}
       onChange={onChange}
       onFocus={onFocus}
+      block={block}
     >
       사료
     </Button>
@@ -60,6 +62,7 @@ Select.propTypes = {
   icon: PropTypes.string,
   name: PropTypes.string,
   isOpen: PropTypes.bool,
+  block: PropTypes.bool,
 };
 
 export default Select;
