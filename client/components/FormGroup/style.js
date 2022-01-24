@@ -1,16 +1,16 @@
 import styled, { css } from "styled-components";
 
-import { flexbox } from "../../styles/utils";
+import { flexbox, textStyle } from "../../styles/utils";
 
 const authForm = css`
   button {
-    width: 90px;
+    min-width: 90px;
     padding: 0 12px;
   }
 `;
 const addressForm = css`
   button {
-    width: 115px;
+    min-width: 115px;
     padding: 0 18px;
   }
 `;
@@ -27,13 +27,20 @@ function setFormType(type) {
 }
 
 export const StyledFormGroup = styled.div`
-  ${flexbox("start")};
+  h3 {
+    width: 100%;
+    margin-bottom: 10px;
+    ${textStyle("body1")};
+    color: ${({ theme }) => theme.colors.tertiary};
+  }
 
-  padding: 24px;
+  div {
+    ${flexbox("start")};
+  }
 
-  input {
+  input:first-child {
     flex: 7;
-    max-width: 210px;
+    min-width: 210px;
     margin-right: 12px;
   }
 

@@ -1,5 +1,3 @@
-import { Button } from "../Button";
-import { Input } from "../Form";
 import { StyledFormGroup } from "./style";
 import PropTypes from "prop-types";
 
