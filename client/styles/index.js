@@ -33,7 +33,7 @@ const letterSpacings = {
   headline3: "-0.25px",
   headline4: "-0.25px",
   body1: "-0.25px",
-  body2: "-0.25px",
+  body2: "-0.4px",
   body3: "-0.25px",
   etc: "0.2px",
 };
