@@ -102,9 +102,14 @@ function setButtonSize(size) {
 }
 
 export const StyledButton = styled.button`
+  ${({ to }) =>
+    to &&
+    css`
+      position: fixed;
+      bottom: 0;
+    `}
   ${({ block }) => block && `width: 100%;`}
   padding: 0 18px;
-  font-weigth: 700;
 
   &:disabled {
     cursor: not-allowed;
@@ -114,6 +119,13 @@ export const StyledButton = styled.button`
     if (variant === "unchecked" || variant === "checked") {
       return css`
         ${inlineFlexbox("between")};
+
+        ${({ type }) =>
+          type &&
+          css`
+            ${inlineFlexbox()};
+            font-weight: 700;
+          `}
 
         div {
           position: relative;
@@ -127,6 +139,13 @@ export const StyledButton = styled.button`
           }
         }
 
+        ${setButtonVariant(variant)}
+      `;
+    }
+    if (variant === "primary") {
+      return css`
+        ${inlineFlexbox()};
+        font-weight: 700;
         ${setButtonVariant(variant)}
       `;
     }

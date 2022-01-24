@@ -22,11 +22,13 @@ export const Button = ({
         onBlur={onBlur}
         onClick={onClick}
         onFocus={onFocus}
-        as={Link}
         to={to}
         block={block}
+        disabled={disabled}
       >
-        {children}
+        <Link href={to}>
+          <a>{children}</a>
+        </Link>
       </StyledButton>
     );
   }
