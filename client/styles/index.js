@@ -49,9 +49,11 @@ const colors = {
   guide: "#999999",
   placeholder: "#c5c5c5",
 
-  blue: "#2457f7",
-  blueText: "#3478f5",
+  mainBlue: "#2457f7",
+  blue: "#3478f5",
 
+  hover: "#1A5FE0",
+  active: "#0E44BA",
   borderBlue: "#bdd1ff",
   available: "#e3f0ff",
   backgroundBlue: "#f2f7fd",
