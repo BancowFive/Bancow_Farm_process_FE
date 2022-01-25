@@ -14,13 +14,15 @@ export const Header = () => {
     setModalOpen(false);
   };
   return (
-    <Container>
-      <LogoWrapper>
-        <Image src="/bancow_logo.png" alt="logo" width="68" height="18" />
-      </LogoWrapper>
-      <CallBtn onClick={openModal}>전화문의</CallBtn>
+    <>
+      <Container>
+        <LogoWrapper>
+          <Image src="/bancow_logo.svg" alt="logo" width="68" height="13" />
+        </LogoWrapper>
+        <CallBtn onClick={openModal}>전화문의</CallBtn>
+      </Container>
       <Modal open={modalOpen} close={closeModal} />
-    </Container>
+    </>
   );
 };
 

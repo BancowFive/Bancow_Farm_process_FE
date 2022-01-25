@@ -23,15 +23,11 @@ function setInputSize(size) {
 }
 
 const primaryInput = css`
-  backgorund-color: ${({ theme }) => theme.colors.backgroundGray};
+  background-color: ${({ theme }) => theme.colors.backgroundGray};
 `;
 
 const ghostInput = css`
-  backgorund-color: ${({ theme }) => theme.colors.disabled};
-`;
-
-const selectInput = css`
-  backgorund-color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.disabled};
 `;
 
 function setInputVariant(variant) {
@@ -40,8 +36,7 @@ function setInputVariant(variant) {
       return primaryInput;
     case "ghost":
       return ghostInput;
-    case "select":
-      return selectInput;
+
     default:
       return primaryInput;
   }
@@ -60,6 +55,7 @@ export const StyledInput = styled.input`
     color: ${({ theme }) => theme.colors.placeholder};
   }
 
+  &:focus,
   &:active {
     border-color: ${({ theme }) => theme.colors.primary};
   }
@@ -69,11 +65,39 @@ export const StyledInput = styled.input`
   }
 
   ${({ size }) => setInputSize(size)};
-  ${({ variant }) => setInputVariant(variant)}
+  ${({ variant }) => {
+    let hover;
+    if (variant === "primary") {
+      hover = css`
+        &:not(:disabled):hover {
+          background-color: ${({ theme }) => theme.colors.disabled};
+        }
+      `;
+    } else if (variant === "ghost") {
+      hover = css`
+        &:not(:disabled):hover {
+          background-color: ${({ theme }) => theme.colors.borderGray};
+        }
+      `;
+    }
+    return css`
+      ${hover};
+      ${setInputVariant(variant)};
+    `;
+  }}
+
+  ${({ width }) =>
+    css`
+      width: ${width};
+    `}
 `;
 
 export const StyledInputGroup = styled.div`
   position: relative;
+  ${({ width }) =>
+    css`
+      width: ${width};
+    `}
 
   input {
     padding-right: 40px;
@@ -90,6 +114,10 @@ export const StyledInputGroup = styled.div`
 
 export const StyledSelectGroup = styled.div`
   position: relative;
+  ${({ width }) =>
+    css`
+      width: ${width};
+    `}
 
   button {
     justify-content: flex-start;

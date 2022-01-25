@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import { textStyle } from "../../styles/utils/";
 
 export const ModalFade = keyframes`
   from {
@@ -21,17 +22,19 @@ export const ModalBackGround = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 99;
 `;
 
 export const ModalBox = styled.div`
   position: absolute;
   top: 190px;
-  /* width: 86%;
-  height: 35%; */
-  width: 312px;
-  height: 280px;
+  width: 86%;
+  height: 35%;
+  min-height: 280px;
+  /* width: 312px;
+  height: 280px; */
   margin: 0 auto;
-  border-radius: 0.3rem;
+  border-radius: 10px;
   background-color: #fff;
   animation: ${ModalFade} 0.5s;
   overflow: hidden;
@@ -39,43 +42,49 @@ export const ModalBox = styled.div`
 `;
 
 export const ContentsWrapper = styled.div`
-  border: 2px solid green;
+  .icon-wrapper {
+    margin-top: 30px;
+  }
+  .phone-number {
+    display: inline-block;
+    color: ${({ theme }) => theme.colors.black};
+    ${textStyle("headline3")};
+    font-weight: 700;
+    margin-top: 20px;
+  }
+  .guide {
+    color: ${({ theme }) => theme.colors.secondary};
+    ${textStyle("headline4")};
+    margin-top: 4px;
+  }
+  .business-hours {
+    display: inline-block;
+    color: ${({ theme }) => theme.colors.guide};
+    ${textStyle("body3")};
+    margin-top: 20px;
+  }
 `;
 
-export const IconWrapper = styled.div`
-  margin-top: 30px;
-`;
+export const BtnWrapper = styled.div`
+  position: absolute;
+  bottom: 0;
+  margin-top: 31px;
+  width: 100%;
+  min-width: 312px;
+  height: 54px;
 
-export const PhoneNumber = styled.h3`
-  color: ${({ theme }) => theme.colors.black};
-  font-size: ${({ theme }) => theme.fontSizes.headline3};
-  letter-spacing: ${({ theme }) => theme.letterSpacings.headline3};
-  line-height: ${({ theme }) => theme.lineHeights.headline3};
-  font-weight: 700;
-  margin: 20px 0 4px;
-`;
-
-export const Guide = styled.div`
-  color: ${({ theme }) => theme.colors.secondary};
-  font-size: ${({ theme }) => theme.fontSizes.headline4};
-  letter-spacing: ${({ theme }) => theme.letterSpacings.headline4};
-  line-height: ${({ theme }) => theme.lineHeights.headline4};
-  margin-bottom: 20px;
-`;
-
-export const BusinessHours = styled.div`
-  color: ${({ theme }) => theme.colors.guide};
-  font-size: 12px;
-  line-height: ${({ theme }) => theme.lineHeights.etc};
-  margin-bottom: 31px;
-`;
-
-export const CloseBtn = styled.button`
-  border: 1px solid red;
-  width: 100px;
-`;
-
-export const CallBtn = styled.button`
-  border: 1px solid blue;
-  width: 200px;
+  .close-btn {
+    width: 35%;
+    height: 100%;
+    background: #ebebeb;
+    text-align: center;
+    color: ${({ theme }) => theme.colors.tertiary};
+  }
+  .call-btn {
+    width: 65%;
+    height: 100%;
+    background: #3478f5;
+    text-align: center;
+    color: ${({ theme }) => theme.colors.white};
+  }
 `;

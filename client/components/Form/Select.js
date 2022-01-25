@@ -27,6 +27,8 @@ export const Select = ({
   onFocus,
   icon,
   name,
+  block,
+  width,
 }) => {
   const element = (
     <Button
@@ -37,12 +39,14 @@ export const Select = ({
       onBlur={onBlur}
       onChange={onChange}
       onFocus={onFocus}
+      block={block}
+      width={width}
     >
       사료
     </Button>
   );
   return (
-    <StyledSelectGroup>
+    <StyledSelectGroup width={width}>
       {icon && getSelectIcon(icon, isOpen)}
       {element}
     </StyledSelectGroup>
@@ -60,6 +64,8 @@ Select.propTypes = {
   icon: PropTypes.string,
   name: PropTypes.string,
   isOpen: PropTypes.bool,
+  block: PropTypes.bool,
+  width: PropTypes.string,
 };
 
 export default Select;
