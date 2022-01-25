@@ -1,3 +1,4 @@
+import Header from "../components/Header";
 import { Button, Radio } from "../components/Button";
 import { Container } from "../components/Grid";
 import Image from "next/image";
