@@ -3,6 +3,8 @@ import { ThemeProvider } from "styled-components";
 import Header from "../components/Header";
 import { theme } from "../styles";
 import GlobalStyle from "../styles/globalStyle";
+import AppLayout from "../components/AppLayout";
+
 function App({ Component, pageProps }) {
   return (
     <>
@@ -20,7 +22,9 @@ function App({ Component, pageProps }) {
         <GlobalStyle />
 
         <Header />
-        <Component {...pageProps} />
+        <AppLayout>
+          <Component {...pageProps} />
+        </AppLayout>
       </ThemeProvider>
     </>
   );
