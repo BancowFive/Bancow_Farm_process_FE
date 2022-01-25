@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import {
   IconWrapper,
   ModalBackGround,
@@ -14,7 +15,7 @@ import Image from "next/image";
 export const Modal = ({ open, close }) => {
   const bancowTel = "02-2274-2517";
   const callBancow = () => {
-    location.href = `tel:${bancowTel}`;
+    window.location.href = `tel:${bancowTel}`;
   };
   return open ? (
     <ModalBackGround>
@@ -37,4 +38,9 @@ export const Modal = ({ open, close }) => {
       </ModalBox>
     </ModalBackGround>
   ) : null;
+};
+
+Modal.propTypes = {
+  open: PropTypes.bool.isRequired,
+  close: PropTypes.func.isRequired,
 };

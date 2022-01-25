@@ -1,5 +1,4 @@
 import styled, { keyframes } from "styled-components";
-import Image from "next/image";
 
 export const ModalFade = keyframes`
   from {
