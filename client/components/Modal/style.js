@@ -27,10 +27,11 @@ export const ModalBackGround = styled.div`
 export const ModalBox = styled.div`
   position: absolute;
   top: 190px;
-  /* width: 86%;
-  height: 35%; */
-  width: 312px;
-  height: 280px;
+  width: 86%;
+  height: 35%;
+  min-height: 280px;
+  /* width: 312px;
+  height: 280px; */
   margin: 0 auto;
   border-radius: 10px;
   background-color: #fff;
@@ -48,37 +49,41 @@ export const ContentsWrapper = styled.div`
     color: ${({ theme }) => theme.colors.black};
     ${textStyle("headline3")};
     font-weight: 700;
-    margin: 20px 0 4px;
+    margin-top: 20px;
   }
   .guide {
     color: ${({ theme }) => theme.colors.secondary};
     ${textStyle("headline4")};
-    margin-bottom: 20px;
+    margin-top: 4px;
   }
   .business-hours {
     display: inline-block;
     color: ${({ theme }) => theme.colors.guide};
     ${textStyle("body3")};
-    margin-bottom: 31px;
+    margin-top: 20px;
   }
 `;
 
-export const CloseBtn = styled.button`
+export const BtnWrapper = styled.div`
   position: absolute;
-  width: 110px;
+  bottom: 0;
+  margin-top: 31px;
+  width: 100%;
+  min-width: 312px;
   height: 54px;
-  left: 0px;
-  bottom: 0px;
-  background: #ebebeb;
-  color: ${({ theme }) => theme.colors.tertiary};
-`;
 
-export const CallBtn = styled.button`
-  position: absolute;
-  width: 202px;
-  height: 54px;
-  left: 110px;
-  bottom: 0px;
-  background: #3478f5;
-  color: ${({ theme }) => theme.colors.white};
+  .close-btn {
+    width: 35%;
+    height: 100%;
+    background: #ebebeb;
+    text-align: center;
+    color: ${({ theme }) => theme.colors.tertiary};
+  }
+  .call-btn {
+    width: 65%;
+    height: 100%;
+    background: #3478f5;
+    text-align: center;
+    color: ${({ theme }) => theme.colors.white};
+  }
 `;

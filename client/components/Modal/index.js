@@ -3,11 +3,7 @@ import {
   ModalBackGround,
   ModalBox,
   ContentsWrapper,
-  PhoneNumber,
-  Guide,
-  BusinessHours,
-  CloseBtn,
-  CallBtn,
+  BtnWrapper,
 } from "./style";
 import Image from "next/image";
 
@@ -34,9 +30,14 @@ export const Modal = ({ open, close }) => {
             뱅카우 고객센터 문의 시간 09:00 ~ 17:00
           </span>
         </ContentsWrapper>
-
-        <CloseBtn onClick={close}>닫기</CloseBtn>
-        <CallBtn onClick={callBancow}>연결</CallBtn>
+        <BtnWrapper>
+          <button className="close-btn" onClick={close}>
+            닫기
+          </button>
+          <button className="call-btn" onClick={callBancow}>
+            연결
+          </button>
+        </BtnWrapper>
       </ModalBox>
     </ModalBackGround>
   ) : null;
