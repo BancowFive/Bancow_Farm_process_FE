@@ -16,7 +16,7 @@ export const Header = () => {
   return (
     <Container>
       <LogoWrapper>
-        <Image src="/bancow_logo.png" alt="logo" width="68" height="18" />
+        <Image src="/bancow_logo.svg" alt="logo" width="68" height="13" />
       </LogoWrapper>
       <CallBtn onClick={openModal}>전화문의</CallBtn>
       <Modal open={modalOpen} close={closeModal} />
