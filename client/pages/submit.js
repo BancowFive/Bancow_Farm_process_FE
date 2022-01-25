@@ -1,11 +1,11 @@
 import React from 'react';
-import styled from 'styled-components'
-import ProgressStep from '../components/common/ProgressStep';
+import styled from 'styled-components';
+import { ProgressStep } from '../components/ProgressStep';
 
 const Layout = styled.div`
-height: 800px;
-width: 360px;
-border: 1px solid black;
+  width: 360px;
+  height: 800px;
+  border: 1px solid black;
 `
 const Submit = () => {
   return (
