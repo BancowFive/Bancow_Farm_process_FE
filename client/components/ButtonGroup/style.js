@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { flexbox } from "../../styles/utils";
 
@@ -13,6 +13,11 @@ export const StyledButtonGroup = styled.div`
     flex: 7;
     border-left: 1px solid ${({ theme }) => theme.colors.white};
   }
+
+  ${({ width }) =>
+    css`
+      width: ${width};
+    `}
 `;
 
 export const StyledRadioGroup = styled.div`
@@ -26,4 +31,9 @@ export const StyledRadioGroup = styled.div`
   label:nth-child(2) {
     flex: 1;
   }
+
+  ${({ width }) =>
+    css`
+      width: ${width};
+    `}
 `;
