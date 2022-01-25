@@ -1,23 +1,24 @@
 import { createGlobalStyle } from "styled-components";
-import { visuallyHidden } from "./utils";
+import { textStyle, visuallyHidden } from "./utils";
 import reset from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
   * {
-  margin: 0;
-  font-family: ${({ theme }) => theme.fontFamilies.main};
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
+    margin: 0;
+    font-family: ${({ theme }) => theme.fontFamilies.main};
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
   }
   html {
     font-family: ${({ theme }) => theme.fontFamilies.main};
-    font-size: ${({ theme }) => theme.fontSizes.body1};
-    letter-spacing: ${({ theme }) => theme.letterSpacings.body1};
+    ${textStyle("body1")}
   }
   body {
     font-family: ${({ theme }) => theme.fontFamilies.main};
+    width: 100%;
+    height: 100vh;
     color: ${({ theme }) => theme.colors.primary};
   }
   h1 {
@@ -53,7 +54,7 @@ const GlobalStyle = createGlobalStyle`
   address {
     font-style: normal;
   }
-  .visuallyHidden {
+  .visually-hidden {
     ${visuallyHidden()}
   }
 `;
