@@ -1,26 +1,39 @@
 import styled from "styled-components";
 import { StyledContainer } from "../../components/Grid/style"
+import { textStyle } from "../../styles/utils";
+import { theme } from "../../styles";
 
 export const Container = styled(StyledContainer)`
   width: 360px;
-  height: 600px;
-  border: 1px solid red;
-  margin: 20px;
+  margin: 0 auto;
 
   h1{
     margin: 50px 0 0;
-    border: 1px solid black;
+    color: ${theme.colors.primary};
   }
 
-  h2{
-    border: 1px solid pink;
+  p{
+    ${textStyle('headline2')};
     margin: 12px 0 0;
+    color: ${theme.colors.detail};
+  }
+
+  img{
+    margin-top: 102px;
+    vertical-align: middle;
   }
 `
 
-export const Img = styled.div`
-  margin: 0 13px 0 0;
-  background-color: black;
-  width: 300px;
-  height: 300px;
+export const AverageDate = styled.div`
+  display: inline-block;
+  ${textStyle('headline2')};
+  color: ${theme.colors.primary};
+`
+
+export const Info = styled.div`
+  width: 312px;
+  margin: 52px 0 20px;
+  ${textStyle('body3')};
+  color: ${theme.colors.detail};
+  text-align: center;
 `
