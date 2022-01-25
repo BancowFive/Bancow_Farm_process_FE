@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { flexbox } from "../../styles/utils";
 
-const StyledButtonGroup = styled.div`
+export const StyledButtonGroup = styled.div`
   ${flexbox("start")};
 
   button:first-child {
@@ -15,4 +15,15 @@ const StyledButtonGroup = styled.div`
   }
 `;
 
-export default StyledButtonGroup;
+export const StyledRadioGroup = styled.div`
+  ${flexbox("start")};
+  gap: 16px;
+
+  label:first-child {
+    flex: 1;
+  }
+
+  label:nth-child(2) {
+    flex: 1;
+  }
+`;
