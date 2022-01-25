@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { theme } from '../../styles/index.js'
+import { flexbox } from '../../styles/utils/flexbox.js'
 
 export const Container = styled.div`
   position: relative;
@@ -9,9 +10,9 @@ export const Container = styled.div`
 export const Bars = styled.div`
   position: relative;
   display: fixed;
+  align-items: center;
   flex-grow: 1;
   box-sizing: border-box;
-  align-items: center;
   margin: 0 16px 0 3px;
   height: 14px;
 `
@@ -23,10 +24,8 @@ export const Step = styled.div.attrs(props => ({
   ? '66.552901%' : 'auto', /* 완료(3차) = auto */
   right: props.step === '3' ? '2px' : 'auto'
 }))`
-  display: flex;
+  ${flexbox()};
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   position: absolute;
   top: 0;
   left: ${props => props.left};
