@@ -5,7 +5,6 @@ export const Container = styled.div`
   position: relative;
   min-width: 312px;
   height: 31px;
-  margin: 0 24px;
 `
 export const Bars = styled.div`
   position: relative;
