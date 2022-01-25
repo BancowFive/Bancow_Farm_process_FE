@@ -36,13 +36,18 @@ export const StyledFormGroup = styled.div`
 
   div {
     ${flexbox("start")};
+    gap: 12px;
   }
 
   input:first-child {
     flex: 7;
     min-width: 210px;
-    margin-right: 12px;
   }
 
   ${({ type }) => setFormType(type)}
+
+  ${({ width }) =>
+    css`
+      width: ${width};
+    `}
 `;

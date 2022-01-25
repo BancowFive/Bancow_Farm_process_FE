@@ -51,6 +51,18 @@ const uncheckedButtonStyle = css`
   }
 `;
 
+const selectInput = css`
+  color: ${({ theme }) => theme.colors.guide};
+  background-color: ${({ theme }) => theme.colors.white};
+  border: 1px solid ${({ theme }) => theme.colors.borderGray};
+  border-radius: 10px;
+  transition: background-color 200ms ease-in-out;
+
+  &:not(:disabled):hover {
+    background-color: ${({ theme }) => theme.colors.backgroundGray};
+  }
+`;
+
 function setButtonVariant(variant) {
   switch (variant) {
     case "primary":
@@ -61,6 +73,8 @@ function setButtonVariant(variant) {
       return checkedButtonStyle;
     case "unchecked":
       return uncheckedButtonStyle;
+    case "select":
+      return selectInput;
     default:
       return primaryButtonStyle;
   }
@@ -155,4 +169,8 @@ export const StyledButton = styled.button`
     `;
   }}
   ${({ size }) => setButtonSize(size)}
+  ${({ width }) =>
+    css`
+      width: ${width};
+    `}
 `;

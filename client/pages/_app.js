@@ -18,6 +18,7 @@ function App({ Component, pageProps }) {
       </Head>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
+
         <Header />
         <Component {...pageProps} />
       </ThemeProvider>
