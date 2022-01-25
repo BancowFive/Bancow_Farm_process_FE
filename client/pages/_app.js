@@ -17,6 +17,7 @@ function App({ Component, pageProps }) {
       </Head>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
+        {/* 밑에 녀석지우고 헤더 넣으3 */}
         <div style={{ height: "54px", border: "1px solid black" }}></div>
 
         <Component {...pageProps} />
