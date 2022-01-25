@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import { textStyle } from "../../styles/utils/";
 
 export const ModalFade = keyframes`
   from {
@@ -31,7 +32,7 @@ export const ModalBox = styled.div`
   width: 312px;
   height: 280px;
   margin: 0 auto;
-  border-radius: 0.3rem;
+  border-radius: 10px;
   background-color: #fff;
   animation: ${ModalFade} 0.5s;
   overflow: hidden;
@@ -39,43 +40,45 @@ export const ModalBox = styled.div`
 `;
 
 export const ContentsWrapper = styled.div`
-  border: 2px solid green;
-`;
-
-export const IconWrapper = styled.div`
-  margin-top: 30px;
-`;
-
-export const PhoneNumber = styled.h3`
-  color: ${({ theme }) => theme.colors.black};
-  font-size: ${({ theme }) => theme.fontSizes.headline3};
-  letter-spacing: ${({ theme }) => theme.letterSpacings.headline3};
-  line-height: ${({ theme }) => theme.lineHeights.headline3};
-  font-weight: 700;
-  margin: 20px 0 4px;
-`;
-
-export const Guide = styled.div`
-  color: ${({ theme }) => theme.colors.secondary};
-  font-size: ${({ theme }) => theme.fontSizes.headline4};
-  letter-spacing: ${({ theme }) => theme.letterSpacings.headline4};
-  line-height: ${({ theme }) => theme.lineHeights.headline4};
-  margin-bottom: 20px;
-`;
-
-export const BusinessHours = styled.div`
-  color: ${({ theme }) => theme.colors.guide};
-  font-size: 12px;
-  line-height: ${({ theme }) => theme.lineHeights.etc};
-  margin-bottom: 31px;
+  .icon-wrapper {
+    margin-top: 30px;
+  }
+  .phone-number {
+    display: inline-block;
+    color: ${({ theme }) => theme.colors.black};
+    ${textStyle("headline3")};
+    font-weight: 700;
+    margin: 20px 0 4px;
+  }
+  .guide {
+    color: ${({ theme }) => theme.colors.secondary};
+    ${textStyle("headline4")};
+    margin-bottom: 20px;
+  }
+  .business-hours {
+    display: inline-block;
+    color: ${({ theme }) => theme.colors.guide};
+    ${textStyle("body3")};
+    margin-bottom: 31px;
+  }
 `;
 
 export const CloseBtn = styled.button`
-  border: 1px solid red;
-  width: 100px;
+  position: absolute;
+  width: 110px;
+  height: 54px;
+  left: 0px;
+  bottom: 0px;
+  background: #ebebeb;
+  color: ${({ theme }) => theme.colors.tertiary};
 `;
 
 export const CallBtn = styled.button`
-  border: 1px solid blue;
-  width: 200px;
+  position: absolute;
+  width: 202px;
+  height: 54px;
+  left: 110px;
+  bottom: 0px;
+  background: #3478f5;
+  color: ${({ theme }) => theme.colors.white};
 `;

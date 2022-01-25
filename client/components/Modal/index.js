@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import {
-  IconWrapper,
   ModalBackGround,
   ModalBox,
   ContentsWrapper,
@@ -21,18 +20,21 @@ export const Modal = ({ open, close }) => {
     <ModalBackGround>
       <ModalBox>
         <ContentsWrapper>
-          <IconWrapper>
+          <div className="icon-wrapper">
             <Image
               width="50"
               height="50"
               src="/modal_phone.svg"
               alt="phone icon"
             />
-          </IconWrapper>
-          <PhoneNumber>{bancowTel}</PhoneNumber>
-          <Guide>전화 연결해 드릴까요?</Guide>
-          <BusinessHours>뱅카우 고객센터 문의 시간 09:00 ~ 17:00</BusinessHours>
+          </div>
+          <strong className="phone-number">{bancowTel}</strong>
+          <div className="guide">전화 연결해 드릴까요?</div>
+          <span className="business-hours">
+            뱅카우 고객센터 문의 시간 09:00 ~ 17:00
+          </span>
         </ContentsWrapper>
+
         <CloseBtn onClick={close}>닫기</CloseBtn>
         <CallBtn onClick={callBancow}>연결</CallBtn>
       </ModalBox>
