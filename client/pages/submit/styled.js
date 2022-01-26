@@ -14,23 +14,17 @@ export const Container = styled.div`
     color: ${theme.colors.primary};
   }
 
-  img{
-    position: absolute;
-    top: 297px;
-    vertical-align: middle;
-  }
-`
-
-export const ResultInfo = styled.div`
+h2{
   margin: 12px 0 0;
   ${textStyle('headline2')};
   color: ${theme.colors.detail};
+}
 `
 
-export const AverageDate = styled.span`
-  display: inline-block;
-  ${textStyle('headline2')};
-  color: ${theme.colors.primary};
+export const ImgContainer = styled.div`
+  position: absolute;
+  top: 297px;
+  vertical-align: middle;
 `
 
 export const ButtonInfo = styled.div`
