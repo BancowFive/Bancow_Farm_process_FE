@@ -7,8 +7,9 @@ const step1 = () => {
   return (
     <>
       <Container>
-        <ProgressStep activeStep={1}/>
-        <h1>1차 신청이 완료되었어요</h1>
+        <ProgressStep activeStep={3}/>
+        <h1>농가 입점  신청이
+          <br/>완료되었어요</h1>
         <ResultInfo>
           평균 <AverageDate>2일 이내</AverageDate>로
           <br/>뱅카우가 연락드릴게요
