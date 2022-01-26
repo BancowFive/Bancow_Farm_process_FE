@@ -28,9 +28,13 @@ export const Button = ({
         disabled={disabled}
         width={width}
       >
-        <Link href={to}>
-          <a>{children}</a>
-        </Link>
+        {disabled ? (
+          <>{children}</>
+        ) : (
+          <Link href={to}>
+            <a>{children}</a>
+          </Link>
+        )}
       </StyledButton>
     );
   }
