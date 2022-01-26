@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
-
-import { inlineFlexbox, textStyle } from "../../styles/utils";
+import { inlineFlexbox, textStyle } from "../../../styles/utils";
 
 const primaryButtonStyle = css`
   color: ${({ theme }) => theme.colors.white};
@@ -85,6 +84,11 @@ const button38 = css`
   height: 38px;
 `;
 
+const button54 = css`
+  ${textStyle("body1")};
+  height: 54px;
+`;
+
 const button56 = css`
   ${textStyle("body2")};
   height: 56px;
@@ -104,6 +108,8 @@ function setButtonSize(size) {
   switch (size) {
     case 38:
       return button38;
+    case 54:
+      return button54;
     case 56:
       return button56;
     case 58:
@@ -116,8 +122,8 @@ function setButtonSize(size) {
 }
 
 export const StyledButton = styled.button`
-  ${({ to }) =>
-    to &&
+  ${({ to, bottom }) =>
+    (to || bottom) &&
     css`
       position: fixed;
       bottom: 0;

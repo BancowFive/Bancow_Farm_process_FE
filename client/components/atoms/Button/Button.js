@@ -14,6 +14,7 @@ export const Button = ({
   to,
   block,
   width,
+  bottom,
 }) => {
   if (to) {
     return (
@@ -50,6 +51,7 @@ export const Button = ({
       onFocus={onFocus}
       block={block}
       width={width}
+      bottom={bottom}
     >
       {children}
     </StyledButton>
@@ -68,4 +70,5 @@ Button.propTypes = {
   to: PropTypes.string,
   block: PropTypes.bool,
   width: PropTypes.string,
+  bottom: PropTypes.bool,
 };

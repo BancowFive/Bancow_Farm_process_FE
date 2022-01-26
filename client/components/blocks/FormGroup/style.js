@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import { flexbox, textStyle } from "../../styles/utils";
+import { flexbox, textStyle } from "../../../styles/utils";
 
 const authForm = css`
   button {
