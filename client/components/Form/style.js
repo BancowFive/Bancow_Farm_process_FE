@@ -101,6 +101,11 @@ export const StyledInputGroup = styled.div`
 
   input {
     padding-right: 40px;
+    margin-bottom: 8px;
+
+    &.error {
+      border: 1px solid ${({ theme }) => theme.colors.error};
+    }
   }
 
   .icon {
