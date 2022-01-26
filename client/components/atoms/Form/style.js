@@ -1,7 +1,5 @@
 import styled, { css } from "styled-components";
-import { textStyle } from "../../styles/utils/typography";
-import { positionCenterY } from "../../styles/utils";
-import { flexbox } from "../../styles/utils";
+import { flexbox, positionCenterY, textStyle } from "../../../styles/utils";
 
 const input58 = css`
   height: 58px;
@@ -101,6 +99,11 @@ export const StyledInputGroup = styled.div`
 
   input {
     padding-right: 40px;
+    margin-bottom: 8px;
+
+    &.error {
+      border: 1px solid ${({ theme }) => theme.colors.error};
+    }
   }
 
   .icon {

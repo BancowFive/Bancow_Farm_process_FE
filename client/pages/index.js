@@ -1,9 +1,13 @@
-import Header from "../components/Header";
-import { Button, Radio } from "../components/Button";
-import { Container } from "../components/Grid";
+import { Button, Container } from "../components";
 import Image from "next/image";
+import { useCallback } from "react";
 
 export default function Home() {
+  console.log("Home");
+
+  const handleClick = useCallback(() => {
+    console.log("Home: Auth로 이동");
+  }, []);
   return (
     <>
       <Container>
@@ -18,7 +22,13 @@ export default function Home() {
         </span>
         <Image src="/landing.png" width={305} height={248} />
       </Container>
-      <Button variant="primary" size={60} block to="/auth">
+      <Button
+        onClick={handleClick}
+        variant="primary"
+        size={60}
+        block
+        to="/auth"
+      >
         다음
       </Button>
     </>

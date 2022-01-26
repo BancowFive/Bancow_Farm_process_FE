@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import { flexbox, textStyle } from "../../styles/utils";
+import { flexbox, textStyle } from "../../../styles/utils";
 
 const authForm = css`
   button {
@@ -42,6 +42,20 @@ export const StyledFormGroup = styled.div`
   input:first-child {
     flex: 7;
     min-width: 210px;
+
+    &.error {
+      border: 1px solid ${({ theme }) => theme.colors.error};
+    }
+  }
+
+  span.error {
+    color: ${({ theme }) => theme.colors.error};
+    ${textStyle("body2")};
+  }
+
+  span.success {
+    color: ${({ theme }) => theme.colors.valid};
+    ${textStyle("body2")};
   }
 
   ${({ type }) => setFormType(type)}
