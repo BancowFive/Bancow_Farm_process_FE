@@ -33,8 +33,8 @@ export const Step = styled.div.attrs(props => ({
 `
 
 export const ProgressDot = styled.div.attrs(props => ({
-  background: props.active ? theme.colors.yellow : 'white',
-  border: props.active ? theme.colors.yellow : theme.colors.placeholder
+  background: props.active ? theme.colors.mainBlue : 'white',
+  border: props.active ? theme.colors.mainBlue : theme.colors.placeholder
 }))`
   box-sizing: border-box;
   width: 14px;
@@ -76,6 +76,6 @@ export const ActiveProgressLine = styled.div.attrs(props => ({
   position: absolute;
   width: ${props => props.width};
   box-sizing: border-box;
-  border-top: 3px solid ${theme.colors.yellow};
+  border-top: 3px solid ${theme.colors.mainBlue};
   border-radius: 5px;
 `
