@@ -121,7 +121,14 @@ export const StyledButton = styled.button`
     css`
       position: fixed;
       bottom: 0;
+
+      a {
+        ${inlineFlexbox()};
+        width: 100%;
+        height: inherit;
+      }
     `}
+
   ${({ block }) => block && `width: 100%;`}
   padding: 0 18px;
 
