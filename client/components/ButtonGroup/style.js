@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import { flexbox } from "../../styles/utils";
+import { flexbox, textStyle } from "../../styles/utils";
 
 export const StyledButtonGroup = styled.div`
   ${flexbox("start")};
@@ -21,8 +21,17 @@ export const StyledButtonGroup = styled.div`
 `;
 
 export const StyledRadioGroup = styled.div`
-  ${flexbox("start")};
-  gap: 16px;
+  h3 {
+    width: 100%;
+    margin-bottom: 10px;
+    ${textStyle("body1")};
+    color: ${({ theme }) => theme.colors.tertiary};
+  }
+
+  div {
+    ${flexbox("start")};
+    gap: 16px;
+  }
 
   label:first-child {
     flex: 1;
