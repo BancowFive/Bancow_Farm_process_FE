@@ -1,10 +1,15 @@
-import { Container, Button, FormGroup, Input } from "../components";
+import { Container, Button, FormGroup, Input, Modal } from "../components";
 import { useCallback, useEffect, useState } from "react";
 
 const auth = () => {
   const [telNumber, setTelNumber] = useState("");
   const [valid, setValid] = useState(null);
   const [message, setMessage] = useState("");
+  const [isToggle, setIsToggle] = useState(false);
+
+  const toggleModal = useCallback(() => {
+    setIsToggle(!isToggle);
+  }, [isToggle]);
 
   const handleChange = useCallback(
     event => {
@@ -84,9 +89,23 @@ const auth = () => {
           )}
         </FormGroup>
       </Container>
-      <Button variant="ghost" size={60} block to="/" disabled={valid}>
+      <Button
+        variant={valid ? "primary" : "ghost"}
+        size={60}
+        block
+        disabled={!valid}
+        bottom
+        onClick={toggleModal}
+      >
         다음
       </Button>
+      <Modal
+        open={isToggle}
+        close={toggleModal}
+        title="인증되었습니다."
+        subMessage="확인을 누르시면 계속 진행합니다."
+        icon="done"
+      />
     </>
   );
 };
