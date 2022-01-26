@@ -13,12 +13,12 @@ export const Container = styled.div`
     ${textStyle("headline1")};
     color: ${theme.colors.primary};
   }
-`
 
-export const ResultInfo = styled.div`
+h2{
   margin: 12px 0 0;
   ${textStyle('headline2')};
   color: ${theme.colors.detail};
+}
 `
 
 export const ImgContainer = styled.div`

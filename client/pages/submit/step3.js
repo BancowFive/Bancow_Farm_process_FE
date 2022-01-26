@@ -2,7 +2,7 @@ import React from 'react';
 import { ProgressStep } from '../../components/ProgressStep'
 import { Button } from "../../components/Button";
 import { AverageDate } from '../../components/EmphasizedWord';
-import { Container, ResultInfo, ButtonInfo, ImgContainer } from './styled';
+import { Container, ButtonInfo, ImgContainer } from './styled';
 import Image from 'next/image';
 import cowAndMePic from '../../public/cow_plus_me.svg'
 
@@ -13,10 +13,10 @@ const step1 = () => {
         <ProgressStep activeStep={3}/>
         <h1>농가 입점  신청이
           <br/>완료되었어요</h1>
-        <ResultInfo>
+        <h2>
           평균 <AverageDate>2일 이내</AverageDate>로
           <br/>뱅카우가 연락드릴게요
-        </ResultInfo>
+        </h2>
         <ImgContainer>
           <Image src={cowAndMePic} alt='소와 나'/>
         </ImgContainer>
