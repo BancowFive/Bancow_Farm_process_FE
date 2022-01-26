@@ -13,12 +13,6 @@ export const Container = styled.div`
     ${textStyle("headline1")};
     color: ${theme.colors.primary};
   }
-
-  img{
-    position: absolute;
-    top: 297px;
-    vertical-align: middle;
-  }
 `
 
 export const ResultInfo = styled.div`
@@ -27,10 +21,10 @@ export const ResultInfo = styled.div`
   color: ${theme.colors.detail};
 `
 
-export const AverageDate = styled.span`
-  display: inline-block;
-  ${textStyle('headline2')};
-  color: ${theme.colors.primary};
+export const ImgContainer = styled.div`
+  position: absolute;
+  top: 297px;
+  vertical-align: middle;
 `
 
 export const ButtonInfo = styled.div`
