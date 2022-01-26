@@ -1,10 +1,8 @@
 import { ProgressStep } from ".";
 
 export default {
-  title: "ProgressStep",
+  title: "Progress",
   component: ProgressStep,
 };
 
-export const ProgressStep = args => {
-  <ProgressStep activeStep={1} {...args} />
-}
+export const Step = args => <ProgressStep activeStep={1} {...args} />;
