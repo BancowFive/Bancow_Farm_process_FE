@@ -24,6 +24,7 @@ export const Input = ({
   onChange,
   onClick,
   onFocus,
+  width,
 }) => {
   const element = (
     <StyledInput
@@ -38,11 +39,12 @@ export const Input = ({
       onChange={onChange}
       onClick={onClick}
       onFocus={onFocus}
+      width={width}
     ></StyledInput>
   );
   if (icon || children) {
     return (
-      <StyledInputGroup>
+      <StyledInputGroup width={width}>
         {icon && getInputIcon(icon)}
         {element}
         {children}
@@ -66,4 +68,5 @@ Input.propTypes = {
   onChange: PropTypes.func,
   onClick: PropTypes.func,
   onFocus: PropTypes.func,
+  width: PropTypes.string,
 };

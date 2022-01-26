@@ -1,7 +1,10 @@
 import Head from "next/head";
 import { ThemeProvider } from "styled-components";
+import Header from "../components/Header";
 import { theme } from "../styles";
 import GlobalStyle from "../styles/globalStyle";
+import AppLayout from "../components/AppLayout";
+
 function App({ Component, pageProps }) {
   return (
     <>
@@ -17,9 +20,11 @@ function App({ Component, pageProps }) {
       </Head>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <div style={{ height: "54px", border: "1px solid black" }}></div>
 
-        <Component {...pageProps} />
+        <Header />
+        <AppLayout>
+          <Component {...pageProps} />
+        </AppLayout>
       </ThemeProvider>
     </>
   );

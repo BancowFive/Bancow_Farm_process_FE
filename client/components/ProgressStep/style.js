@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { theme } from '../../styles/index.js'
+import { flexbox } from '../../styles/utils/flexbox.js'
 
 export const Container = styled.div`
   position: relative;
@@ -9,9 +10,9 @@ export const Container = styled.div`
 export const Bars = styled.div`
   position: relative;
   display: fixed;
+  align-items: center;
   flex-grow: 1;
   box-sizing: border-box;
-  align-items: center;
   margin: 0 16px 0 3px;
   height: 14px;
 `
@@ -23,10 +24,8 @@ export const Step = styled.div.attrs(props => ({
   ? '66.552901%' : 'auto', /* 완료(3차) = auto */
   right: props.step === '3' ? '2px' : 'auto'
 }))`
-  display: flex;
+  ${flexbox()};
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   position: absolute;
   top: 0;
   left: ${props => props.left};
@@ -34,8 +33,8 @@ export const Step = styled.div.attrs(props => ({
 `
 
 export const ProgressDot = styled.div.attrs(props => ({
-  background: props.active ? theme.colors.yellow : 'white',
-  border: props.active ? theme.colors.yellow : theme.colors.placeholder
+  background: props.active ? theme.colors.mainBlue : 'white',
+  border: props.active ? theme.colors.mainBlue : theme.colors.placeholder
 }))`
   box-sizing: border-box;
   width: 14px;
@@ -77,6 +76,6 @@ export const ActiveProgressLine = styled.div.attrs(props => ({
   position: absolute;
   width: ${props => props.width};
   box-sizing: border-box;
-  border-top: 3px solid ${theme.colors.yellow};
+  border-top: 3px solid ${theme.colors.mainBlue};
   border-radius: 5px;
 `

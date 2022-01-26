@@ -1,8 +1,12 @@
 import { StyledFormGroup } from "./style";
 import PropTypes from "prop-types";
 
-export const FormGroup = ({ children, type }) => {
-  return <StyledFormGroup type={type}>{children}</StyledFormGroup>;
+export const FormGroup = ({ children, type, width }) => {
+  return (
+    <StyledFormGroup width={width} type={type}>
+      {children}
+    </StyledFormGroup>
+  );
 };
 
 FormGroup.propTypes = {

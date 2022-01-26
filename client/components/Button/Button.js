@@ -13,6 +13,7 @@ export const Button = ({
   onFocus,
   to,
   block,
+  width,
 }) => {
   if (to) {
     return (
@@ -25,10 +26,15 @@ export const Button = ({
         to={to}
         block={block}
         disabled={disabled}
+        width={width}
       >
-        <Link href={to}>
-          <a>{children}</a>
-        </Link>
+        {disabled ? (
+          <>{children}</>
+        ) : (
+          <Link href={to}>
+            <a>{children}</a>
+          </Link>
+        )}
       </StyledButton>
     );
   }
@@ -43,6 +49,7 @@ export const Button = ({
       onClick={onClick}
       onFocus={onFocus}
       block={block}
+      width={width}
     >
       {children}
     </StyledButton>
@@ -60,4 +67,5 @@ Button.propTypes = {
   onFocus: PropTypes.func,
   to: PropTypes.string,
   block: PropTypes.bool,
+  width: PropTypes.string,
 };
