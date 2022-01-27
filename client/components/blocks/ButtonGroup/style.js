@@ -2,8 +2,8 @@ import styled, { css } from "styled-components";
 import { flexbox, textStyle } from "../../../styles/utils";
 
 export const StyledButtonGroup = styled.div`
-  ${({ link }) =>
-    link &&
+  ${({ fixed }) =>
+    fixed &&
     css`
       position: fixed;
       bottom: 0;

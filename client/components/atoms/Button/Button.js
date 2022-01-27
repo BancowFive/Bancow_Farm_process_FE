@@ -14,7 +14,7 @@ export const Button = ({
   to,
   block,
   width,
-  bottom,
+  fixed,
 }) => {
   if (to) {
     return (
@@ -28,6 +28,7 @@ export const Button = ({
         block={block}
         disabled={disabled}
         width={width}
+        fixed={fixed}
       >
         {disabled ? (
           <>{children}</>
@@ -51,7 +52,7 @@ export const Button = ({
       onFocus={onFocus}
       block={block}
       width={width}
-      bottom={bottom}
+      fixed={fixed}
     >
       {children}
     </StyledButton>

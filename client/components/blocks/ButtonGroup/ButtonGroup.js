@@ -1,9 +1,9 @@
 import { StyledButtonGroup } from "./style";
 import PropTypes from "prop-types";
 
-export const ButtonGroup = ({ children, width, link, className }) => {
+export const ButtonGroup = ({ children, width, fixed, className }) => {
   return (
-    <StyledButtonGroup className={className} link={link} width={width}>
+    <StyledButtonGroup className={className} fixed={fixed} width={width}>
       {children}
     </StyledButtonGroup>
   );
@@ -12,7 +12,7 @@ export const ButtonGroup = ({ children, width, link, className }) => {
 ButtonGroup.propTypes = {
   children: PropTypes.node.isRequired,
   width: PropTypes.string,
-  link: PropTypes.bool,
+  fixed: PropTypes.bool,
   className: PropTypes.string,
 };
 

@@ -94,7 +94,7 @@ const auth = () => {
         size={60}
         block
         disabled={!valid}
-        bottom
+        fixed
         onClick={toggleModal}
       >
         다음

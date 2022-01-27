@@ -28,6 +28,7 @@ export default function Home() {
         size={60}
         block
         to="/auth"
+        fixed
       >
         다음
       </Button>

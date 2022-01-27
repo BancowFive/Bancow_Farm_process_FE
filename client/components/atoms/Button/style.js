@@ -122,8 +122,8 @@ function setButtonSize(size) {
 }
 
 export const StyledButton = styled.button`
-  ${({ to, bottom }) =>
-    (to || bottom) &&
+  ${({ fixed }) =>
+    fixed &&
     css`
       position: fixed;
       bottom: 0;
@@ -169,6 +169,7 @@ export const StyledButton = styled.button`
         ${setButtonVariant(variant)}
       `;
     }
+
     if (variant === "primary") {
       return css`
         ${inlineFlexbox()};
@@ -181,6 +182,7 @@ export const StyledButton = styled.button`
       ${setButtonVariant(variant)}
     `;
   }}
+
   ${({ size }) => setButtonSize(size)}
   ${({ width }) =>
     css`
