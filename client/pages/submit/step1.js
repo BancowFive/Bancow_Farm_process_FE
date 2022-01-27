@@ -1,7 +1,7 @@
-import { Container, ButtonInfo, ImgContainer } from "./styled";
+import { Container, ButtonInfo, ImgContainer } from "./style";
 import Image from "next/image";
 import cowAndMePic from "../../public/cow_plus_me.svg";
-import { Button, AverageDate, ProgressStep } from "../../components";
+import { Button, AverageDate, ProgressStep } from "../../components/atoms";
 
 const step1 = () => {
   return (
@@ -19,7 +19,7 @@ const step1 = () => {
         </ImgContainer>
         <ButtonInfo>확인을 누르시면 메인페이지로 이동합니다</ButtonInfo>
       </Container>
-      <Button variant="primary" size={60} block to="/">
+      <Button variant="primary" size={60} block fixed to="/">
         확인
       </Button>
     </>

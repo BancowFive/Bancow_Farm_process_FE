@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { theme } from "../../../styles";
 import { flexbox, textStyle } from "../../../styles/utils";
 
 export const Container = styled.div`
@@ -6,6 +7,7 @@ export const Container = styled.div`
   min-width: 312px;
   height: 31px;
 `;
+
 export const Bars = styled.div`
   position: relative;
   ${flexbox("start")}
@@ -32,12 +34,10 @@ export const Step = styled.div.attrs(props => ({
 `;
 
 export const ProgressDot = styled.div.attrs(props => ({
-  background: props.active
-    ? `${({ theme }) => theme.colors.mainBlue}`
-    : "white",
+  background: props.active ? `${theme.colors.mainBlue}` : "white",
   border: props.active
-    ? `${({ theme }) => theme.colors.mainBlue}`
-    : `${({ theme }) => theme.colors.placeholder}`,
+    ? `${theme.colors.mainBlue}`
+    : `${theme.colors.placeholder}`,
 }))`
   width: 14px;
   height: 14px;
@@ -48,9 +48,7 @@ export const ProgressDot = styled.div.attrs(props => ({
 
 export const Progress = styled.div.attrs(props => ({
   width: props.extraWidth || "18px",
-  color: props.active
-    ? `${({ theme }) => theme.colors.guide}`
-    : `${({ theme }) => theme.colors.placeholder}`,
+  color: props.active ? `${theme.colors.guide}` : `${theme.colors.placeholder}`,
 }))`
   text-align: center;
   ${textStyle("body3")}

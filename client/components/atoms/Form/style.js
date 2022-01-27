@@ -28,13 +28,28 @@ const ghostInput = css`
   background-color: ${({ theme }) => theme.colors.disabled};
 `;
 
+const uploadedInput = css`
+  background-color: ${({ theme }) => theme.colors.disabled};
+  border: 1px solid ${({ theme }) => theme.colors.disabled};
+  color: ${({ theme }) => theme.colors.secondary};
+`;
+
+const unuploadedInput = css`
+  background-color: ${({ theme }) => theme.colors.white};
+  border: 1px solid ${({ theme }) => theme.colors.borderGray};
+  color: ${({ theme }) => theme.colors.tertiary};
+`;
+
 function setInputVariant(variant) {
   switch (variant) {
     case "primary":
       return primaryInput;
     case "ghost":
       return ghostInput;
-
+    case "uploaded":
+      return uploadedInput;
+    case "unuploaded":
+      return unuploadedInput;
     default:
       return primaryInput;
   }
@@ -142,5 +157,23 @@ export const StyledSelectGroup = styled.div`
     &.is-open {
       transform: translate(50%, -50%) rotate(-90deg);
     }
+  }
+`;
+
+export const StyledFileInput = styled.label`
+  ${textStyle("body1")};
+  display: inline-block;
+  padding: 0 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  ${({ size }) => setInputSize(size)};
+  ${({ variant }) => setInputVariant(variant)};
+  ${flexbox("between")}
+  ${({ width }) =>
+    css`
+      width: ${width};
+    `}
+  input {
+    display: none;
   }
 `;

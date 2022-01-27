@@ -1,5 +1,5 @@
 import { RadioGroup } from ".";
-import { RadioChecked, RadioUnChecked } from "../Button/Radio.stories";
+import { RadioChecked, RadioUnChecked } from "../../atoms/Button/Radio.stories";
 
 export default {
   title: "RadioGroup",
