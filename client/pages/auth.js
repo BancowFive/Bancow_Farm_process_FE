@@ -105,6 +105,7 @@ const auth = () => {
         title="인증되었습니다."
         subMessage="확인을 누르시면 계속 진행합니다."
         icon="done"
+        to="/terms"
       />
     </>
   );
