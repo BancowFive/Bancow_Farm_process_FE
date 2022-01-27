@@ -165,6 +165,7 @@ export const StyledButton = styled.button`
       }
     `}
 
+  ${({ size }) => setButtonSize(size)}
   ${({ block }) => block && `width: 100%;`}
   padding: 0 18px;
 
@@ -181,6 +182,8 @@ export const StyledButton = styled.button`
     ) {
       return css`
         ${inlineFlexbox("between")};
+        ${textStyle("body1")};
+        padding: 0 14px 0 16px;
 
         ${({ type }) =>
           type &&
@@ -218,7 +221,10 @@ export const StyledButton = styled.button`
     `;
   }}
 
+<<<<<<< HEAD:client/components/Button/style.js
+=======
   ${({ size }) => setButtonSize(size)}
+>>>>>>> 235855182a87eee4ca7ebe06b7963dddc8e4a18c:client/components/atoms/Button/style.js
   ${({ width }) =>
     css`
       width: ${width};
