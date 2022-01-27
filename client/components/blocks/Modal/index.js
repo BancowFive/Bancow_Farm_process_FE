@@ -33,7 +33,7 @@ export const Modal = ({ open, close, title, guide, subMessage, icon, to }) => {
           {guide && <div className="guide">{guide}</div>}
           {subMessage && <span className="sub-message">{subMessage}</span>}
         </ContentsWrapper>
-        <ButtonGroup className="modal__button-group" link>
+        <ButtonGroup className="modal__button-group" fixed>
           <Button size={54} variant="ghost" onClick={close}>
             닫기
           </Button>
