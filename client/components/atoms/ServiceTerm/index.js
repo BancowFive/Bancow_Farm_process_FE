@@ -2,7 +2,7 @@ import { StyledServiceTerm } from "./style";
 import Image from "next/image";
 import PropTypes from "prop-types";
 
-function getIcon(icon, onClick) {
+function getIcon(icon, onSelect) {
   switch (icon) {
     case "unchecked":
       return (
@@ -12,7 +12,7 @@ function getIcon(icon, onClick) {
           alt="uncheckd icon"
           width={24}
           height={24}
-          onClick={onClick}
+          onClick={onSelect}
         />
       );
     case "checked":
@@ -23,7 +23,7 @@ function getIcon(icon, onClick) {
           alt="checked icon"
           width={24}
           height={24}
-          onClick={onClick}
+          onClick={onSelect}
         />
       );
     case "detail":
@@ -34,7 +34,7 @@ function getIcon(icon, onClick) {
           alt="detail service term description icon"
           width={24}
           height={24}
-          onClick={onClick}
+          onClick={onSelect}
         />
       );
     default:
@@ -48,13 +48,14 @@ export const ServiceTerm = ({
   isRequired,
   selectAll,
   children,
+  onSelect,
 }) => {
   return (
     <StyledServiceTerm
       className={selectAll && "select-all"}
       detailIcon={detailIcon}
     >
-      {checkIcon && getIcon(checkIcon)}
+      {checkIcon && getIcon(checkIcon, onSelect)}
       {!selectAll && (
         <strong className={isRequired && "is-required"}>
           {isRequired ? "(필수)" : "(선택)"}
