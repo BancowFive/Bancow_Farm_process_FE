@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Button, ButtonGroup } from "../components";
 import Check from "../components/Check";
-import { Container } from "../components/Grid";
+import { StyledContainer } from "../components/blocks/Grid/style";
 
 const CheckWrapper = styled.div`
   div:not(:last-of-type) {
@@ -11,7 +11,7 @@ const CheckWrapper = styled.div`
 const farmCheck = () => {
   return (
     <>
-      <Container>
+      <StyledContainer>
         <h2>
           농가에 대한 정보를 <br /> 알려주세요
         </h2>
@@ -49,8 +49,8 @@ const farmCheck = () => {
             option2="100마리 이상"
           />
         </CheckWrapper>
-      </Container>
-      <ButtonGroup link>
+      </StyledContainer>
+      <ButtonGroup fixed>
         <Button variant="disabled" size={130} to="/">
           이전
         </Button>
