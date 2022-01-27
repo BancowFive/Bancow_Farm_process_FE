@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { flexbox, textStyle } from "../../../styles/utils";
 
-export const StyledServiceTerm = styled.li`
+export const StyledTermItem = styled.li`
   position: relative;
   ${flexbox("start")};
   width: 100%;
