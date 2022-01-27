@@ -24,13 +24,18 @@ export const FileInput = ({
         <Button variant={variant} size={38} onClick={clickTargetInput}>
           {variant === "unuploaded" ? <>첨부</> : <>재첨부</>}
         </Button>
-        <input type="file" id={id} ref={targetInput} onChange={onChange} />
+        <input
+          type="file"
+          id={id}
+          ref={targetInput}
+          onChange={e => onChange(e)}
+        />
       </StyledFileInput>
     </>
   );
 };
 
-FileInput.PropTypes = {
+FileInput.propTypes = {
   variant: PropTypes.oneOf(["uploaded", "unuploaded"]).isRequired,
   id: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
