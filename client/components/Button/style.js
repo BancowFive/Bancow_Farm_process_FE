@@ -129,6 +129,7 @@ export const StyledButton = styled.button`
       }
     `}
 
+  ${({ size }) => setButtonSize(size)}
   ${({ block }) => block && `width: 100%;`}
   padding: 0 18px;
 
@@ -140,6 +141,8 @@ export const StyledButton = styled.button`
     if (variant === "unchecked" || variant === "checked") {
       return css`
         ${inlineFlexbox("between")};
+        ${textStyle("body1")};
+        padding: 0 14px 0 16px;
 
         ${({ type }) =>
           type &&
@@ -175,7 +178,7 @@ export const StyledButton = styled.button`
       ${setButtonVariant(variant)}
     `;
   }}
-  ${({ size }) => setButtonSize(size)}
+
   ${({ width }) =>
     css`
       width: ${width};
