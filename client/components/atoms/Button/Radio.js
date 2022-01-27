@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 
 export const Radio = ({
   children,
-  id,
   value,
   name,
   size,
@@ -15,7 +14,6 @@ export const Radio = ({
   return (
     <StyledButton
       as="label"
-      htmlFor={id}
       size={size}
       variant={variant}
       block={block}
@@ -28,7 +26,6 @@ export const Radio = ({
         )}
       </div>
       <input
-        id={id}
         value={value}
         name={name}
         type="radio"
@@ -40,7 +37,6 @@ export const Radio = ({
 
 Radio.propTypes = {
   children: PropTypes.node.isRequired,
-  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   name: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   size: PropTypes.number.isRequired,
