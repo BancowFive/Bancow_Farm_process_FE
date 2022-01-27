@@ -105,6 +105,7 @@ const required = () => {
         variant={hasSubmit ? "primary" : "ghost"}
         size={60}
         block
+        fixed
         disabled={hasSubmit ? false : true}
         to={"/"}
       >

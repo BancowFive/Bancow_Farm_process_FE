@@ -4,7 +4,7 @@ import { Container, ButtonInfo, ImgContainer } from "./style";
 import Image from "next/image";
 import cowAndMePic from "../../public/cow_plus_me.svg";
 
-const step1 = () => {
+const step3 = () => {
   return (
     <>
       <Container>
@@ -19,16 +19,16 @@ const step1 = () => {
           <br />
           뱅카우가 연락드릴게요
         </h2>
-        <ImgContainer>
+        <ImgContainer step="final">
           <Image src={cowAndMePic} alt="소와 나" />
         </ImgContainer>
         <ButtonInfo>확인을 누르시면 메인페이지로 이동합니다</ButtonInfo>
       </Container>
-      <Button variant="primary" size={60} block to="/">
+      <Button variant="primary" size={60} block fixed to="/">
         확인
       </Button>
     </>
   );
 };
 
-export default step1;
+export default step3;

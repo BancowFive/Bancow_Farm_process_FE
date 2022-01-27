@@ -55,6 +55,7 @@ const uploadedButtonStyle = css`
   background-color: ${({ theme }) => theme.colors.white};
   border: 1px solid ${({ theme }) => theme.colors.placeholder};
   border-radius: 8px;
+  padding: 0 0;
   transition: background-color 200ms ease-in-out;
 
   &:not(:disabled):hover {
@@ -67,6 +68,7 @@ const unuploadedButtonStyle = css`
   background-color: ${({ theme }) => theme.colors.backgroundBlue};
   border: 1px solid ${({ theme }) => theme.colors.borderBlue};
   border-radius: 8px;
+  padding: 0 0;
   transition: background-color 200ms ease-in-out;
 
   &:not(:disabled):hover {

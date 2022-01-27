@@ -19,7 +19,7 @@ const step1 = () => {
         </ImgContainer>
         <ButtonInfo>확인을 누르시면 메인페이지로 이동합니다</ButtonInfo>
       </Container>
-      <Button variant="primary" size={60} block to="/">
+      <Button variant="primary" size={60} block fixed to="/">
         확인
       </Button>
     </>
