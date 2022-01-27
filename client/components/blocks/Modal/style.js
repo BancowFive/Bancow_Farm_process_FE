@@ -73,3 +73,27 @@ export const ContentsWrapper = styled.div`
     margin-top: 20px;
   }
 `;
+
+export const BtnWrapper = styled.div`
+  position: absolute;
+  bottom: 0;
+  margin-top: 30px;
+  width: 100%;
+  min-width: 312px;
+  height: 54px;
+
+  .close-btn {
+    width: 35%;
+    height: 100%;
+    background: #ebebeb;
+    text-align: center;
+    color: ${({ theme }) => theme.colors.tertiary};
+  }
+  .call-btn {
+    width: 65%;
+    height: 100%;
+    background: #3478f5;
+    text-align: center;
+    color: ${({ theme }) => theme.colors.white};
+  }
+`;
