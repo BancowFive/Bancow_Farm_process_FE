@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import { inlineFlexbox, textStyle } from "../../styles/utils";
+import { inlineFlexbox, flexbox, textStyle } from "../../styles/utils";
 
 const primaryButtonStyle = css`
   color: ${({ theme }) => theme.colors.white};
@@ -63,6 +63,18 @@ const uploadedButtonStyle = css`
   }
 `;
 
+const unuploadedButtonStyle = css`
+  color: ${({ theme }) => theme.colors.blue};
+  background-color: ${({ theme }) => theme.colors.backgroundBlue};
+  border: 1px solid ${({ theme }) => theme.colors.borderBlue};
+  border-radius: 8px;
+  transition: background-color 200ms ease-in-out;
+
+  &:not(:disabled):hover {
+    background-color: ${({ theme }) => theme.colors.available};
+  }
+`;
+
 const selectInput = css`
   color: ${({ theme }) => theme.colors.guide};
   background-color: ${({ theme }) => theme.colors.white};
@@ -88,7 +100,7 @@ function setButtonVariant(variant) {
     case "select":
       return selectInput;
     case "unuploaded":
-      return checkedButtonStyle;
+      return unuploadedButtonStyle;
     case "uploaded":
       return uploadedButtonStyle;
     default:
@@ -156,6 +168,7 @@ export const StyledButton = styled.button`
     if (
       variant === "unchecked" ||
       variant === "checked" ||
+      variant === "unuploaded" ||
       variant === "uploaded"
     ) {
       return css`
