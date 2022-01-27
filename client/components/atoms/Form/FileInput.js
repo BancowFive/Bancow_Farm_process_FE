@@ -21,7 +21,12 @@ export const FileInput = ({
     <>
       <StyledFileInput htmlFor={id} variant={variant} size={size} width={width}>
         {children}
-        <Button variant={variant} size={38} onClick={clickTargetInput}>
+        <Button
+          variant={variant}
+          size={38}
+          width="70px"
+          onClick={clickTargetInput}
+        >
           {variant === "unuploaded" ? <>첨부</> : <>재첨부</>}
         </Button>
         <input
