@@ -1,10 +1,17 @@
 import { StyledInput, StyledInputGroup } from "./style";
 import PropTypes from "prop-types";
 
-function getInputIcon(icon) {
+function getInputIcon(icon, onClick) {
   switch (icon) {
     case "clear":
-      return <img src="/clear.svg" className="icon" alt="clear icon" />;
+      return (
+        <img
+          src="/clear.svg"
+          className="icon"
+          alt="clear icon"
+          onClick={onClick}
+        />
+      );
     default:
       return null;
   }
@@ -17,6 +24,7 @@ export const Input = ({
   value,
   children,
   disabled,
+  className,
   icon,
   name,
   placeholder,
@@ -33,11 +41,11 @@ export const Input = ({
       type={type}
       value={value}
       disabled={disabled}
+      className={className}
       name={name}
       placeholder={placeholder}
       onBlur={onBlur}
       onChange={onChange}
-      onClick={onClick}
       onFocus={onFocus}
       width={width}
     ></StyledInput>
@@ -45,7 +53,7 @@ export const Input = ({
   if (icon || children) {
     return (
       <StyledInputGroup width={width}>
-        {icon && getInputIcon(icon)}
+        {icon && getInputIcon(icon, onClick)}
         {element}
         {children}
       </StyledInputGroup>
@@ -61,6 +69,7 @@ Input.propTypes = {
   value: PropTypes.string,
   children: PropTypes.node,
   disabled: PropTypes.bool,
+  error: PropTypes.bool,
   icon: PropTypes.string,
   name: PropTypes.string,
   placeholder: PropTypes.string,

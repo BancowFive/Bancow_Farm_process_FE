@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "../../components/Button";
-import { FileInput } from "../../components/Form";
-import { Container, FileInputGroup } from "./styled";
+import { Button } from "../../components/atoms/Button";
+import { FileInput } from "../../components/atoms/Form";
+import { Container, FileInputGroup } from "./style";
 
 const required = () => {
   //useSelector로 URL정보 불러오기

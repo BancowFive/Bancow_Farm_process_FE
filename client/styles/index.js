@@ -64,7 +64,7 @@ const colors = {
 
   white: "#ffffff",
 
-  vaild: "#449aff",
+  valid: "#449aff",
   error: "#ff4e21",
   yellow: "#fac805",
 };

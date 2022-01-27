@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { StyledContainer } from "../../components/Grid/style";
+import { StyledContainer } from "../../components/blocks/Grid/style";
 
 export const Container = styled(StyledContainer)`
   width: 360px;
