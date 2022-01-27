@@ -51,6 +51,18 @@ const uncheckedButtonStyle = css`
   }
 `;
 
+const uploadedButtonStyle = css`
+  color: ${({ theme }) => theme.colors.tertiary};
+  background-color: ${({ theme }) => theme.colors.white};
+  border: 1px solid ${({ theme }) => theme.colors.placeholder};
+  border-radius: 8px;
+  transition: background-color 200ms ease-in-out;
+
+  &:not(:disabled):hover {
+    background-color: ${({ theme }) => theme.colors.backgroundGray};
+  }
+`;
+
 const selectInput = css`
   color: ${({ theme }) => theme.colors.guide};
   background-color: ${({ theme }) => theme.colors.white};
@@ -75,6 +87,10 @@ function setButtonVariant(variant) {
       return uncheckedButtonStyle;
     case "select":
       return selectInput;
+    case "unuploaded":
+      return checkedButtonStyle;
+    case "uploaded":
+      return uploadedButtonStyle;
     default:
       return primaryButtonStyle;
   }
@@ -137,7 +153,11 @@ export const StyledButton = styled.button`
   }
 
   ${({ variant }) => {
-    if (variant === "unchecked" || variant === "checked") {
+    if (
+      variant === "unchecked" ||
+      variant === "checked" ||
+      variant === "uploaded"
+    ) {
       return css`
         ${inlineFlexbox("between")};
 
