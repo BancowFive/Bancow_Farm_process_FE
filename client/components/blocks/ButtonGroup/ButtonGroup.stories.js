@@ -3,7 +3,7 @@ import {
   ButtonPrimary,
   ButtonGhost,
   ButtonDisabled,
-} from "../Button/Button.stories";
+} from "../../atoms/Button/Button.stories";
 
 export default {
   title: "ButtonGroup",

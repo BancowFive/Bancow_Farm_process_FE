@@ -1,6 +1,6 @@
 import { FormGroup } from ".";
-import { InputPrimary } from "../Form/Input.stories";
-import { ButtonCheck } from "../Button/Button.stories";
+import { InputPrimary } from "../../atoms/Form/Input.stories";
+import { ButtonCheck } from "../../atoms/Button/Button.stories";
 
 export default {
   title: "FormGroup",
