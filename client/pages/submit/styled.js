@@ -1,26 +1,36 @@
 import styled from "styled-components";
-import { StyledContainer } from "../../components/Grid/style"
+import { textStyle } from "../../styles/utils";
 
-export const Container = styled(StyledContainer)`
+export const Container = styled.div`
+  position: relative;
+  padding: 0 24px;
   width: 360px;
-  height: 600px;
-  border: 1px solid red;
-  margin: 20px;
+  margin: 0 auto;
 
-  h1{
+  h1 {
     margin: 50px 0 0;
-    border: 1px solid black;
+    ${textStyle("headline1")};
+    color: ${({ theme }) => theme.colors.primary};
   }
 
-  h2{
-    border: 1px solid pink;
+  h2 {
     margin: 12px 0 0;
+    ${textStyle("headline2")};
+    color: ${({ theme }) => theme.colors.detail};
   }
-`
+`;
 
-export const Img = styled.div`
-  margin: 0 13px 0 0;
-  background-color: black;
-  width: 300px;
-  height: 300px;
-`
+export const ImgContainer = styled.div`
+  position: absolute;
+  top: 297px;
+  vertical-align: middle;
+`;
+
+export const ButtonInfo = styled.div`
+  position: absolute;
+  top: 648px;
+  width: 312px;
+  ${textStyle("body3")};
+  color: ${({ theme }) => theme.colors.detail};
+  text-align: center;
+`;

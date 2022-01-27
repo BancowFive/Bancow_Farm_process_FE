@@ -1,20 +1,29 @@
-import React from 'react';
-import { ProgressStep } from '../../components/ProgressStep'
-import { Container, Img } from './styled';
+import { Container, ButtonInfo, ImgContainer } from "./styled";
+import Image from "next/image";
+import cowAndMePic from "../../public/cow_plus_me.svg";
+import { Button, AverageDate, ProgressStep } from "../../components";
 
 const step1 = () => {
   return (
-    <Container>
-      <ProgressStep activeStep={1}/>
-      <h1>1차 신청 완료되었어요</h1>
-      <h2>평균 2일 이내로
-        <br/>뱅카우가 연락드릴게요</h2>
-      <Img>
-        <img src='../../public/cow_and_farmer.svg' alt='소와 농부'/>
-      </Img>
-    </Container>
-
+    <>
+      <Container>
+        <ProgressStep activeStep={1} />
+        <h1>1차 신청이 완료되었어요</h1>
+        <h2>
+          평균 <AverageDate>2일 이내</AverageDate>로
+          <br />
+          뱅카우가 연락드릴게요
+        </h2>
+        <ImgContainer>
+          <Image src={cowAndMePic} alt="소와 나" />
+        </ImgContainer>
+        <ButtonInfo>확인을 누르시면 메인페이지로 이동합니다</ButtonInfo>
+      </Container>
+      <Button variant="primary" size={60} block to="/">
+        확인
+      </Button>
+    </>
   );
-}; 
+};
 
 export default step1;

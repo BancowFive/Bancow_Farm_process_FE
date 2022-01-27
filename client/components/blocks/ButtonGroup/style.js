@@ -1,8 +1,13 @@
 import styled, { css } from "styled-components";
-
-import { flexbox, textStyle } from "../../styles/utils";
+import { flexbox, textStyle } from "../../../styles/utils";
 
 export const StyledButtonGroup = styled.div`
+  ${({ fixed }) =>
+    fixed &&
+    css`
+      position: fixed;
+      bottom: 0;
+    `}
   ${flexbox("start")};
 
   button:first-child {

@@ -1,6 +1,7 @@
 import styled, { keyframes } from "styled-components";
-import { textStyle } from "../../styles/utils/";
+import { textStyle } from "../../../styles/utils";
 
+// !  Modal transition 손보기
 export const ModalFade = keyframes`
   from {
       opacity: 0;
@@ -39,13 +40,21 @@ export const ModalBox = styled.div`
   animation: ${ModalFade} 0.5s;
   overflow: hidden;
   text-align: center;
+
+  div.modal__button-group {
+    position: absolute;
+
+    button {
+      position: static;
+    }
+  }
 `;
 
 export const ContentsWrapper = styled.div`
   .icon-wrapper {
     margin-top: 30px;
   }
-  .phone-number {
+  .title {
     display: inline-block;
     color: ${({ theme }) => theme.colors.black};
     ${textStyle("headline3")};
@@ -57,7 +66,7 @@ export const ContentsWrapper = styled.div`
     ${textStyle("headline4")};
     margin-top: 4px;
   }
-  .business-hours {
+  .sub-message {
     display: inline-block;
     color: ${({ theme }) => theme.colors.guide};
     ${textStyle("body3")};
