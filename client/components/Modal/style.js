@@ -68,7 +68,7 @@ export const ContentsWrapper = styled.div`
 export const BtnWrapper = styled.div`
   position: absolute;
   bottom: 0;
-  margin-top: 31px;
+  margin-top: 30px;
   width: 100%;
   min-width: 312px;
   height: 54px;
