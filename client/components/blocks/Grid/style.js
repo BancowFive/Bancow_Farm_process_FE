@@ -14,7 +14,8 @@ export const StyledContainer = styled.div`
     ${textStyle("headline3")};
   }
 
-  span {
+  span.guide {
+    display: block;
     margin-bottom: 106px;
     ${textStyle("body2")};
     color: ${({ theme }) => theme.colors.guide};
