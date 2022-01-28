@@ -221,10 +221,7 @@ export const StyledButton = styled.button`
     `;
   }}
 
-<<<<<<< HEAD:client/components/Button/style.js
-=======
   ${({ size }) => setButtonSize(size)}
->>>>>>> 235855182a87eee4ca7ebe06b7963dddc8e4a18c:client/components/atoms/Button/style.js
   ${({ width }) =>
     css`
       width: ${width};
