@@ -79,10 +79,8 @@ const ServiceTerms = () => {
       </Container>
       <Button
         size={60}
-        variant={
-          conditionOfUse && collectionOfInformation ? "primary" : "ghost"
-        }
-        disabled={!(conditionOfUse && collectionOfInformation)}
+        variant={conditionOfUse && trustOfInformation ? "primary" : "ghost"}
+        disabled={!(conditionOfUse && trustOfInformation)}
         to="/"
         fixed
         block

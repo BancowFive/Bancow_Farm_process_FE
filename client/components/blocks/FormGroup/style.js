@@ -27,6 +27,8 @@ function setFormType(type) {
 }
 
 export const StyledFormGroup = styled.div`
+  margin-bottom: 24px;
+
   h3 {
     width: 100%;
     margin-bottom: 10px;
@@ -37,25 +39,28 @@ export const StyledFormGroup = styled.div`
   div {
     ${flexbox("start")};
     gap: 12px;
-  }
 
-  input:first-child {
-    flex: 7;
-    min-width: 210px;
+    input:first-child {
+      flex: 7;
+      min-width: 210px;
 
-    &.error {
-      border: 1px solid ${({ theme }) => theme.colors.error};
+      &.error {
+        border: 1px solid ${({ theme }) => theme.colors.error};
+      }
     }
   }
 
-  span.error {
-    color: ${({ theme }) => theme.colors.error};
-    ${textStyle("body2")};
-  }
+  span {
+    margin-top: 8px;
+    &.error {
+      color: ${({ theme }) => theme.colors.error};
+      ${textStyle("body2")};
+    }
 
-  span.success {
-    color: ${({ theme }) => theme.colors.valid};
-    ${textStyle("body2")};
+    &.success {
+      color: ${({ theme }) => theme.colors.valid};
+      ${textStyle("body2")};
+    }
   }
 
   ${({ type }) => setFormType(type)}
