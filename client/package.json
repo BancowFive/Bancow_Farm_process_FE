@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.7.1",
+    "aws-sdk": "^2.1065.0",
     "axios": "^0.25.0",
     "next": "12.0.8",
     "react": "17.0.2",
