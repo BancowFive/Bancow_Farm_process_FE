@@ -11,7 +11,7 @@ export const Container = styled(StyledContainer)`
 `;
 
 export const FileInputGroup = styled.div`
-  margin: 38px 0 120px;
+  margin: 38px 0 30px;
 
   label + label {
     margin-top: 20px;
