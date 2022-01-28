@@ -21,32 +21,40 @@ const farmCheck = () => {
             // radioId="indentification"
             radioName="indentification"
             radioSize={148}
-            option1="네"
-            option2="아니오"
+            leftOption="네"
+            leftOptionValue={true}
+            rightOption="아니오"
+            rightOptionValue={false}
           />
           <Check
             title="농장이 자가인가요?"
             // radioId="ownFarm"
             radioName="ownFarm"
             radioSize={148}
-            option1="네"
-            option2="아니오"
+            leftOption="네"
+            leftOptionValue={true}
+            rightOption="아니오"
+            rightOptionValue={false}
           />
           <Check
             title="농장 유형이 무엇인가요?"
             // radioId="breedingType"
             radioName="breedingType"
             radioSize={148}
-            option1="비육 농장"
-            option2="일괄 농장"
+            leftOption="비육 농장"
+            leftOptionValue="비육"
+            rightOption="일괄 농장"
+            rightOptionValue="일괄"
           />
           <Check
             title="가축의 수가 100마리 이상인가요?"
             // radioId="population"
             radioName="population"
             radioSize={148}
-            option1="100마리 미만"
-            option2="100마리 이상"
+            leftOption="100마리 미만"
+            leftOptionValue="100마리 미만"
+            rightOption="100마리 이상"
+            rightOptionValue="100마리 이상"
           />
         </CheckWrapper>
       </StyledContainer>
