@@ -1,6 +1,7 @@
 import Head from "next/head";
+import wrapper from "../store";
 import { ThemeProvider } from "styled-components";
-import Header from "../components/Header";
+import { Header } from "../components/blocks/Header";
 import { theme } from "../styles";
 import GlobalStyle from "../styles/globalStyle";
 import AppLayout from "../components/AppLayout";
@@ -30,4 +31,4 @@ function App({ Component, pageProps }) {
   );
 }
 
-export default App;
+export default wrapper.withRedux(App);
