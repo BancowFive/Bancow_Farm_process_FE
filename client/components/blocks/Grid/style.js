@@ -20,6 +20,7 @@ export const StyledContainer = styled.div`
     ${textStyle("body2")};
     color: ${({ theme }) => theme.colors.guide};
   }
+
   span.notice {
     display: block;
     margin-bottom: 4px;
