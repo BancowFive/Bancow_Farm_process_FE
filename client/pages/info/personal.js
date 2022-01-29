@@ -99,7 +99,12 @@ const Personal = () => {
               value={email}
               onChange={handleEmailChange}
             />
-            <DropDown type="email" onClick={selectEmail} isOpen={isOpen} />
+            <DropDown
+              type="email"
+              onClick={selectEmail}
+              isOpen={isOpen}
+              block
+            />
           </div>
           {emailDomain === "직접입력" && (
             <div>
@@ -122,7 +127,7 @@ const Personal = () => {
         block
         fixed
         onClick={onClick}
-        to="/"
+        to="/info/farm"
       >
         다음
       </Button>
