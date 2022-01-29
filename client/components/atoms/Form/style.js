@@ -64,7 +64,7 @@ export const StyledInput = styled.input`
   border-radius: 10px;
   appearance: none;
 
-  &:placeholder {
+  &::placeholder {
     color: ${({ theme }) => theme.colors.placeholder};
   }
 
@@ -131,6 +131,7 @@ export const StyledInputGroup = styled.div`
 
 export const StyledSelectGroup = styled.div`
   position: relative;
+  width: 100%;
   ${({ width }) =>
     css`
       width: ${width};
