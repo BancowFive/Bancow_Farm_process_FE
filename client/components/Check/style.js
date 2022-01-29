@@ -5,6 +5,13 @@ export const Wrapper = styled.div`
   .title {
     margin-bottom: 10px;
     color: ${({ theme }) => theme.colors.tertiary};
-    ${textStyle("headline")};
+    ${textStyle("headline4")};
+  }
+  .btn-wrapper {
+    margin-bottom: 8px;
+  }
+  .error {
+    color: ${({ theme }) => theme.colors.error};
+    ${textStyle("body2")};
   }
 `;
