@@ -10,6 +10,6 @@ export const FormGroup = ({ children, type, width }) => {
 };
 
 FormGroup.propTypes = {
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string,
   children: PropTypes.node.isRequired,
 };

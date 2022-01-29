@@ -20,15 +20,16 @@ export const Container = styled.div`
   }
 `;
 
-export const ImgContainer = styled.div`
-  position: absolute;
-  top: 297px;
+export const ImgContainer = styled.div.attrs(props => ({
+  margin: props.step ? "64px" : "102px",
+}))`
+  height: 300px;
+  margin-top: ${props => props.margin};
   vertical-align: middle;
 `;
 
 export const ButtonInfo = styled.div`
-  position: absolute;
-  top: 648px;
+  margin: 52px 0 20px;
   width: 312px;
   ${textStyle("body3")};
   color: ${({ theme }) => theme.colors.detail};

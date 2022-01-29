@@ -1,4 +1,5 @@
 import Head from "next/head";
+import wrapper from "../store";
 import { ThemeProvider } from "styled-components";
 import { Header } from "../components/blocks/Header";
 import { theme } from "../styles";
@@ -30,4 +31,4 @@ function App({ Component, pageProps }) {
   );
 }
 
-export default App;
+export default wrapper.withRedux(App);

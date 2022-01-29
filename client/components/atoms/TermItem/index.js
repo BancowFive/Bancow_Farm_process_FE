@@ -1,8 +1,14 @@
-import { StyledServiceTerm } from "./style";
+import { StyledTermItem } from "./style";
 import Image from "next/image";
 import PropTypes from "prop-types";
+import { useRouter } from "next/router";
 
-function getIcon(icon) {
+function getIcon(icon, to) {
+  const router = useRouter();
+  const moveToPage = e => {
+    e.stopPropagation();
+    router.push(to);
+  };
   switch (icon) {
     case "unchecked":
       return (
@@ -12,6 +18,7 @@ function getIcon(icon) {
           alt="uncheckd icon"
           width={24}
           height={24}
+          onClick={moveToPage}
         />
       );
     case "checked":
@@ -22,6 +29,7 @@ function getIcon(icon) {
           alt="checked icon"
           width={24}
           height={24}
+          onClick={moveToPage}
         />
       );
     case "detail":
@@ -32,6 +40,7 @@ function getIcon(icon) {
           alt="detail service term description icon"
           width={24}
           height={24}
+          onClick={moveToPage}
         />
       );
     default:
@@ -39,16 +48,17 @@ function getIcon(icon) {
   }
 }
 
-export const ServiceTerm = ({
+export const TermItem = ({
   checkIcon,
   detailIcon,
   isRequired,
   selectAll,
   children,
   onSelect,
+  to,
 }) => {
   return (
-    <StyledServiceTerm
+    <StyledTermItem
       className={selectAll && "select-all"}
       detailIcon={detailIcon}
       onClick={onSelect}
@@ -60,15 +70,24 @@ export const ServiceTerm = ({
         </strong>
       )}
       {children}
-      {detailIcon && getIcon(detailIcon)}
-    </StyledServiceTerm>
+      {detailIcon &&
+        getIcon(detailIcon, {
+          pathname: to,
+          query: {
+            param: JSON.stringify(
+              `${isRequired ? "(필수)" : "(선택)"} ${children}`,
+            ),
+          },
+        })}
+    </StyledTermItem>
   );
 };
 
-ServiceTerm.propTypes = {
+TermItem.propTypes = {
   children: PropTypes.node.isRequired,
   checkIcon: PropTypes.string.isRequired,
   isRequired: PropTypes.bool,
   detailIcon: PropTypes.string,
   selectAll: PropTypes.bool,
+  onSelect: PropTypes.func,
 };

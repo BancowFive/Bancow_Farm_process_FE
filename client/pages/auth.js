@@ -1,17 +1,21 @@
 import { Container, Button, FormGroup, Input, Modal } from "../components";
 import { useCallback, useEffect, useState } from "react";
 
-const auth = () => {
+const auth = "1234";
+
+const Auth = () => {
   const [telNumber, setTelNumber] = useState("");
-  const [valid, setValid] = useState(null);
+  const [telNumberValid, setTelNumberValid] = useState(null);
   const [message, setMessage] = useState("");
   const [isToggle, setIsToggle] = useState(false);
+
+  const [authNumber, setAuthNumber] = useState("");
 
   const toggleModal = useCallback(() => {
     setIsToggle(!isToggle);
   }, [isToggle]);
 
-  const handleChange = useCallback(
+  const handleTelNumber = useCallback(
     event => {
       const regex = /^[0-9\b -]{0,13}$/;
       if (regex.test(event.target.value)) {
@@ -20,6 +24,10 @@ const auth = () => {
     },
     [telNumber],
   );
+
+  const handleAuthNumber = useCallback(e => {
+    setAuthNumber(e.target.value);
+  }, []);
 
   useEffect(() => {
     if (telNumber.length === 10 || telNumber.length === 12) {
@@ -41,14 +49,14 @@ const auth = () => {
   const checkValidation = useCallback(() => {
     if (telNumber.length >= 12) {
       console.log("Input: valid");
-      setValid(true);
+      setTelNumberValid(true);
       setMessage("인증번호가 발송되었습니다.");
     } else {
       console.log("Input: error");
-      setValid(false);
+      setTelNumberValid(false);
       setMessage("휴대폰 번호를 정확하게 입력해주세요.");
     }
-  }, [telNumber, valid]);
+  }, [telNumber, telNumberValid]);
 
   const resetInput = useCallback(() => {
     setTelNumber("");
@@ -69,10 +77,13 @@ const auth = () => {
               variant="primary"
               type="text"
               value={telNumber}
-              onChange={handleChange}
+              onChange={handleTelNumber}
               icon="clear"
               onClick={resetInput}
-              className={valid === null ? "" : valid ? "" : "error"}
+              placeholder="- 없이 숫자만 입력"
+              className={
+                telNumberValid === null ? "" : telNumberValid ? "" : "error"
+              }
             />
             <Button
               size={56}
@@ -85,15 +96,33 @@ const auth = () => {
             </Button>
           </div>
           {telNumber.length > 0 && (
-            <span className={valid ? "success" : "error"}>{message}</span>
+            <span className={telNumberValid ? "success" : "error"}>
+              {message}
+            </span>
           )}
         </FormGroup>
+        {telNumberValid && (
+          <FormGroup>
+            <h3>인증번호</h3>
+            <div>
+              <Input
+                size={58}
+                variant="primary"
+                type="text"
+                value={authNumber}
+                onChange={handleAuthNumber}
+                placeholder="인증번호 입력"
+                maxLength={4}
+              />
+            </div>
+          </FormGroup>
+        )}
       </Container>
       <Button
-        variant={valid ? "primary" : "ghost"}
+        variant={authNumber === auth ? "primary" : "ghost"}
         size={60}
         block
-        disabled={!valid}
+        disabled={!(authNumber === auth)}
         fixed
         onClick={toggleModal}
       >
@@ -111,4 +140,4 @@ const auth = () => {
   );
 };
 
-export default auth;
+export default Auth;

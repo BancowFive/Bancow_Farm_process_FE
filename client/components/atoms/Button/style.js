@@ -50,6 +50,32 @@ const uncheckedButtonStyle = css`
   }
 `;
 
+const uploadedButtonStyle = css`
+  color: ${({ theme }) => theme.colors.tertiary};
+  background-color: ${({ theme }) => theme.colors.white};
+  border: 1px solid ${({ theme }) => theme.colors.placeholder};
+  border-radius: 8px;
+  padding: 0 0;
+  transition: background-color 200ms ease-in-out;
+
+  &:not(:disabled):hover {
+    background-color: ${({ theme }) => theme.colors.backgroundGray};
+  }
+`;
+
+const unuploadedButtonStyle = css`
+  color: ${({ theme }) => theme.colors.blue};
+  background-color: ${({ theme }) => theme.colors.backgroundBlue};
+  border: 1px solid ${({ theme }) => theme.colors.borderBlue};
+  border-radius: 8px;
+  padding: 0 0;
+  transition: background-color 200ms ease-in-out;
+
+  &:not(:disabled):hover {
+    background-color: ${({ theme }) => theme.colors.available};
+  }
+`;
+
 const selectInput = css`
   color: ${({ theme }) => theme.colors.guide};
   background-color: ${({ theme }) => theme.colors.white};
@@ -74,6 +100,10 @@ function setButtonVariant(variant) {
       return uncheckedButtonStyle;
     case "select":
       return selectInput;
+    case "unuploaded":
+      return unuploadedButtonStyle;
+    case "uploaded":
+      return uploadedButtonStyle;
     default:
       return primaryButtonStyle;
   }
@@ -144,7 +174,12 @@ export const StyledButton = styled.button`
   }
 
   ${({ variant }) => {
-    if (variant === "unchecked" || variant === "checked") {
+    if (
+      variant === "unchecked" ||
+      variant === "checked" ||
+      variant === "unuploaded" ||
+      variant === "uploaded"
+    ) {
       return css`
         ${inlineFlexbox("between")};
         ${textStyle("body1")};
@@ -186,10 +221,6 @@ export const StyledButton = styled.button`
     `;
   }}
 
-<<<<<<< HEAD:client/components/Button/style.js
-=======
-  ${({ size }) => setButtonSize(size)}
->>>>>>> 235855182a87eee4ca7ebe06b7963dddc8e4a18c:client/components/atoms/Button/style.js
   ${({ width }) =>
     css`
       width: ${width};

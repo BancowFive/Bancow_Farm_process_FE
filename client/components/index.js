@@ -7,7 +7,8 @@ export {
   AverageDate,
   SelectedDate,
   ProgressStep,
-  ServiceTerm,
+  TermItem,
+  List,
 } from "./atoms";
 export {
   ButtonGroup,
@@ -16,5 +17,6 @@ export {
   FormGroup,
   Header,
   Modal,
-  ServiceTerms,
+  TermList,
+  DropDown,
 } from "./blocks";
