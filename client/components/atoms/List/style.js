@@ -6,10 +6,16 @@ const email = css`
   ${textStyle("body2")};
 `;
 
+const fodder = css`
+  ${textStyle("body1")};
+`;
+
 function setListType(type) {
   switch (type) {
     case "email":
       return email;
+    case "fodder":
+      return fodder;
     default:
       return null;
   }
@@ -30,7 +36,7 @@ export const StyledList = styled.ul`
   li {
     ${flexbox("start")};
     height: 54px;
-    padding: 18px;
+    padding: 0 18px;
     border-bottom: 1px solid ${({ theme }) => theme.colors.borderGray};
     ${textStyle("body1")};
     color: ${({ theme }) => theme.colors.tertiary};

@@ -2,7 +2,11 @@ import styled from "styled-components";
 import { textStyle } from "../../../styles/utils";
 
 export const StyledContainer = styled.div`
+  position: absolute;
+  top: 54px;
+  bottom: 60px;
   padding: 0 24px;
+  overflow-y: auto;
 
   h1 {
     margin: 50px 0 20px;

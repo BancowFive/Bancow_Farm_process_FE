@@ -165,7 +165,6 @@ export const StyledButton = styled.button`
       }
     `}
 
-  ${({ size }) => setButtonSize(size)}
   ${({ block }) => block && `width: 100%;`}
   padding: 0 18px;
 
@@ -220,6 +219,9 @@ export const StyledButton = styled.button`
       ${setButtonVariant(variant)}
     `;
   }}
+
+  ${({ size }) => setButtonSize(size)}
+
 
   ${({ width }) =>
     css`
