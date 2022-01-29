@@ -81,7 +81,7 @@ const ServiceTerms = () => {
         size={60}
         variant={conditionOfUse && trustOfInformation ? "primary" : "ghost"}
         disabled={!(conditionOfUse && trustOfInformation)}
-        to="/"
+        to="/info/personal"
         fixed
         block
       >
