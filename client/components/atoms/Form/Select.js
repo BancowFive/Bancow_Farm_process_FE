@@ -18,6 +18,7 @@ function getSelectIcon(icon, isOpen) {
 }
 
 export const Select = ({
+  children,
   isOpen,
   size,
   variant,
@@ -42,7 +43,7 @@ export const Select = ({
       block={block}
       width={width}
     >
-      사료
+      {children}
     </Button>
   );
   return (

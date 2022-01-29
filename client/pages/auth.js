@@ -80,6 +80,7 @@ const Auth = () => {
               onChange={handleTelNumber}
               icon="clear"
               onClick={resetInput}
+              placeholder="- 없이 숫자만 입력"
               className={
                 telNumberValid === null ? "" : telNumberValid ? "" : "error"
               }
@@ -110,6 +111,7 @@ const Auth = () => {
                 type="text"
                 value={authNumber}
                 onChange={handleAuthNumber}
+                placeholder="인증번호 입력"
                 maxLength={4}
               />
             </div>
