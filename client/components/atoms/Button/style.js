@@ -221,7 +221,6 @@ export const StyledButton = styled.button`
     `;
   }}
 
-  ${({ size }) => setButtonSize(size)}
   ${({ width }) =>
     css`
       width: ${width};
