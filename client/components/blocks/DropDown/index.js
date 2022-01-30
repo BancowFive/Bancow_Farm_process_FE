@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState, useCallback, useEffect } from "react";
 import { Select, List } from "../..";
 import { StyledDropDown } from "./style";
@@ -52,4 +53,11 @@ export const DropDown = ({ onClick, isOpen, type, block }) => {
       )}
     </StyledDropDown>
   );
+};
+
+DropDown.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  type: PropTypes.string.isRequired,
+  block: PropTypes.bool,
 };
