@@ -7,40 +7,19 @@ import {
   ButtonGroup,
   DropDown,
 } from "../../components";
-
-const id = "daum-postcode"; // script가 이미 rending 되어 있는지 확인하기 위한 ID
-const src = "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+import { setDaumPost, openDaumPost } from "../../utils";
+import { useDispatch } from "react-redux";
+import { inputFarmName, inputFarmAddress } from "../../reducers/step1";
 
 const Farm = () => {
+  const dispatch = useDispatch();
+
   const postcodeRef = useRef(null);
 
-  const loadLayout = useCallback(() => {
-    window.daum.postcode.load(() => {
-      const postcode = new window.daum.Postcode({
-        oncomplete: function (data) {
-          setPostCode(data.zonecode);
-          setAddress(data.roadAddress);
-        },
-      });
-      postcode.open();
-    });
-  }, []);
-
-  useEffect(() => {
-    const isAlready = document.getElementById(id);
-    if (!isAlready) {
-      const script = document.createElement("script");
-      script.src = src;
-      script.id = id;
-      document.body.append(script);
-    }
-  }, []);
-
+  const [isOpen, setIsOpen] = useState(true);
   const [farmName, setFarmName] = useState("");
   const [postCode, setPostCode] = useState("");
   const [address, setAddress] = useState("");
-
-  const [isOpen, setIsOpen] = useState(true);
   const [fodder, setFodder] = useState("");
   const selectFodder = useCallback(
     value => {
@@ -50,9 +29,22 @@ const Farm = () => {
     [isOpen],
   );
 
-  const farmNameChange = event => {
+  const farmNameChange = useCallback(event => {
     setFarmName(event.target.value);
-  };
+  }, []);
+
+  const loadPostLayout = useCallback(() => {
+    openDaumPost(setPostCode, setAddress);
+  }, []);
+
+  useEffect(() => {
+    setDaumPost();
+  }, []);
+
+  const saveFarmInfo = useCallback(() => {
+    dispatch(inputFarmName(farmName));
+    dispatch(inputFarmAddress({ address, postCode }));
+  }, [farmName, postCode, address]);
 
   return (
     <>
@@ -89,7 +81,7 @@ const Farm = () => {
               variant="checked"
               size={56}
               type="button"
-              onClick={loadLayout}
+              onClick={loadPostLayout}
             >
               우편번호 검색
             </Button>
@@ -129,6 +121,7 @@ const Farm = () => {
           }
           disabled={!(farmName && postCode && address && fodder)}
           size={60}
+          onClick={saveFarmInfo}
           to="/"
         >
           다음
