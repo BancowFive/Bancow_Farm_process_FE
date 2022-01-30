@@ -3,37 +3,53 @@ import { Select, List } from "../..";
 import { StyledDropDown } from "./style";
 
 const emailList = ["@naver.com", "@gmail.com", "직접입력"];
+const fodderList = ["뉴트리나", "퓨리나", "직접입력"];
 
-export const DropDown = ({ onClick, isOpen, type }) => {
-  const [value, setValue] = useState(emailList[0]);
+const getDataType = type => {
+  switch (type) {
+    case "email":
+      return emailList;
+    case "fodder":
+      return fodderList;
+    default:
+      return null;
+  }
+};
+
+export const DropDown = ({ onClick, isOpen, type, block }) => {
+  const [value, setValue] = useState(getDataType(type)[0]);
 
   const handleClick = useCallback(e => {
     setValue(e.target.innerText);
   }, []);
 
   useEffect(() => {
-    onClick(value);
+    if (onClick) {
+      onClick(value);
+    }
   }, [value]);
 
   return (
-    <StyledDropDown type={type}>
+    <StyledDropDown type={type} block={block}>
       <Select
         size={58}
         variant="select"
         icon="more"
-        block
+        block={block}
         onClick={onClick}
         isOpen={isOpen}
       >
         {value}
       </Select>
-      <List type={type} isOpen={isOpen}>
-        {emailList.map((item, index) => (
-          <li key={index} onClick={handleClick}>
-            {item}
-          </li>
-        ))}
-      </List>
+      {isOpen && (
+        <List type={type} isOpen={isOpen}>
+          {getDataType(type).map((item, index) => (
+            <li key={index} onClick={handleClick}>
+              {item}
+            </li>
+          ))}
+        </List>
+      )}
     </StyledDropDown>
   );
 };

@@ -34,6 +34,7 @@ export const Input = ({
   onFocus,
   width,
   maxLength,
+  readOnly,
 }) => {
   const element = (
     <StyledInput
@@ -50,6 +51,7 @@ export const Input = ({
       onFocus={onFocus}
       width={width}
       maxLength={maxLength}
+      readOnly={readOnly}
     ></StyledInput>
   );
   if (icon || children) {
