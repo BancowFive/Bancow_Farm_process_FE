@@ -23,3 +23,4 @@ export const user = {
 
 export { auth } from "./auth";
 export { terms } from "./terms";
+export { farmInfo, personalInfo } from "./info";
