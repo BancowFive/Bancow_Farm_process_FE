@@ -8,7 +8,7 @@ const step3 = () => {
   return (
     <>
       <Container>
-        <ProgressStep activeStep={3} />
+        <ProgressStep lineStyle={"dashed"} activeStep={3} />
         <h1>
           농가 입점 신청이
           <br />

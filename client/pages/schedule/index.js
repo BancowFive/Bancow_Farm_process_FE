@@ -24,43 +24,45 @@ const Schedule = () => {
   };
 
   return (
-    <Container>
-      {selectedDate ? (
-        <h2>
-          선택한 날짜는
-          <br />
-          <SelectedDate>{`${selectedDate.year}년 ${selectedDate.month}월 ${selectedDate.day}일`}</SelectedDate>{" "}
-          이에요
-        </h2>
-      ) : (
-        <h2>
-          방문을 원하는 날짜를
-          <br />
-          선택해주세요
-        </h2>
-      )}
-      <Calendar
-        onClick={getSelectedDay}
-        disabledDate={isDisable}
-        coloredDayInfo="실사 요청 가능일"
-        onDisabledAction={onDisabledAction}
-      ></Calendar>
-      <Toast>
-        <ToastBar show={isDisabledDay} width={"196.5px"}>
-          해당 날짜는 선택할 수 없습니다
-        </ToastBar>
-      </Toast>
+    <>
+      <Container>
+        {selectedDate ? (
+          <h2>
+            선택한 날짜는
+            <br />
+            <SelectedDate>{`${selectedDate.year}년 ${selectedDate.month}월 ${selectedDate.day}일`}</SelectedDate>{" "}
+            이에요
+          </h2>
+        ) : (
+          <h2>
+            방문을 원하는 날짜를
+            <br />
+            선택해주세요
+          </h2>
+        )}
+        <Calendar
+          onClick={getSelectedDay}
+          disabledDate={isDisable}
+          coloredDayInfo="실사 요청 가능일"
+          onDisabledAction={onDisabledAction}
+        ></Calendar>
+        <Toast>
+          <ToastBar show={isDisabledDay} width={"196.5px"}>
+            해당 날짜는 선택할 수 없습니다
+          </ToastBar>
+        </Toast>
+      </Container>
       <Button
         variant={selectedDate ? "primary" : "ghost"}
         size={60}
-        fixed
         block
+        fixed
         disabled={selectedDate ? false : true}
         to={"/"}
       >
         확인
       </Button>
-    </Container>
+    </>
   );
 };
 

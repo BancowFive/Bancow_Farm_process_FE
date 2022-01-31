@@ -8,7 +8,7 @@ const step2 = () => {
   return (
     <>
       <Container>
-        <ProgressStep activeStep={2} />
+        <ProgressStep lineStyle={"dashed"} activeStep={2} />
         <h1>2차 신청이 완료되었어요</h1>
         <h2>
           평균 <AverageDate>2일 이내</AverageDate>로
