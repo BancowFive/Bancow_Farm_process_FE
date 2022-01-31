@@ -5,4 +5,6 @@ export default {
   component: ProgressStep,
 };
 
-export const Step = args => <ProgressStep activeStep={1} {...args} />;
+export const Step = args => (
+  <ProgressStep activeStep={1} lineStyle={"dashed"} {...args} />
+);
