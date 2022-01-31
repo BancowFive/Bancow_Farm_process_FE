@@ -5,7 +5,8 @@ import { flexbox, textStyle } from "../../../styles/utils";
 export const Container = styled.div`
   position: relative;
   min-width: 312px;
-  height: 31px;
+  width: ${props => props.width};
+  height: ${props => props.height};
 `;
 
 export const Bars = styled.div`
@@ -57,15 +58,18 @@ export const Progress = styled.div.attrs(props => ({
   width: ${props => props.width};
 `;
 
-export const ProgressLine = styled.div`
+export const ProgressLine = styled.div.attrs(props => ({
+  lineStyle: props.lineStyle || "solid",
+}))`
   position: absolute;
   min-width: 293px;
   width: 100%;
-  border-top: 1.5px dashed ${({ theme }) => theme.colors.borderGray};
+  border-top: 1.5px ${props => props.lineStyle} ${theme.colors.borderGray};
 `;
 
 export const ActiveProgressLine = styled.div.attrs(props => ({
-  width:
+  byPercentage: props.percentage /* 10% 등으로 표시 */,
+  byActive:
     props.active == 1 /* 1차 = 99.5 % 293 = 36.348122 */
       ? "33.959044%"
       : props.active == 2 /* 2차 = 197 % 293 = 69.624573 */
@@ -75,7 +79,7 @@ export const ActiveProgressLine = styled.div.attrs(props => ({
       : "0%",
 }))`
   position: absolute;
-  width: ${props => props.width};
+  width: ${props => (props.byPercentage ? props.byPercentage : props.byActive)};
   border-top: 3px solid ${({ theme }) => theme.colors.mainBlue};
   border-radius: 5px;
 `;
