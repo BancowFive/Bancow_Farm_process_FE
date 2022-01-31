@@ -5,10 +5,8 @@ export default {
   component: Calendar,
 };
 
+//달력
 const Template = args => <Calendar {...args} />;
 
 export const MobileCalendar = Template.bind({});
-MobileCalendar.args = {};
-
-export const PCCalendar = Template.bind({});
 MobileCalendar.args = {};

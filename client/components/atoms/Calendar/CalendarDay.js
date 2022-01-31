@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { StyledCalendarDay } from "./style";
 
-const CalendarDay = ({
+export const CalendarDay = ({
   today,
   month,
-  onClick = () => {},
-  disabledDate = [],
+  onClick,
+  disabledDate,
+  onDisabledAction,
 }) => {
   const [isSelected, setIsSelected] = useState("");
   const isToday = today.format("YYYYMMDD");
@@ -15,15 +16,20 @@ const CalendarDay = ({
     if (
       e.target.classList.contains("isDisable") ||
       e.target.classList.contains("isToday") ||
-      e.target.classList.contains("isSelected")
+      e.target.classList.contains("isSelected") ||
+      e.target.classList.contains("pointer")
     ) {
-      return;
+      if (e.target.classList.contains("isSelected")) {
+        return;
+      } else onDisabledAction(true);
     } else {
       setIsSelected(everydayFormat);
+      onDisabledAction(false);
       onClick(everyday);
     }
   };
 
+  //달력 일수 계산&출력 함수
   const createCalendarDay = () => {
     //이번달의 총 날들 (1주 x 6)
     const days = [];
@@ -64,6 +70,9 @@ const CalendarDay = ({
                     }
                   >
                     {everyday.format("D")}
+                    {isToday === everydayFormat ? (
+                      <div className="pointer today" />
+                    ) : null}
                   </li>
                 );
               } else {
@@ -78,11 +87,8 @@ const CalendarDay = ({
         </ul>,
       );
     }
-
     return days;
   };
 
   return <StyledCalendarDay>{createCalendarDay()}</StyledCalendarDay>;
 };
-
-export default CalendarDay;

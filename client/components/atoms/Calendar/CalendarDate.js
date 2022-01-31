@@ -1,7 +1,7 @@
 import React from "react";
 import { StyledCalendarDate } from "./style";
 
-const CalendarDate = () => {
+export const CalendarDate = () => {
   const createCalendarDate = () => {
     //요일 형태
     const kr = ["일", "월", "화", "수", "목", "금", "토"];
@@ -19,5 +19,3 @@ const CalendarDate = () => {
 
   return <StyledCalendarDate>{createCalendarDate()}</StyledCalendarDate>;
 };
-
-export default CalendarDate;
