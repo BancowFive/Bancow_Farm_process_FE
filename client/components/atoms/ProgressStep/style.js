@@ -82,4 +82,6 @@ export const ActiveProgressLine = styled.div.attrs(props => ({
   width: ${props => (props.byPercentage ? props.byPercentage : props.byActive)};
   border-top: 3px solid ${({ theme }) => theme.colors.mainBlue};
   border-radius: 5px;
+  transition: ${props =>
+    props.byPercentage ? "width 0.3s ease-out" : "default"};
 `;
