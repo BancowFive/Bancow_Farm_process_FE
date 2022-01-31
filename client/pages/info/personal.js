@@ -8,15 +8,28 @@ import {
 } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { inputEmail, inputUsername } from "../../reducers/step1";
+import { emailValidator } from "../../utils";
 
 const Personal = () => {
   const dispatch = useDispatch();
 
+  const [isOpen, setIsOpen] = useState(true);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [selfInput, setSelfInput] = useState("");
-  const [isOpen, setIsOpen] = useState(true);
   const [emailDomain, setEmailDomain] = useState("");
+  const [selfInput, setSelfInput] = useState("");
+  const handleNameChange = useCallback(event => {
+    setName(event.target.value);
+  }, []);
+
+  const handleEmailChange = useCallback(event => {
+    setEmail(event.target.value);
+  }, []);
+
+  const handleSelfInputChange = useCallback(event => {
+    setSelfInput(event.target.value);
+  }, []);
+
   const selectEmail = useCallback(
     value => {
       setIsOpen(!isOpen);
@@ -31,41 +44,22 @@ const Personal = () => {
     }
   }, [emailDomain]);
 
-  const handleNameChange = event => {
-    setName(event.target.value);
-  };
-
-  const handleEmailChange = event => {
-    setEmail(event.target.value);
-  };
-
-  const handleSelfInputChange = event => {
-    setSelfInput(event.target.value);
-  };
-
-  const isEmail = email => {
-    const emailRegex =
-      /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
-
-    return emailRegex.test(email);
-  };
-
-  const vaild = useMemo(() => {
+  const isValid = useMemo(() => {
     if (emailDomain === "직접입력") {
-      return isEmail(selfInput);
+      return emailValidator(selfInput);
     } else {
-      return isEmail(email + emailDomain);
+      return emailValidator(email + emailDomain);
     }
   }, [email, emailDomain, selfInput]);
 
-  const onClick = () => {
+  const savePersonalInfo = useCallback(() => {
     dispatch(inputUsername(name));
     if (emailDomain === "직접입력") {
       dispatch(inputEmail(selfInput));
     } else {
       dispatch(inputEmail(email + emailDomain));
     }
-  };
+  }, [name, email, emailDomain, selfInput]);
 
   return (
     <>
@@ -122,11 +116,11 @@ const Personal = () => {
       </Container>
       <Button
         size={60}
-        variant={vaild ? "primary" : "ghost"}
-        disabled={!vaild}
+        variant={isValid ? "primary" : "ghost"}
+        disabled={!isValid}
         block
         fixed
-        onClick={onClick}
+        onClick={savePersonalInfo}
         to="/info/farm"
       >
         다음

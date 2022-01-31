@@ -5,6 +5,8 @@ export const StyledContainer = styled.div`
   position: absolute;
   top: 54px;
   bottom: 60px;
+  left: 0;
+  right: 0;
   padding: 0 24px;
   overflow-y: auto;
 
