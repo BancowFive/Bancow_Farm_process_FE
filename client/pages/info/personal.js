@@ -6,8 +6,8 @@ import {
   Input,
   DropDown,
 } from "../../components";
-import { useDispatch, useSelector } from "react-redux";
-import { inputEmail, inputUsername } from "../../reducers/step1";
+import { useDispatch } from "react-redux";
+import { inputEmail, inputName } from "../../reducers/step1";
 import { emailValidator } from "../../utils";
 
 const Personal = () => {
@@ -53,7 +53,7 @@ const Personal = () => {
   }, [email, emailDomain, selfInput]);
 
   const savePersonalInfo = useCallback(() => {
-    dispatch(inputUsername(name));
+    dispatch(inputName(name));
     if (emailDomain === "직접입력") {
       dispatch(inputEmail(selfInput));
     } else {
