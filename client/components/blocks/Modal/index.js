@@ -24,7 +24,17 @@ function getModalIcon(icon) {
 }
 
 // ! 닫기, 연결 텍스트 재사용성 고려하기
-export const Modal = ({ open, close, title, guide, subMessage, icon, to }) => {
+export const Modal = ({
+  open,
+  close,
+  title,
+  guide,
+  subMessage,
+  icon,
+  to,
+  onClick,
+  children,
+}) => {
   return open ? (
     <ModalBackGround>
       <ModalBox>
@@ -35,11 +45,13 @@ export const Modal = ({ open, close, title, guide, subMessage, icon, to }) => {
           {subMessage && <span className="sub-message">{subMessage}</span>}
         </ContentsWrapper>
         <ButtonGroup className="modal__button-group" fixed>
-          <Button size={54} variant="ghost" onClick={close}>
-            닫기
-          </Button>
-          <Button size={54} variant="primary" to={to}>
-            연결
+          {close && (
+            <Button size={54} variant="ghost" onClick={close}>
+              닫기
+            </Button>
+          )}
+          <Button size={54} variant="primary" to={to} onClick={onClick}>
+            {children}
           </Button>
         </ButtonGroup>
       </ModalBox>
@@ -49,10 +61,12 @@ export const Modal = ({ open, close, title, guide, subMessage, icon, to }) => {
 
 Modal.propTypes = {
   open: PropTypes.bool.isRequired,
-  close: PropTypes.func.isRequired,
+  close: PropTypes.func,
   title: PropTypes.string,
   guide: PropTypes.string,
   subMessage: PropTypes.string,
   icon: PropTypes.string,
   to: PropTypes.string,
+  onClick: PropTypes.func,
+  children: PropTypes.node.isRequired,
 };

@@ -43,6 +43,7 @@
     "next-redux-wrapper": "^7.0.5",
     "prettier": "^2.5.1",
     "prop-types": "^15.8.1",
+    "react-daum-postcode": "^3.0.1",
     "redux-logger": "^3.0.6",
     "styled-components": "^5.3.3",
     "styled-reset": "^4.3.4"

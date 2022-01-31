@@ -1,9 +1,25 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { terms } from "../api";
+
+export const saveServiceTerms = createAsyncThunk(
+  "terms/saveServiceTerms",
+  async ({ serviceTerms, pageNum }, { rejectWithValue }) => {
+    try {
+      const result = await terms.saveServiceTerms(serviceTerms, pageNum);
+      return result;
+    } catch (error) {
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
 
 const initialState = {
   conditionOfUse: false,
   trustOfInformation: false,
   collectionOfInformation: false,
+  saveServiceTermsLoading: false,
+  saveServiceTermsDone: false,
+  saveServiceTermsError: null,
 };
 
 const termsSlice = createSlice({
@@ -37,6 +53,21 @@ const termsSlice = createSlice({
         state.trustOfInformation = true;
         state.collectionOfInformation = true;
       }
+    },
+  },
+  extraReducers: {
+    [saveServiceTerms.pending.type]: (state, action) => {
+      state.saveServiceTermsLoading = true;
+      state.saveServiceTermsDone = false;
+      state.saveServiceTermsError = null;
+    },
+    [saveServiceTerms.fulfilled.type]: (state, action) => {
+      state.saveServiceTermsLoading = false;
+      state.saveServiceTermsDone = true;
+    },
+    [saveServiceTerms.rejected.type]: (state, action) => {
+      state.saveServiceTermsLoading = false;
+      state.saveServiceTermsError = action.payload;
     },
   },
 });

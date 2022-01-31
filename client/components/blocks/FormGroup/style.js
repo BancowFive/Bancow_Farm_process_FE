@@ -3,15 +3,34 @@ import styled, { css } from "styled-components";
 import { flexbox, textStyle } from "../../../styles/utils";
 
 const authForm = css`
+  input {
+    min-width: 210px;
+  }
   button {
     min-width: 90px;
     padding: 0 12px;
   }
 `;
 const addressForm = css`
+  input:first-child {
+    min-width: 185px;
+  }
   button {
     min-width: 115px;
-    padding: 0 18px;
+  }
+`;
+
+const emailForm = css`
+  input:first-child {
+    min-width: 174px;
+  }
+  div {
+    min-width: 126px;
+    padding: 0;
+
+    button {
+      padding: 0 18px 0 10px;
+    }
   }
 `;
 
@@ -21,8 +40,10 @@ function setFormType(type) {
       return authForm;
     case "address":
       return addressForm;
+    case "email":
+      return emailForm;
     default:
-      return authForm;
+      return null;
   }
 }
 
@@ -37,13 +58,12 @@ export const StyledFormGroup = styled.div`
   }
 
   div {
-    ${flexbox("start")};
+    ${flexbox("start", "start")};
     gap: 12px;
+    margin-bottom: 8px;
 
-    input:first-child {
-      flex: 7;
-      min-width: 210px;
-
+    input {
+      flex: 1;
       &.error {
         border: 1px solid ${({ theme }) => theme.colors.error};
       }
@@ -62,8 +82,7 @@ export const StyledFormGroup = styled.div`
       ${textStyle("body2")};
     }
   }
-
-  ${({ type }) => setFormType(type)}
+  ${({ type }) => setFormType(type)};
 
   ${({ width }) =>
     css`

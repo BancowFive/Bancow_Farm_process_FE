@@ -1,30 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { Radio, RadioGroup } from "../../components";
 import { Wrapper } from "./style";
 
-const Check = ({ title, radioName, radioSize, option1, option2 }) => {
-  const [checkFirst, setCheckFirst] = useState(false);
-  const [checkSecond, setCheckSecond] = useState(false);
+const Check = ({
+  title,
+  radioName,
+  radioSize,
+  leftOption,
+  leftOptionValue,
+  rightOption,
+  rightOptionValue,
+  //Check의 setter
+  setUserAnswers,
+  error,
+}) => {
+  //각각의 버튼 체크 여부 상태 (리덕스로 만들어야함. farmcheck에서 체크해야 다음버튼 눌렀을 때 에러 띄울 수 있음.)
+  const [checkLeft, setCheckLeft] = useState(false);
+  const [checkRight, setCheckRight] = useState(false);
 
-  const finalChoice = value => {
-    setUserChoice(value);
+  //하나만 체크 가능한 로직 (라디오 버튼)
+  const clickFirst = e => {
+    if (!checkLeft) setCheckLeft(prev => !prev);
+    if (checkRight) setCheckRight(prev => !prev);
+    saveUserAnswer(e);
+  };
+  const clickSecond = e => {
+    if (!checkRight) setCheckRight(prev => !prev);
+    if (checkLeft) setCheckLeft(prev => !prev);
+    saveUserAnswer(e);
   };
 
-  const clickFirst = () => {
-    if (!checkFirst) {
-      setCheckFirst(prev => !prev);
-    }
-    if (checkSecond) {
-      setCheckSecond(prev => !prev);
-    }
-  };
-  const clickSecond = () => {
-    if (!checkSecond) {
-      setCheckSecond(prev => !prev);
-    }
-    if (checkFirst) {
-      setCheckFirst(prev => !prev);
-    }
+  //Check 컴포넌트로 사용자가 선택한 값 넘겨주기
+  const saveUserAnswer = e => {
+    const { name, value } = e.target;
+    setUserAnswers(prev => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -34,26 +44,53 @@ const Check = ({ title, radioName, radioSize, option1, option2 }) => {
         <div className="btn-wrapper">
           <Radio
             onClick={clickFirst}
-            variant={checkFirst ? "checked" : "unchecked"}
+            variant={checkLeft ? "checked" : "unchecked"}
             name={radioName}
             size={radioSize}
-            value={option1}
+            value={leftOptionValue}
           >
-            {option1}
+            {leftOption}
           </Radio>
           <Radio
             onClick={clickSecond}
-            variant={checkSecond ? "checked" : "unchecked"}
+            variant={checkRight ? "checked" : "unchecked"}
             name={radioName}
             size={radioSize}
-            value={option2}
+            value={rightOptionValue}
           >
-            {option2}
+            {rightOption}
           </Radio>
         </div>
+        <span>{error}</span>
       </RadioGroup>
     </Wrapper>
   );
 };
 
 export default Check;
+
+Check.propTypes = {
+  title: PropTypes.string.isRequired,
+  radioName: PropTypes.string.isRequired,
+  radioSize: PropTypes.number.isRequired,
+  leftOption: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+    PropTypes.bool,
+  ]).isRequired,
+  leftOptionValue: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+    PropTypes.bool,
+  ]).isRequired,
+  rightOption: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+    PropTypes.bool,
+  ]).isRequired,
+  rightOptionValue: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+    PropTypes.bool,
+  ]).isRequired,
+};
