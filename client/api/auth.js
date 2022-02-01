@@ -1,10 +1,10 @@
 import { request } from ".";
 
 export const auth = {
-  getCertification(telNumber) {
-    return request("post", "api/sendSMS", { userName: telNumber });
+  getCertification(phoneNumber) {
+    return request("post", "/api/sendSMS", { phoneNumber });
   },
-  authorize(telNumber, password) {
-    return request("post", "api/login", { userName: telNumber, password });
+  authorize(phoneNumber, password) {
+    return request("post", "/login", { phoneNumber, password });
   },
 };

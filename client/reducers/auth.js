@@ -3,9 +3,9 @@ import { auth } from "../api";
 
 export const getCertification = createAsyncThunk(
   "auth/getCertification",
-  async ({ telNumber }, { rejectWithValue }) => {
+  async ({ phoneNumber }, { rejectWithValue }) => {
     try {
-      const result = await auth.getCertification(telNumber);
+      const result = await auth.getCertification(phoneNumber);
       return result;
     } catch (error) {
       return rejectWithValue(err.response.data);
@@ -15,9 +15,9 @@ export const getCertification = createAsyncThunk(
 
 export const authorize = createAsyncThunk(
   "auth/authorize",
-  async ({ telNumber, password }, { rejectWithValue }) => {
+  async ({ phoneNumber, password }, { rejectWithValue }) => {
     try {
-      const result = await auth.authorize(telNumber, password);
+      const result = await auth.authorize(phoneNumber, password);
       return result;
     } catch (error) {
       return rejectWithValue(err.response.data);
@@ -26,7 +26,7 @@ export const authorize = createAsyncThunk(
 );
 
 const initialState = {
-  telNumber: "",
+  phoneNumber: "",
   password: "",
   certificationLoading: false,
   certificationDone: false,
@@ -40,8 +40,8 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    inputTelNumber: (state, action) => {
-      state.telNumber = action.payload;
+    inputPhoneNumber: (state, action) => {
+      state.phoneNumber = action.payload;
     },
   },
   extraReducers: {
@@ -60,20 +60,20 @@ const authSlice = createSlice({
       state.certificationError = action.payload;
     },
     [authorize.pending.type]: (state, action) => {
-      autorizationLoading = true;
-      autorizationDone = false;
-      autorizationError = null;
+      state.autorizationLoading = true;
+      state.autorizationDone = false;
+      state.autorizationError = null;
     },
     [authorize.fulfilled.type]: (state, action) => {
-      autorizationLoading = false;
-      autorizationDone = true;
+      state.autorizationLoading = false;
+      state.autorizationDone = true;
     },
     [authorize.rejected.type]: (state, action) => {
-      autorizationLoading = false;
-      autorizationError = action.payload;
+      state.autorizationLoading = false;
+      state.autorizationError = action.payload;
     },
   },
 });
 
-export const { inputTelNumber } = authSlice.actions;
+export const { inputPhoneNumber } = authSlice.actions;
 export default authSlice.reducer;

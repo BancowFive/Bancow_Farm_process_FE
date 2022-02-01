@@ -152,8 +152,8 @@ function setButtonSize(size) {
 }
 
 export const StyledButton = styled.button`
-  ${({ fixed }) =>
-    fixed &&
+  ${({ fixed, to }) =>
+    (fixed || to) &&
     css`
       position: fixed;
       bottom: 0;
