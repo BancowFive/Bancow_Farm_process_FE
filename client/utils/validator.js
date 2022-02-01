@@ -1,26 +1,26 @@
 // tel number regx
-export const telNumberValidator = (event, func) => {
+export const phoneNumberValidator = (event, func) => {
   const regex = /^[0-9\b -]{0,13}$/;
   if (regex.test(event.target.value)) {
     func(event.target.value);
   }
 };
 
-const telNumber12 = telNumber =>
-  telNumber.replace(/-/g, "").replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
+const phoneNumber12 = phoneNumber =>
+  phoneNumber.replace(/-/g, "").replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
 
-const telNumber13 = telNumber =>
-  telNumber.replace(/-/g, "").replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
+const phoneNumber13 = phoneNumber =>
+  phoneNumber.replace(/-/g, "").replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
 
-export const replaceTelNumberRegx = telNumber => {
-  switch (telNumber.length) {
+export const replacePhoneNumberRegx = phoneNumber => {
+  switch (phoneNumber.length) {
     case 10:
     case 12:
-      return telNumber12(telNumber);
+      return phoneNumber12(phoneNumber);
     case 13:
-      return telNumber13(telNumber);
+      return phoneNumber13(phoneNumber);
     default:
-      return telNumber;
+      return phoneNumber;
   }
 };
 
