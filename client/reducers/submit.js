@@ -1,9 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { submit, moveStep } from "../api";
 import { uploadToS3 } from "../modules/S3";
-import { useRouter } from "next/router";
-
-const router = useRouter();
+import { router } from "next/router";
 
 // 'user' API 호출 진행 + state 저장하기 함수 (임시보관용/작업 완료 후 삭제예정)
 // export const getUserFileInfo = createAsyncThunk(
@@ -48,8 +46,8 @@ export const submitFiles = createAsyncThunk(
   },
 );
 
-export const moveStep = createAsyncThunk(
-  "submit/moveStep",
+export const changeStep = createAsyncThunk(
+  "submit/changeStep",
   async ({ PageNum, inProgress, userId }, { rejectWithValue }) => {
     try {
       const result = await moveStep(PageNum, inProgress, userId);
@@ -120,15 +118,15 @@ const submitSlice = createSlice({
     });
 
     //moveStep
-    builder.addCase(moveStep.pending, (state, action) => {
+    builder.addCase(changeStep.pending, (state, action) => {
       state.status = "pending";
     });
-    builder.addCase(moveStep.fulfilled, (state, action) => {
+    builder.addCase(changeStep.fulfilled, (state, action) => {
       state.status = "fulfilled";
       //페이지 이동
       router.replace("/done/step2");
     });
-    builder.addCase(moveStep.rejected, (state, action) => {
+    builder.addCase(changeStep.rejected, (state, action) => {
       state.status = "rejected";
     });
   },

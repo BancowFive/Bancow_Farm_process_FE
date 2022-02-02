@@ -1,8 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { schedule, moveStep } from "../api";
-import { useRouter } from "next/router";
-
-const router = useRouter();
+import { router } from "next/router";
 
 export const submitAvailableDate = createAsyncThunk(
   "schedule/submitAvailableDate",
@@ -16,8 +14,8 @@ export const submitAvailableDate = createAsyncThunk(
   },
 );
 
-export const moveStep = createAsyncThunk(
-  "schedule/moveStep",
+export const changeStep = createAsyncThunk(
+  "schedule/changeStep",
   async ({ PageNum, inProgress, userId }, { rejectWithValue }) => {
     try {
       const result = await moveStep(PageNum, inProgress, userId);
@@ -54,15 +52,15 @@ const scheduleSlice = createSlice({
     });
 
     //moveStep
-    builder.addCase(moveStep.pending, (state, action) => {
+    builder.addCase(changeStep.pending, (state, action) => {
       state.status = "pending";
     });
-    builder.addCase(moveStep.fulfilled, (state, action) => {
+    builder.addCase(changeStep.fulfilled, (state, action) => {
       state.status = "fulfilled";
       //페이지 이동
       router.replace("/done/step3");
     });
-    builder.addCase(moveStep.rejected, (state, action) => {
+    builder.addCase(changeStep.rejected, (state, action) => {
       state.status = "rejected";
     });
   },

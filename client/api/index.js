@@ -26,7 +26,7 @@ export const movePage = (pageNum, id) => {
   return request("put", `/api/farm/${id}/move`, {
     pageNum: pageNum,
   });
-},
+};
 
 //농장 상태 변경
 export const moveStep = (pageNum, inProgress, id) => {
@@ -34,7 +34,7 @@ export const moveStep = (pageNum, inProgress, id) => {
     pageNum: pageNum,
     inProgress: inProgress,
   });
-},
+};
 
 export { auth } from "./auth";
 export { terms } from "./terms";

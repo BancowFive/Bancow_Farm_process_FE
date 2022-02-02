@@ -18,7 +18,7 @@ const Schedule = () => {
   const getSelectedDay = useCallback(
     day =>
       setselectedDate({
-        full: day.format("YYYYMMDD"),
+        full: day.format("YYYY-MM-DD"),
         year: day.format("YYYY"),
         month: day.format("MM"),
         day: day.format("DD"),
