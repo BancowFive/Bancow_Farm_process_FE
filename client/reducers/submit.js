@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { submit } from "../api";
+import { submit, moveStep } from "../api";
 import { uploadToS3 } from "../modules/S3";
 import { useRouter } from "next/router";
 
@@ -52,7 +52,7 @@ export const moveStep = createAsyncThunk(
   "submit/moveStep",
   async ({ PageNum, inProgress, userId }, { rejectWithValue }) => {
     try {
-      const result = await submit.moveStep(PageNum, inProgress, userId);
+      const result = await moveStep(PageNum, inProgress, userId);
       return result;
     } catch (error) {
       rejectWithValue(error.response.data);
