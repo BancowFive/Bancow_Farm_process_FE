@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const DOMAIN = "http://54.180.92.14:8080";
+const DOMAIN = "http://15.164.228.240:8080";
 
 export const request = (method, url, data) => {
   return axios({
@@ -24,3 +24,4 @@ export const user = {
 export { auth } from "./auth";
 export { terms } from "./terms";
 export { farmInfo, personalInfo } from "./info";
+export { submit } from "./submit";
