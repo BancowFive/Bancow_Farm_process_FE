@@ -10,6 +10,9 @@ export const Wrapper = styled.div`
   .btn-wrapper {
     margin-bottom: 8px;
   }
+  .invisible {
+    display: none;
+  }
   .error {
     color: ${({ theme }) => theme.colors.error};
     ${textStyle("body2")};
