@@ -5,25 +5,26 @@ import { useRouter } from "next/router";
 
 const router = useRouter();
 
-export const getUserFileInfo = createAsyncThunk(
-  "submit/getUserInfo",
-  async ({ result }, { rejectWithValue }) => {
-    try {
-      // const result = await user();
+// 'user' API 호출 진행 + state 저장하기 함수 (임시보관용/작업 완료 후 삭제예정)
+// export const getUserFileInfo = createAsyncThunk(
+//   "submit/getUserInfo",
+//   async ({ result }, { rejectWithValue }) => {
+//     try {
+//       const result = await user();
 
-      const userFileInfo = {};
+//       const userFileInfo = {};
 
-      result.data.farmFile.forEach(file => {
-        let name = file.fileType;
-        userFileInfo = { ...userFileInfo, name };
-      });
+//       result.data.farmFile.forEach(file => {
+//         let name = file.fileType;
+//         userFileInfo = { ...userFileInfo, name };
+//       });
 
-      return userFileInfo;
-    } catch (error) {
-      rejectWithValue(error.response.data);
-    }
-  },
-);
+//       return userFileInfo;
+//     } catch (error) {
+//       rejectWithValue(error.response.data);
+//     }
+//   },
+// );
 
 export const submitFiles = createAsyncThunk(
   "submit/submitFiles",
@@ -62,19 +63,32 @@ const initialState = {
 const submitSlice = createSlice({
   name: "submit",
   initialState,
-  reducers: {},
+  reducers: {
+    getUserFileInfo: (state, action) => {
+      const userFileInfo = async action => {
+        const checkFile = {};
+        action.payload.data.farmFile.forEach(file => {
+          let name = file.fileType;
+          checkFile = { ...checkFile, name };
+        });
+        return checkFile;
+      };
+
+      state.fileType = await userFileInfo(action);
+    },
+  },
   extraReducers: builder => {
-    //getUserFileInfo
-    builder.addCase(getUserFileInfo.pending, (state, action) => {
-      state.status = "pending";
-    });
-    builder.addCase(getUserFileInfo.fulfilled, (state, action) => {
-      state.status = "fulfilled";
-      state.fileType = action.payload;
-    });
-    builder.addCase(getUserFileInfo.rejected, (state, action) => {
-      state.status = "rejected";
-    });
+    //getUserFileInfo(임시보관용/작업 완료 후 삭제예정)
+    // builder.addCase(getUserFileInfo.pending, (state, action) => {
+    //   state.status = "pending";
+    // });
+    // builder.addCase(getUserFileInfo.fulfilled, (state, action) => {
+    //   state.status = "fulfilled";
+    //   state.fileType = action.payload;
+    // });
+    // builder.addCase(getUserFileInfo.rejected, (state, action) => {
+    //   state.status = "rejected";
+    // });
 
     //submitFiles
     builder.addCase(submitFiles.pending, (state, action) => {
