@@ -30,7 +30,9 @@ export const Header = () => {
         subMessage="뱅카우 고객센터 문의 시간 09:00 ~ 17:00"
         icon="tel"
         to="tel:02-2274-2517"
-      />
+      >
+        연결
+      </Modal>
     </>
   );
 };

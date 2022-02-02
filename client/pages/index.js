@@ -4,11 +4,6 @@ import Image from "next/image";
 import { useCallback } from "react";
 
 export default function Home() {
-  console.log("Home");
-
-  const handleClick = useCallback(() => {
-    console.log("Home: Auth로 이동");
-  }, []);
   return (
     <>
       <Container>
@@ -23,14 +18,7 @@ export default function Home() {
         </span>
         <Image src="/landing.png" width={305} height={248} />
       </Container>
-      <Button
-        onClick={handleClick}
-        variant="primary"
-        size={60}
-        block
-        to="/auth"
-        fixed
-      >
+      <Button variant="primary" size={60} block to="/auth" fixed>
         다음
       </Button>
     </>

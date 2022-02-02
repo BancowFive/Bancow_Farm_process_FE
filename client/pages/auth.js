@@ -1,11 +1,15 @@
 import { Container, Button, FormGroup, Input, Modal } from "../components";
 import { useCallback, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { phoneNumberValidator, replacePhoneNumberRegx } from "../utils";
+import { inputPhoneNumber, authorize } from "../reducers/auth";
 
 const auth = "1234";
 
 const Auth = () => {
-  const [telNumber, setTelNumber] = useState("");
-  const [telNumberValid, setTelNumberValid] = useState(null);
+  const dispatch = useDispatch();
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [phoneNumberValid, setPhoneNumberValid] = useState(null);
   const [message, setMessage] = useState("");
   const [isToggle, setIsToggle] = useState(false);
 
@@ -15,14 +19,11 @@ const Auth = () => {
     setIsToggle(!isToggle);
   }, [isToggle]);
 
-  const handleTelNumber = useCallback(
+  const handlePhoneNumber = useCallback(
     event => {
-      const regex = /^[0-9\b -]{0,13}$/;
-      if (regex.test(event.target.value)) {
-        setTelNumber(event.target.value);
-      }
+      phoneNumberValidator(event, setPhoneNumber);
     },
-    [telNumber],
+    [phoneNumber],
   );
 
   const handleAuthNumber = useCallback(e => {
@@ -30,37 +31,28 @@ const Auth = () => {
   }, []);
 
   useEffect(() => {
-    if (telNumber.length === 10 || telNumber.length === 12) {
-      setTelNumber(
-        telNumber
-          .replace(/-/g, "")
-          .replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3"),
-      );
-    }
-    if (telNumber.length === 13) {
-      setTelNumber(
-        telNumber
-          .replace(/-/g, "")
-          .replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3"),
-      );
-    }
-  }, [telNumber]);
+    setPhoneNumber(replacePhoneNumberRegx(phoneNumber));
+  }, [phoneNumber]);
 
   const checkValidation = useCallback(() => {
-    if (telNumber.length >= 12) {
-      console.log("Input: valid");
-      setTelNumberValid(true);
+    if (phoneNumber.length >= 12) {
+      setPhoneNumberValid(true);
       setMessage("인증번호가 발송되었습니다.");
     } else {
-      console.log("Input: error");
-      setTelNumberValid(false);
+      setPhoneNumberValid(false);
       setMessage("휴대폰 번호를 정확하게 입력해주세요.");
     }
-  }, [telNumber, telNumberValid]);
+  }, [phoneNumber, phoneNumberValid]);
 
   const resetInput = useCallback(() => {
-    setTelNumber("");
-  }, [telNumber]);
+    setPhoneNumber("");
+  }, [phoneNumber]);
+
+  const savePhoneNumber = useCallback(async () => {
+    toggleModal();
+    await dispatch(inputPhoneNumber(phoneNumber));
+    dispatch(authorize(phoneNumber, authNumber));
+  }, [phoneNumber, authNumber]);
 
   return (
     <>
@@ -76,13 +68,13 @@ const Auth = () => {
               size={58}
               variant="primary"
               type="text"
-              value={telNumber}
-              onChange={handleTelNumber}
+              value={phoneNumber}
+              onChange={handlePhoneNumber}
               icon="clear"
               onClick={resetInput}
               placeholder="- 없이 숫자만 입력"
               className={
-                telNumberValid === null ? "" : telNumberValid ? "" : "error"
+                phoneNumberValid === null ? "" : phoneNumberValid ? "" : "error"
               }
             />
             <Button
@@ -90,18 +82,18 @@ const Auth = () => {
               variant="checked"
               type="button"
               onClick={checkValidation}
-              disabled={telNumber.length === 0}
+              disabled={phoneNumber.length === 0}
             >
               인증 번호
             </Button>
           </div>
-          {telNumber.length > 0 && (
-            <span className={telNumberValid ? "success" : "error"}>
+          {phoneNumber.length > 0 && (
+            <span className={phoneNumberValid ? "success" : "error"}>
               {message}
             </span>
           )}
         </FormGroup>
-        {telNumberValid && (
+        {phoneNumberValid && (
           <FormGroup>
             <h3>인증번호</h3>
             <div>
@@ -130,12 +122,14 @@ const Auth = () => {
       </Button>
       <Modal
         open={isToggle}
-        close={toggleModal}
         title="인증되었습니다."
         subMessage="확인을 누르시면 계속 진행합니다."
         icon="done"
         to="/terms"
-      />
+        onClick={savePhoneNumber}
+      >
+        확인
+      </Modal>
     </>
   );
 };

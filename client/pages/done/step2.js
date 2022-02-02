@@ -1,14 +1,15 @@
+import React from "react";
+import { Button, AverageDate, ProgressStep } from "../../components/atoms";
 import { Container, ButtonInfo, ImgContainer } from "./style";
 import Image from "next/image";
 import cowAndMePic from "../../public/cow_plus_me.svg";
-import { Button, AverageDate, ProgressStep } from "../../components/atoms";
 
-const step1 = () => {
+const step2 = () => {
   return (
     <>
       <Container>
-        <ProgressStep activeStep={1} />
-        <h1>1차 신청이 완료되었어요</h1>
+        <ProgressStep lineStyle={"dashed"} activeStep={2} />
+        <h1>2차 신청이 완료되었어요</h1>
         <h2>
           평균 <AverageDate>2일 이내</AverageDate>로
           <br />
@@ -26,4 +27,4 @@ const step1 = () => {
   );
 };
 
-export default step1;
+export default step2;
