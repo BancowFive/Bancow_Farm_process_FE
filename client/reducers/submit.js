@@ -41,7 +41,7 @@ export const submitFiles = createAsyncThunk(
 
       const result = await submit.submitFiles(fileInfo);
 
-      return targetId;
+      return targetId; //result 불필요
     } catch (error) {
       rejectWithValue(error.response.data);
     }
@@ -65,20 +65,14 @@ const submitSlice = createSlice({
   initialState,
   reducers: {
     getUserFileInfo: (state, action) => {
-      const userFileInfo = async action => {
-        const checkFile = {};
-        action.payload.data.farmFile.forEach(file => {
-          let name = file.fileType;
-          checkFile = { ...checkFile, name };
-        });
-        return checkFile;
-      };
-
-      state.fileType = await userFileInfo(action);
+      action.payload.data.farmFile.forEach(file => {
+        let name = file.fileType;
+        state.fileType = { ...state.fileType, name };
+      });
     },
   },
   extraReducers: builder => {
-    //getUserFileInfo(임시보관용/작업 완료 후 삭제예정)
+    //getUserFileInfo (임시보관용/작업 완료 후 삭제예정)
     // builder.addCase(getUserFileInfo.pending, (state, action) => {
     //   state.status = "pending";
     // });
