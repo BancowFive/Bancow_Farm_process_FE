@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { submit, user } from "../api";
+import { submit } from "../api";
 import { uploadToS3 } from "../modules/S3";
 import { useRouter } from "next/router";
 
@@ -42,6 +42,18 @@ export const submitFiles = createAsyncThunk(
       const result = await submit.submitFiles(fileInfo, userId);
 
       return targetId; //result 불필요
+    } catch (error) {
+      rejectWithValue(error.response.data);
+    }
+  },
+);
+
+export const moveStep = createAsyncThunk(
+  "submit/moveStep",
+  async ({ PageNum, inProgress, userId }, { rejectWithValue }) => {
+    try {
+      const result = await submit.moveStep(PageNum, inProgress, userId);
+      return result;
     } catch (error) {
       rejectWithValue(error.response.data);
     }
@@ -100,12 +112,23 @@ const submitSlice = createSlice({
     builder.addCase(submitFiles.fulfilled, (state, action) => {
       state.status = "fulfilled";
       state.fileType = { ...state.fileType, ...action.payload };
-      router.replace("/done/step2");
-
       //payload 값 확인필요
       console.log(action.payload);
     });
     builder.addCase(submitFiles.rejected, (state, action) => {
+      state.status = "rejected";
+    });
+
+    //moveStep
+    builder.addCase(moveStep.pending, (state, action) => {
+      state.status = "pending";
+    });
+    builder.addCase(moveStep.fulfilled, (state, action) => {
+      state.status = "fulfilled";
+      //페이지 이동
+      router.replace("/done/step2");
+    });
+    builder.addCase(moveStep.rejected, (state, action) => {
       state.status = "rejected";
     });
   },
