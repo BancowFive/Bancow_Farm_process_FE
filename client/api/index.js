@@ -23,7 +23,7 @@ export const user = {
 
 //단순 페이지 이동하기
 export const movePage = (pageNum, id) => {
-  return request("put", `/api/farm/${id}/in-progress`, {
+  return request("put", `/api/farm/${id}/move`, {
     pageNum: pageNum,
   });
 },
