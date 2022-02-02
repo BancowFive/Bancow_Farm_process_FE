@@ -21,6 +21,7 @@ const required = () => {
       }),
       shallowEqual,
     );
+  const userId = useSelector(state => state.submit.id);
 
   const [hasSubmit, setHasSubmit] = useState(false);
 
@@ -41,7 +42,7 @@ const required = () => {
     const file = e.target.files[0];
     const targetId = e.target.id;
 
-    dispatch(submitFiles(file, targetId));
+    dispatch(submitFiles(file, targetId, userId));
   }, []);
 
   return (
