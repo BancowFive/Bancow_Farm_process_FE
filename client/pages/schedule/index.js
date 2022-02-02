@@ -1,27 +1,43 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Calendar } from "../../components/atoms/Calendar";
 import { ToastBar } from "../../components/atoms/Toast";
 import { SelectedDate } from "../../components/atoms/EmphasizedWord";
 import { Button } from "../../components/atoms/Button";
 import { Container, Toast } from "./style";
+import { useDispatch, useSelector } from "react-redux";
+import { submitAvailableDate, moveStep } from "../../reducers/schedule";
 
 const Schedule = () => {
+  const dispatch = useDispatch();
+  const userId = useSelector(state => state.schedule.id);
   const [selectedDate, setselectedDate] = useState();
   const [isDisabledDay, setIsDisabledDay] = useState(false);
-  //useSelect로 가져올 실사예정일
+  //공휴일 등 실사요청 불가능한 날짜, YYYYMMDD 형태
   const isDisable = ["20220210", "20220216", "20220213"];
 
-  const getSelectedDay = day =>
-    setselectedDate({
-      full: day.format("YYYYMMDD"),
-      year: day.format("YYYY"),
-      month: day.format("MM"),
-      day: day.format("DD"),
-    });
+  const getSelectedDay = useCallback(
+    day =>
+      setselectedDate({
+        full: day.format("YYYYMMDD"),
+        year: day.format("YYYY"),
+        month: day.format("MM"),
+        day: day.format("DD"),
+      }),
+    [],
+  );
 
-  const onDisabledAction = bool => {
+  const onDisabledAction = useCallback(bool => {
     setIsDisabledDay(bool);
-  };
+  }, []);
+
+  const handleSubmit = useCallback(async () => {
+    try {
+      await dispatch(submitAvailableDate(selectedDate.full, userId)).unwrap();
+      await dispatch(moveStep("14", "INVESTIGATION_CONFIRM", userId)).unwrap();
+    } catch (error) {
+      console.log(error);
+    }
+  }, [selectedDate]);
 
   return (
     <>
@@ -55,10 +71,10 @@ const Schedule = () => {
       <Button
         variant={selectedDate ? "primary" : "ghost"}
         size={60}
+        onClick={handleSubmit}
         block
         fixed
         disabled={selectedDate ? false : true}
-        to={"/"}
       >
         확인
       </Button>
