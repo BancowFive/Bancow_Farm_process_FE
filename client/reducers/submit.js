@@ -7,9 +7,9 @@ const router = useRouter();
 
 export const getUserFileInfo = createAsyncThunk(
   "submit/getUserInfo",
-  async ({}, { rejectWithValue }) => {
+  async ({ result }, { rejectWithValue }) => {
     try {
-      const result = await user();
+      // const result = await user();
 
       const userFileInfo = {};
 
