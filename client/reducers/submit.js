@@ -65,6 +65,9 @@ const submitSlice = createSlice({
   initialState,
   reducers: {
     getUserFileInfo: (state, action) => {
+      if (action.payload.data.farmFile.length === 0) {
+        return;
+      }
       action.payload.data.farmFile.forEach(file => {
         let name = file.fileType;
         state.fileType = { ...state.fileType, name };
