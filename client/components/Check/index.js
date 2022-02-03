@@ -6,26 +6,26 @@ import { Wrapper } from "./style";
 const Check = ({
   title,
   radioName,
-  radioSize,
   leftOption,
   leftOptionValue,
   rightOption,
   rightOptionValue,
   //Check의 setter
   setUserAnswers,
-  error,
+  invalidMessage,
+  showError,
 }) => {
   //각각의 버튼 체크 여부 상태 (리덕스로 만들어야함. farmcheck에서 체크해야 다음버튼 눌렀을 때 에러 띄울 수 있음.)
   const [checkLeft, setCheckLeft] = useState(false);
   const [checkRight, setCheckRight] = useState(false);
 
   //하나만 체크 가능한 로직 (라디오 버튼)
-  const clickFirst = e => {
+  const clickLeft = e => {
     if (!checkLeft) setCheckLeft(prev => !prev);
     if (checkRight) setCheckRight(prev => !prev);
     saveUserAnswer(e);
   };
-  const clickSecond = e => {
+  const clickRight = e => {
     if (!checkRight) setCheckRight(prev => !prev);
     if (checkLeft) setCheckLeft(prev => !prev);
     saveUserAnswer(e);
@@ -43,25 +43,31 @@ const Check = ({
       <RadioGroup>
         <div className="btn-wrapper">
           <Radio
-            onClick={clickFirst}
+            onClick={clickLeft}
             variant={checkLeft ? "checked" : "unchecked"}
             name={radioName}
-            size={radioSize}
+            size={58}
             value={leftOptionValue}
           >
             {leftOption}
           </Radio>
           <Radio
-            onClick={clickSecond}
+            onClick={clickRight}
             variant={checkRight ? "checked" : "unchecked"}
             name={radioName}
-            size={radioSize}
+            size={58}
             value={rightOptionValue}
           >
             {rightOption}
           </Radio>
         </div>
-        <span>{error}</span>
+        <span
+          className={
+            showError && !checkLeft && !checkRight ? "error" : "invisible"
+          }
+        >
+          {invalidMessage}
+        </span>
       </RadioGroup>
     </Wrapper>
   );
@@ -72,7 +78,6 @@ export default Check;
 Check.propTypes = {
   title: PropTypes.string.isRequired,
   radioName: PropTypes.string.isRequired,
-  radioSize: PropTypes.number.isRequired,
   leftOption: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string,
