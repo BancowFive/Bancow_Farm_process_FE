@@ -152,18 +152,23 @@ function setButtonSize(size) {
 }
 
 export const StyledButton = styled.button`
-  ${({ fixed, to }) =>
-    (fixed || to) &&
+  ${({ fixed }) =>
+    fixed &&
     css`
       position: fixed;
       bottom: 0;
+    `}
 
+  ${({ to }) =>
+    to &&
+    css`
       a {
         ${inlineFlexbox()};
         width: 100%;
         height: inherit;
       }
     `}
+  
 
   ${({ block }) => block && `width: 100%;`}
   padding: 0 18px;
