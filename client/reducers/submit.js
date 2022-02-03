@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { submit, user } from "../api";
+import { submit } from "../api";
 import { uploadToS3 } from "../modules/S3";
 import { useRouter } from "next/router";
 
@@ -28,7 +28,7 @@ const router = useRouter();
 
 export const submitFiles = createAsyncThunk(
   "submit/submitFiles",
-  async ({ file, targetId }, { rejectWithValue }) => {
+  async ({ file, targetId, userId }, { rejectWithValue }) => {
     try {
       const s3 = await uploadToS3(file, targetId);
 
@@ -39,7 +39,7 @@ export const submitFiles = createAsyncThunk(
         fileType: targetId,
       };
 
-      const result = await submit.submitFiles(fileInfo);
+      const result = await submit.submitFiles(fileInfo, userId);
 
       return targetId; //result 불필요
     } catch (error) {
@@ -48,7 +48,20 @@ export const submitFiles = createAsyncThunk(
   },
 );
 
+export const moveStep = createAsyncThunk(
+  "submit/moveStep",
+  async ({ PageNum, inProgress, userId }, { rejectWithValue }) => {
+    try {
+      const result = await submit.moveStep(PageNum, inProgress, userId);
+      return result;
+    } catch (error) {
+      rejectWithValue(error.response.data);
+    }
+  },
+);
+
 const initialState = {
+  id: "",
   status: "",
   fileType: {
     LIVESTOCK_REGISTRATION: null,
@@ -65,13 +78,18 @@ const submitSlice = createSlice({
   initialState,
   reducers: {
     getUserFileInfo: (state, action) => {
+      //id값 받기
+      state.id = action.payload.data.id;
+
+      //fileType 정보 받기
       if (action.payload.data.farmFile.length === 0) {
         return;
+      } else {
+        action.payload.data.farmFile.forEach(file => {
+          let name = file.fileType;
+          state.fileType = { ...state.fileType, name };
+        });
       }
-      action.payload.data.farmFile.forEach(file => {
-        let name = file.fileType;
-        state.fileType = { ...state.fileType, name };
-      });
     },
   },
   extraReducers: builder => {
@@ -94,12 +112,23 @@ const submitSlice = createSlice({
     builder.addCase(submitFiles.fulfilled, (state, action) => {
       state.status = "fulfilled";
       state.fileType = { ...state.fileType, ...action.payload };
-      router.replace("/done/step2");
-
       //payload 값 확인필요
       console.log(action.payload);
     });
     builder.addCase(submitFiles.rejected, (state, action) => {
+      state.status = "rejected";
+    });
+
+    //moveStep
+    builder.addCase(moveStep.pending, (state, action) => {
+      state.status = "pending";
+    });
+    builder.addCase(moveStep.fulfilled, (state, action) => {
+      state.status = "fulfilled";
+      //페이지 이동
+      router.replace("/done/step2");
+    });
+    builder.addCase(moveStep.rejected, (state, action) => {
       state.status = "rejected";
     });
   },

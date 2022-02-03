@@ -3,7 +3,7 @@ import { Button } from "../../components/atoms/Button";
 import { FileInput } from "../../components/atoms/Form";
 import { Container, FileInputGroup } from "./style";
 import { getS3Auth } from "../../modules/S3";
-import { submitFiles } from "../../reducers/submit";
+import { submitFiles, moveStep } from "../../reducers/submit";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
 const required = () => {
@@ -21,11 +21,12 @@ const required = () => {
       }),
       shallowEqual,
     );
+  const userId = useSelector(state => state.submit.id);
 
   const [hasSubmit, setHasSubmit] = useState(false);
 
+  //S3 관리자정보 가져오기
   useEffect(() => {
-    //S3 관리자정보 가져오기
     useCallback(() => getS3Auth(), []);
   }, []);
 
@@ -41,7 +42,12 @@ const required = () => {
     const file = e.target.files[0];
     const targetId = e.target.id;
 
-    dispatch(submitFiles(file, targetId));
+    dispatch(submitFiles(file, targetId, userId));
+  }, []);
+
+  const movePage = useCallback(() => {
+    //pageNum, inProgress, id
+    dispatch(moveStep("11", "STEP2_COMPLETED", userId));
   }, []);
 
   return (
@@ -103,6 +109,7 @@ const required = () => {
       <Button
         variant={hasSubmit ? "primary" : "ghost"}
         size={60}
+        onClick={movePage}
         block
         fixed
         disabled={hasSubmit ? false : true}
