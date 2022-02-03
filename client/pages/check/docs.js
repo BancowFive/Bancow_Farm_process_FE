@@ -71,7 +71,7 @@ const farmCheck = () => {
 
         <CheckWrapper>
           <Check
-            title="가축사육업 등록증"
+            title="가축 사육업 등록증"
             radioName="livestockFarmingBusinessRegistration"
             leftOption="있어요"
             leftOptionValue={true}
