@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { textStyle } from "../../../styles/utils";
+import { flexbox, textStyle } from "../../../styles/utils";
 
 export const StyledContainer = styled.div`
   position: absolute;
@@ -18,6 +18,9 @@ export const StyledContainer = styled.div`
   h2 {
     margin: 34px 0;
     ${textStyle("headline3")};
+  }
+  div.image-wrapper {
+    ${flexbox()};
   }
 
   span.guide {
