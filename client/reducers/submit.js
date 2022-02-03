@@ -3,8 +3,6 @@ import { submit } from "../api";
 import { uploadToS3 } from "../modules/S3";
 import { useRouter } from "next/router";
 
-const router = useRouter();
-
 // 'user' API 호출 진행 + state 저장하기 함수 (임시보관용/작업 완료 후 삭제예정)
 // export const getUserFileInfo = createAsyncThunk(
 //   "submit/getUserInfo",

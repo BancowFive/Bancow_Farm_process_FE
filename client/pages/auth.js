@@ -2,7 +2,7 @@ import { Container, Button, FormGroup, Input, Modal } from "../components";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { phoneNumberValidator, replacePhoneNumberRegx } from "../utils";
-import { inputPhoneNumber, authorize } from "../reducers/auth";
+import { inputPhoneNumber, authorize, fetchUserData } from "../reducers/auth";
 
 const auth = "1234";
 
@@ -50,9 +50,18 @@ const Auth = () => {
 
   const savePhoneNumber = useCallback(async () => {
     toggleModal();
-    await dispatch(inputPhoneNumber(phoneNumber));
-    dispatch(authorize(phoneNumber, authNumber));
+    await dispatch(inputPhoneNumber(phoneNumber.split("-").join("")));
+    dispatch(
+      authorize({
+        phoneNumber: phoneNumber.split("-").join(""),
+        password: authNumber,
+      }),
+    );
   }, [phoneNumber, authNumber]);
+
+  const fetchData = useCallback(() => {
+    dispatch(fetchUserData(phoneNumber.split("-").join("")));
+  }, [phoneNumber]);
 
   return (
     <>
@@ -116,7 +125,7 @@ const Auth = () => {
         block
         disabled={!(authNumber === auth)}
         fixed
-        onClick={toggleModal}
+        onClick={savePhoneNumber}
       >
         다음
       </Button>
@@ -125,8 +134,8 @@ const Auth = () => {
         title="인증되었습니다."
         subMessage="확인을 누르시면 계속 진행합니다."
         icon="done"
+        onClick={fetchData}
         to="/terms"
-        onClick={savePhoneNumber}
       >
         확인
       </Modal>

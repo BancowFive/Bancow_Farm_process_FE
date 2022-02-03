@@ -15,9 +15,21 @@ export const getCertification = createAsyncThunk(
 
 export const authorize = createAsyncThunk(
   "auth/authorize",
-  async ({ phoneNumber, password }, { rejectWithValue }) => {
+  async (data, { rejectWithValue }) => {
     try {
-      const result = await auth.authorize(phoneNumber, password);
+      const result = await auth.authorize(data);
+      return result;
+    } catch (error) {
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
+export const fetchUserData = createAsyncThunk(
+  "auth/fetchUserData",
+  async (id, { rejectWithValue }) => {
+    try {
+      const result = await auth.fetchData(id);
       return result;
     } catch (error) {
       return rejectWithValue(err.response.data);
@@ -34,6 +46,9 @@ const initialState = {
   autorizationLoading: false,
   autorizationDone: false,
   autorizationError: null,
+  fetchUserDataLoading: false,
+  fetchUserDataError: false,
+  fetchUserDataDone: null,
 };
 
 const authSlice = createSlice({
@@ -71,6 +86,19 @@ const authSlice = createSlice({
     [authorize.rejected.type]: (state, action) => {
       state.autorizationLoading = false;
       state.autorizationError = action.payload;
+    },
+    [fetchUserData.pending.type]: (state, action) => {
+      state.fetchUserDataLoading = true;
+      state.fetchUserDataDone = false;
+      state.fetchUserDataError = null;
+    },
+    [fetchUserData.fulfilled.type]: (state, action) => {
+      state.fetchUserDataLoading = false;
+      state.fetchUserDataDone = true;
+    },
+    [fetchUserData.rejected.type]: (state, action) => {
+      state.fetchUserDataLoading = false;
+      state.fetchUserDataError = action.payload;
     },
   },
 });

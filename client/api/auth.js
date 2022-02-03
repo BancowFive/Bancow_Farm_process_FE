@@ -1,10 +1,13 @@
 import { request } from ".";
 
 export const auth = {
-  getCertification(phoneNumber) {
-    return request("post", "/api/sendSMS", { phoneNumber });
+  getCertification(data) {
+    return request("post", "/api/sendSMS", data);
   },
-  authorize(phoneNumber, password) {
-    return request("post", "/login", { phoneNumber, password });
+  authorize(data) {
+    return request("post", "/login", data);
+  },
+  fetchData(id) {
+    return request("get", `/api/farm/checkInfo/${id}`);
   },
 };

@@ -16,7 +16,9 @@ export default function Home() {
           간단한 1, 2차 신청 단계를 거쳐 <br />
           마지막으로 실사일 요청을 진행할 거에요.
         </span>
-        <Image src="/landing.png" width={305} height={248} />
+        <div className="image-wrapper">
+          <Image src="/landing.png" width={305} height={248} />
+        </div>
       </Container>
       <Button variant="primary" size={60} block to="/auth" fixed>
         다음
