@@ -112,13 +112,13 @@ const farmCheck = () => {
         </CheckWrapper>
       </StyledContainer>
       <ButtonGroup fixed>
-        <Button variant="primary" size={130} to="/">
+        <Button variant="primary" size={60} to="/">
           이전
         </Button>
         <Button
           onClick={callApi}
           variant={checkedAll ? "primary" : "ghost"}
-          size={230}
+          size={60}
         >
           다음
         </Button>
