@@ -7,8 +7,12 @@ export const Wrapper = styled.div`
   height: 54px;
   display: flex;
   align-items: center;
-  position: fixed;
-  top: 0;
+  /* position: fixed; */
+  /* top: 0; */
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
+    display: none;
+  }
 `;
 
 export const LogoWrapper = styled.span`
