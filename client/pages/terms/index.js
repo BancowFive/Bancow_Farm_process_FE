@@ -13,10 +13,8 @@ import {
   Button,
   Footer,
 } from "../../components";
-import { useResponsive } from "../../hooks";
 
 const ServiceTerms = () => {
-  const [width] = useResponsive();
   const dispatch = useDispatch();
   const { conditionOfUse, trustOfInformation, collectionOfInformation } =
     useSelector(state => state.terms);
@@ -84,37 +82,20 @@ const ServiceTerms = () => {
             개인정보 선택/수집 이용
           </TermItem>
         </TermList>
-        {width > 768 && (
-          <div className="aside">
-            <Button
-              className="link"
-              size={60}
-              variant={
-                conditionOfUse && trustOfInformation ? "primary" : "ghost"
-              }
-              disabled={!(conditionOfUse && trustOfInformation)}
-              to="/info/personal"
-              block
-            >
-              다음
-            </Button>
-            <Footer />
-          </div>
-        )}
+        <div className="aside">
+          <Button
+            className="link"
+            size={60}
+            variant={conditionOfUse && trustOfInformation ? "primary" : "ghost"}
+            disabled={!(conditionOfUse && trustOfInformation)}
+            to="/info/personal"
+            block
+          >
+            다음
+          </Button>
+          <Footer />
+        </div>
       </Container>
-      {width <= 768 && (
-        <Button
-          className="link"
-          size={60}
-          variant={conditionOfUse && trustOfInformation ? "primary" : "ghost"}
-          disabled={!(conditionOfUse && trustOfInformation)}
-          to="/info/personal"
-          block
-          fixed
-        >
-          다음
-        </Button>
-      )}
     </>
   );
 };

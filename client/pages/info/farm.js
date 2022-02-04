@@ -11,10 +11,8 @@ import {
 import { setDaumPost, openDaumPost } from "../../utils";
 import { useDispatch } from "react-redux";
 import { inputFarmName, inputFarmAddress } from "../../reducers/step1";
-import { useResponsive } from "../../hooks";
 
 const Farm = () => {
-  const [width] = useResponsive();
   const dispatch = useDispatch();
 
   const postcodeRef = useRef(null);
@@ -31,6 +29,10 @@ const Farm = () => {
     },
     [isOpen],
   );
+
+  const handleFodderChange = useCallback(event => {
+    setFodder(event.target.value);
+  }, []);
 
   const farmNameChange = useCallback(event => {
     setFarmName(event.target.value);
@@ -72,7 +74,7 @@ const Farm = () => {
           </FormGroup>
           <FormGroup type="address">
             <h3>농가주소</h3>
-            <div>
+            <div className="main-input">
               <Input
                 size={58}
                 variant="primary"
@@ -103,7 +105,7 @@ const Farm = () => {
               />
             </div>
           </FormGroup>
-          <FormGroup>
+          <FormGroup type="fodder">
             <h3>사료</h3>
             <div>
               <DropDown
@@ -113,51 +115,41 @@ const Farm = () => {
                 block
               />
             </div>
+            {fodder === "직접입력" && (
+              <div>
+                <Input
+                  size={58}
+                  variant="primary"
+                  type="text"
+                  placeholder="사료 입력"
+                  value={fodder}
+                  onChange={handleFodderChange}
+                />
+              </div>
+            )}
           </FormGroup>
         </div>
 
-        {width > 768 && (
-          <div className="aside">
-            <ButtonGroup className="link">
-              <Button variant="ghost" size={60} to="/info/personal">
-                이전
-              </Button>
-              <Button
-                variant={
-                  farmName && postCode && address && fodder
-                    ? "primary"
-                    : "ghost"
-                }
-                disabled={!(farmName && postCode && address && fodder)}
-                size={60}
-                onClick={saveFarmInfo}
-                to="/"
-              >
-                다음
-              </Button>
-            </ButtonGroup>
-            <Footer />
-          </div>
-        )}
+        <div className="aside">
+          <ButtonGroup className="link">
+            <Button variant="ghost" size={60} to="/info/personal">
+              이전
+            </Button>
+            <Button
+              variant={
+                farmName && postCode && address && fodder ? "primary" : "ghost"
+              }
+              disabled={!(farmName && postCode && address && fodder)}
+              size={60}
+              onClick={saveFarmInfo}
+              to="/"
+            >
+              다음
+            </Button>
+          </ButtonGroup>
+          <Footer />
+        </div>
       </Container>
-      {width <= 768 && (
-        <ButtonGroup className="link" fixed>
-          <Button variant="ghost" size={60} to="/info/personal">
-            이전
-          </Button>
-          <Button
-            variant={
-              farmName && postCode && address && fodder ? "primary" : "ghost"
-            }
-            disabled={!(farmName && postCode && address && fodder)}
-            size={60}
-            onClick={saveFarmInfo}
-            to="/"
-          >
-            다음
-          </Button>
-        </ButtonGroup>
-      )}
     </>
   );
 };
