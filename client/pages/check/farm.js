@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 const CheckWrapper = styled.div`
-  height: 90vh;
+  /* height: 90vh; */
   div:not(:last-of-type) {
     margin-bottom: 30px;
   }
