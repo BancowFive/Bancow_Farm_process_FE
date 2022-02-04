@@ -56,7 +56,7 @@ export const Input = ({
   );
   if (icon || children) {
     return (
-      <StyledInputGroup width={width}>
+      <StyledInputGroup width={width} className={className}>
         {icon && getInputIcon(icon, onClick)}
         {element}
         {children}

@@ -15,10 +15,12 @@ export const Button = ({
   block,
   width,
   fixed,
+  className,
 }) => {
   if (to) {
     return (
       <StyledButton
+        className={className}
         size={size}
         variant={variant}
         onBlur={onBlur}
@@ -43,6 +45,7 @@ export const Button = ({
 
   return (
     <StyledButton
+      className={className}
       size={size}
       variant={variant}
       type={type}

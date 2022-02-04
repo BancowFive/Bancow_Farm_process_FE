@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { auth } from "../api";
+import { axiosAuth } from "../api";
 
 export const getCertification = createAsyncThunk(
   "auth/getCertification",
@@ -17,8 +18,8 @@ export const authorize = createAsyncThunk(
   "auth/authorize",
   async (data, { rejectWithValue }) => {
     try {
-      const result = await auth.authorize(data);
-      return result;
+      const result = await axiosAuth("post", "/login", data);
+      return result.data;
     } catch (error) {
       return rejectWithValue(err.response.data);
     }
@@ -40,6 +41,7 @@ export const fetchUserData = createAsyncThunk(
 const initialState = {
   phoneNumber: "",
   password: "",
+  data: {},
   certificationLoading: false,
   certificationDone: false,
   certificationError: null,
@@ -82,6 +84,7 @@ const authSlice = createSlice({
     [authorize.fulfilled.type]: (state, action) => {
       state.autorizationLoading = false;
       state.autorizationDone = true;
+      state.data = action.payload;
     },
     [authorize.rejected.type]: (state, action) => {
       state.autorizationLoading = false;

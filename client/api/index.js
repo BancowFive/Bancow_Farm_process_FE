@@ -1,15 +1,37 @@
 import axios from "axios";
+import authHeader from "../utils/authHeader";
 
-const DOMAIN = "http://15.164.228.240:8080";
+export const DOMAIN = "http://15.164.228.240:8080";
 
 export const request = (method, url, data) => {
   let json = JSON.stringify(data);
   return axios({
     method,
     url: DOMAIN + url,
+    headers: authHeader(),
     data: json,
   })
-    .then(result => result.data)
+    .then(result => result)
+    .catch(error => {
+      console.error(error);
+      throw error.response;
+    });
+};
+
+export const axiosAuth = (method, url, data) => {
+  let json = JSON.stringify(data);
+  return axios({
+    method,
+    url: DOMAIN + url,
+    data: json,
+  })
+    .then(response => {
+      console.log(response.headers.get("Authorization"));
+      if (response.data.accessToken) {
+        localStorage.setItem("token", JSON.stringify(response.data));
+      }
+      return response.data;
+    })
     .catch(error => {
       console.error(error);
       throw error.response;
