@@ -184,6 +184,7 @@ export const StyledImageInput = styled.label`
   margin: 20px 0 40px;
   width: 100%;
   height: 160px;
+  border: ${({ showError }) => (showError ? `1px solid #ff4e21` : "none")};
   border-radius: 10px;
   background-color: ${({ theme }) => theme.colors.backgroundGray};
   .image-container {
