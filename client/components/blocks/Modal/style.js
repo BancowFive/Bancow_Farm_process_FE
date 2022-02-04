@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import { textStyle } from "../../../styles/utils";
+import { positionCenter, textStyle } from "../../../styles/utils";
 
 // !  Modal transition 손보기
 export const ModalFade = keyframes`
@@ -27,10 +27,8 @@ export const ModalBackGround = styled.div`
 `;
 
 export const ModalBox = styled.div`
-  position: absolute;
-  top: 190px;
-  width: 86%;
-  height: 35%;
+  ${positionCenter()};
+  width: 312px;
   min-height: 280px;
   /* width: 312px;
   height: 280px; */
@@ -55,19 +53,20 @@ export const ContentsWrapper = styled.div`
     margin-top: 30px;
   }
   .title {
-    display: inline-block;
+    display: block;
     color: ${({ theme }) => theme.colors.black};
     ${textStyle("headline3")};
     font-weight: 700;
     margin-top: 20px;
   }
   .guide {
+    display: block;
     color: ${({ theme }) => theme.colors.secondary};
     ${textStyle("headline4")};
     margin-top: 4px;
   }
   .sub-message {
-    display: inline-block;
+    display: block;
     color: ${({ theme }) => theme.colors.guide};
     ${textStyle("body3")};
     margin-top: 20px;

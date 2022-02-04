@@ -1,8 +1,17 @@
-import { Container, Button, FormGroup, Input, Modal } from "../components";
+import {
+  Container,
+  Button,
+  FormGroup,
+  Input,
+  Modal,
+  Footer,
+} from "../components";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { phoneNumberValidator, replacePhoneNumberRegx } from "../utils";
-import { inputPhoneNumber, authorize } from "../reducers/auth";
+import { inputPhoneNumber, authorize, fetchUserData } from "../reducers/auth";
+import { useResponsive } from "../hooks";
+import axios from "axios";
 
 const auth = "1234";
 
@@ -14,6 +23,7 @@ const Auth = () => {
   const [isToggle, setIsToggle] = useState(false);
 
   const [authNumber, setAuthNumber] = useState("");
+  const [width] = useResponsive();
 
   const toggleModal = useCallback(() => {
     setIsToggle(!isToggle);
@@ -50,83 +60,117 @@ const Auth = () => {
 
   const savePhoneNumber = useCallback(async () => {
     toggleModal();
-    await dispatch(inputPhoneNumber(phoneNumber));
-    dispatch(authorize(phoneNumber, authNumber));
+    await dispatch(inputPhoneNumber(phoneNumber.split("-").join("")));
+    dispatch(
+      authorize({
+        phoneNumber: phoneNumber.split("-").join(""),
+        password: authNumber,
+      }),
+    );
   }, [phoneNumber, authNumber]);
+
+  const fetchData = useCallback(() => {
+    dispatch(fetchUserData(phoneNumber.split("-").join("")));
+  }, [phoneNumber]);
 
   return (
     <>
       <Container>
-        <h2>
-          휴대폰 본인 인증이 <br />
-          필요해요
-        </h2>
-        <FormGroup type="auth">
-          <h3>휴대폰 번호</h3>
-          <div>
-            <Input
-              size={58}
-              variant="primary"
-              type="text"
-              value={phoneNumber}
-              onChange={handlePhoneNumber}
-              icon="clear"
-              onClick={resetInput}
-              placeholder="- 없이 숫자만 입력"
-              className={
-                phoneNumberValid === null ? "" : phoneNumberValid ? "" : "error"
-              }
-            />
-            <Button
-              size={56}
-              variant="checked"
-              type="button"
-              onClick={checkValidation}
-              disabled={phoneNumber.length === 0}
-            >
-              인증 번호
-            </Button>
-          </div>
-          {phoneNumber.length > 0 && (
-            <span className={phoneNumberValid ? "success" : "error"}>
-              {message}
-            </span>
-          )}
-        </FormGroup>
-        {phoneNumberValid && (
-          <FormGroup>
-            <h3>인증번호</h3>
+        <div className="content">
+          <h2>
+            휴대폰 본인 인증이 <br />
+            필요해요
+          </h2>
+          <FormGroup type="auth">
+            <h3>휴대폰 번호</h3>
             <div>
               <Input
                 size={58}
                 variant="primary"
                 type="text"
-                value={authNumber}
-                onChange={handleAuthNumber}
-                placeholder="인증번호 입력"
-                maxLength={4}
+                value={phoneNumber}
+                onChange={handlePhoneNumber}
+                icon="clear"
+                onClick={resetInput}
+                placeholder="- 없이 숫자만 입력"
+                className={
+                  phoneNumberValid === null
+                    ? "input"
+                    : phoneNumberValid
+                    ? "input"
+                    : "error input"
+                }
               />
+              <Button
+                size={56}
+                variant="checked"
+                type="button"
+                onClick={checkValidation}
+                disabled={phoneNumber.length === 0}
+              >
+                인증 번호
+              </Button>
             </div>
+            {phoneNumber.length > 0 && (
+              <span className={phoneNumberValid ? "success" : "error"}>
+                {message}
+              </span>
+            )}
           </FormGroup>
+          {phoneNumberValid && (
+            <FormGroup>
+              <h3>인증번호</h3>
+              <div>
+                <Input
+                  size={58}
+                  variant="primary"
+                  type="text"
+                  value={authNumber}
+                  onChange={handleAuthNumber}
+                  placeholder="인증번호 입력"
+                  maxLength={4}
+                />
+              </div>
+            </FormGroup>
+          )}
+        </div>
+        {width > 768 && (
+          <div className="aside">
+            <Button
+              className="link"
+              variant={authNumber === auth ? "primary" : "ghost"}
+              size={60}
+              block
+              disabled={!(authNumber === auth)}
+              onClick={savePhoneNumber}
+            >
+              다음
+            </Button>
+            <Footer />
+          </div>
         )}
       </Container>
-      <Button
-        variant={authNumber === auth ? "primary" : "ghost"}
-        size={60}
-        block
-        disabled={!(authNumber === auth)}
-        fixed
-        onClick={toggleModal}
-      >
-        다음
-      </Button>
+      {width <= 768 && (
+        <Button
+          className="link"
+          variant={authNumber === auth ? "primary" : "ghost"}
+          size={60}
+          block
+          disabled={!(authNumber === auth)}
+          fixed
+          onClick={savePhoneNumber}
+        >
+          다음
+        </Button>
+      )}
+
       <Modal
         open={isToggle}
         title="인증되었습니다."
         subMessage="확인을 누르시면 계속 진행합니다."
         icon="done"
+        onClick={fetchData}
         to="/terms"
-        onClick={savePhoneNumber}
       >
         확인
       </Modal>

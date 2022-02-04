@@ -9,6 +9,7 @@ export {
   ProgressStep,
   TermItem,
   List,
+  Footer,
 } from "./atoms";
 export {
   ButtonGroup,

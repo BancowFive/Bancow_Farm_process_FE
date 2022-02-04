@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Button } from "../../components/atoms/Button";
 import { FileInput } from "../../components/atoms/Form";
+import { ProgressHeader } from "../../components/blocks";
 import { Container, FileInputGroup } from "./style";
 import { getS3Auth } from "../../modules/S3";
 import { submitFiles, moveStep } from "../../reducers/submit";
@@ -27,7 +28,7 @@ const required = () => {
 
   //S3 관리자정보 가져오기
   useEffect(() => {
-    useCallback(() => getS3Auth(), []);
+    getS3Auth();
   }, []);
 
   //제출 Valid check
@@ -53,69 +54,68 @@ const required = () => {
   return (
     <>
       <Container>
-        <h2>필수 서류를 제출해 주세요</h2>
-        <span>제출할 서류를 선택하세요</span>
-        <FileInputGroup>
-          <FileInput
-            onChange={getUploadedFile}
-            variant={livestock != null ? "uploaded" : "unuploaded"}
-            id="LIVESTOCK_REGISTRATION"
-            width="312px"
+        <div className="content">
+          <ProgressHeader className="progressHeader" percentage={"40%"} />
+          <h2>필수 서류를 제출해 주세요</h2>
+          <span className="notice">제출할 서류를 선택하세요</span>
+          <FileInputGroup>
+            <FileInput
+              onChange={getUploadedFile}
+              variant={livestock != null ? "uploaded" : "unuploaded"}
+              id="LIVESTOCK_REGISTRATION"
+            >
+              가축사육업 등록증
+            </FileInput>
+            <FileInput
+              onChange={getUploadedFile}
+              variant={facility != null ? "uploaded" : "unuploaded"}
+              id="STRUCTURAL_DIAGRAM"
+            >
+              축사시설 구조도
+            </FileInput>
+            <FileInput
+              onChange={getUploadedFile}
+              variant={fooder != null ? "uploaded" : "unuploaded"}
+              id="FEED_STATEMENT"
+            >
+              사료비 명세서(1년)
+            </FileInput>
+            <FileInput
+              onChange={getUploadedFile}
+              variant={shipping != null ? "uploaded" : "unuploaded"}
+              id="SHIPPING_REPORT"
+            >
+              출하 성적서(1년)
+            </FileInput>
+            <FileInput
+              onChange={getUploadedFile}
+              variant={business != null ? "uploaded" : "unuploaded"}
+              id="BUSINESS_REGISTRATION"
+            >
+              사업자 등록증
+            </FileInput>
+            <FileInput
+              onChange={getUploadedFile}
+              variant={idCard != null ? "uploaded" : "unuploaded"}
+              id="ID_CARD"
+            >
+              농장주 신분증
+            </FileInput>
+          </FileInputGroup>
+        </div>
+        <div className="aside">
+          <Button
+            className="link"
+            variant={hasSubmit ? "primary" : "ghost"}
+            size={60}
+            onClick={movePage}
+            block
+            disabled={hasSubmit ? false : true}
           >
-            가축사육업 등록증
-          </FileInput>
-          <FileInput
-            onChange={getUploadedFile}
-            variant={facility != null ? "uploaded" : "unuploaded"}
-            id="STRUCTURAL_DIAGRAM"
-            width="312px"
-          >
-            축사시설 구조도
-          </FileInput>
-          <FileInput
-            onChange={getUploadedFile}
-            variant={fooder != null ? "uploaded" : "unuploaded"}
-            id="FEED_STATEMENT"
-            width="312px"
-          >
-            사료비 명세서(1년)
-          </FileInput>
-          <FileInput
-            onChange={getUploadedFile}
-            variant={shipping != null ? "uploaded" : "unuploaded"}
-            id="SHIPPING_REPORT"
-            width="312px"
-          >
-            출하 성적서(1년)
-          </FileInput>
-          <FileInput
-            onChange={getUploadedFile}
-            variant={business != null ? "uploaded" : "unuploaded"}
-            id="BUSINESS_REGISTRATION"
-            width="312px"
-          >
-            사업자 등록증
-          </FileInput>
-          <FileInput
-            onChange={getUploadedFile}
-            variant={idCard != null ? "uploaded" : "unuploaded"}
-            id="ID_CARD"
-            width="312px"
-          >
-            농장주 신분증
-          </FileInput>
-        </FileInputGroup>
+            제출
+          </Button>
+        </div>
       </Container>
-      <Button
-        variant={hasSubmit ? "primary" : "ghost"}
-        size={60}
-        onClick={movePage}
-        block
-        fixed
-        disabled={hasSubmit ? false : true}
-      >
-        제출
-      </Button>
     </>
   );
 };

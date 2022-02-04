@@ -1,10 +1,17 @@
-import { request } from ".";
+import { request, axiosAuth, DOMAIN } from ".";
 
 export const auth = {
-  getCertification(phoneNumber) {
-    return request("post", "/api/sendSMS", { phoneNumber });
+  getCertification(data) {
+    return request("post", "/api/sendSMS", data);
   },
-  authorize(phoneNumber, password) {
-    return request("post", "/login", { phoneNumber, password });
+  authorize(data) {
+    const result = axiosAuth("post", "/login", data);
+    return result;
+  },
+  fetchData(id) {
+    return request("get", `/api/farm/checkInfo/${id}`);
+  },
+  logout() {
+    localStorage.removeItem("token");
   },
 };

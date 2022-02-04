@@ -1,4 +1,7 @@
-const breakpoints = {};
+const breakpoints = {
+  tablet: "1024px",
+  desktop: "1280px",
+};
 
 const fontFamilies = {
   main: "Noto Sans KR, sans-serif",
@@ -69,16 +72,9 @@ const colors = {
   yellow: "#fac805",
 };
 
-const boxShadows = {
-  dropdown: `0 4px 6px rgba(0, 0, 0, 0.18)`,
-  popup: `0 4px 20px rgba(63, 65, 80, 0.3)`,
-  popupReversed: `0 -4px 20px rgba(63, 65, 80, 0.3)`,
-};
-
 // styled-components에서 사용할 theme
 export const theme = {
   breakpoints,
-  boxShadows,
   colors,
   fontFamilies,
   fontSizes,

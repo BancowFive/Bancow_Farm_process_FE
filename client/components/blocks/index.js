@@ -5,3 +5,4 @@ export { Header } from "./Header";
 export { Modal } from "./Modal";
 export { TermList } from "./TermList";
 export { DropDown } from "./DropDown";
+export { ProgressHeader } from "./ProgressGroup";
