@@ -9,9 +9,13 @@ import {
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { phoneNumberValidator, replacePhoneNumberRegx } from "../utils";
-import { inputPhoneNumber, authorize, fetchUserData } from "../reducers/auth";
-import { useResponsive } from "../hooks";
-import axios from "axios";
+import {
+  inputPhoneNumber,
+  authorize,
+  fetchUserData,
+  getCertification,
+} from "../reducers/auth";
+import { printPhoneNumber } from "../utils/nums";
 
 const auth = "1234";
 
@@ -23,7 +27,6 @@ const Auth = () => {
   const [isToggle, setIsToggle] = useState(false);
 
   const [authNumber, setAuthNumber] = useState("");
-  const [width] = useResponsive();
 
   const toggleModal = useCallback(() => {
     setIsToggle(!isToggle);
@@ -52,6 +55,7 @@ const Auth = () => {
       setPhoneNumberValid(false);
       setMessage("휴대폰 번호를 정확하게 입력해주세요.");
     }
+    dispatch(getCertification({ phoneNumber: printPhoneNumber(phoneNumber) }));
   }, [phoneNumber, phoneNumberValid]);
 
   const resetInput = useCallback(() => {
@@ -60,17 +64,17 @@ const Auth = () => {
 
   const savePhoneNumber = useCallback(async () => {
     toggleModal();
-    await dispatch(inputPhoneNumber(phoneNumber.split("-").join("")));
+    dispatch(inputPhoneNumber(printPhoneNumber(phoneNumber)));
     dispatch(
       authorize({
-        phoneNumber: phoneNumber.split("-").join(""),
+        phoneNumber: printPhoneNumber(phoneNumber),
         password: authNumber,
       }),
     );
   }, [phoneNumber, authNumber]);
 
   const fetchData = useCallback(() => {
-    dispatch(fetchUserData(phoneNumber.split("-").join("")));
+    dispatch(fetchUserData(printPhoneNumber(phoneNumber)));
   }, [phoneNumber]);
 
   return (
@@ -83,7 +87,7 @@ const Auth = () => {
           </h2>
           <FormGroup type="auth">
             <h3>휴대폰 번호</h3>
-            <div>
+            <div className="main-input">
               <Input
                 size={58}
                 variant="primary"
@@ -134,35 +138,20 @@ const Auth = () => {
             </FormGroup>
           )}
         </div>
-        {width > 768 && (
-          <div className="aside">
-            <Button
-              className="link"
-              variant={authNumber === auth ? "primary" : "ghost"}
-              size={60}
-              block
-              disabled={!(authNumber === auth)}
-              onClick={savePhoneNumber}
-            >
-              다음
-            </Button>
-            <Footer />
-          </div>
-        )}
+        <div className="aside">
+          <Button
+            className="link"
+            variant={authNumber === auth ? "primary" : "ghost"}
+            size={60}
+            block
+            disabled={!(authNumber === auth)}
+            onClick={savePhoneNumber}
+          >
+            다음
+          </Button>
+          <Footer />
+        </div>
       </Container>
-      {width <= 768 && (
-        <Button
-          className="link"
-          variant={authNumber === auth ? "primary" : "ghost"}
-          size={60}
-          block
-          disabled={!(authNumber === auth)}
-          fixed
-          onClick={savePhoneNumber}
-        >
-          다음
-        </Button>
-      )}
 
       <Modal
         open={isToggle}
