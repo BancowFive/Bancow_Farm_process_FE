@@ -159,6 +159,7 @@ export const StyledFileInput = styled.label`
   padding: 0 16px;
   border-radius: 10px;
   ${textStyle("body1")};
+  color: ${({ theme }) => theme.colors.tertiary};
   cursor: pointer;
   ${({ size }) => setInputSize(size)};
   ${({ variant }) => setInputVariant(variant)};
