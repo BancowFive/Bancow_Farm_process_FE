@@ -23,7 +23,6 @@ function getModalIcon(icon) {
   }
 }
 
-// ! 닫기, 연결 텍스트 재사용성 고려하기
 export const Modal = ({
   open,
   close,

@@ -41,6 +41,7 @@ const emailForm = css`
 
 function setFormType(type) {
   switch (type) {
+    case "fodder":
     case "auth":
       return authForm;
     case "address":
@@ -68,13 +69,12 @@ export const StyledFormGroup = styled.div`
     gap: 12px;
 
     input {
-      margin-bottom: 8px;
       &.error {
         border: 1px solid ${({ theme }) => theme.colors.error};
       }
     }
 
-    button {
+    &.main-input {
       margin-bottom: 8px;
     }
 

@@ -49,7 +49,6 @@ const uncheckedButtonStyle = css`
     background-color: ${({ theme }) => theme.colors.backgroundGray};
   }
 `;
-
 const uploadedButtonStyle = css`
   color: ${({ theme }) => theme.colors.tertiary};
   background-color: ${({ theme }) => theme.colors.white};
@@ -113,12 +112,10 @@ const button38 = css`
   ${textStyle("body3")};
   height: 38px;
 `;
-
 const button54 = css`
   ${textStyle("body1")};
   height: 54px;
 `;
-
 const button56 = css`
   ${textStyle("body2")};
   height: 56px;
@@ -155,7 +152,7 @@ export const StyledButton = styled.button`
   ${({ fixed }) =>
     fixed &&
     css`
-      position: fixed;
+      position: fixed !important;
       bottom: 0;
     `}
 
@@ -168,7 +165,6 @@ export const StyledButton = styled.button`
         height: inherit;
       }
     `}
-  
   padding: 0 18px;
 
   ${({ variant }) => {
@@ -182,7 +178,6 @@ export const StyledButton = styled.button`
         ${inlineFlexbox("between")};
         ${textStyle("body1")};
         padding: 0 14px 0 16px;
-
         ${({ type }) =>
           type &&
           css`
@@ -205,7 +200,6 @@ export const StyledButton = styled.button`
         ${setButtonVariant(variant)}
       `;
     }
-
     if (variant === "primary") {
       return css`
         ${inlineFlexbox()};
@@ -218,8 +212,7 @@ export const StyledButton = styled.button`
       ${setButtonVariant(variant)}
     `;
   }}
-
-  ${({ size }) => setButtonSize(size)}
+  ${({ size }) => setButtonSize(size)};
   ${({ block }) => block && `width: 100%;`}
   width: ${({ width }) => width};
 `;
