@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { flexbox, textStyle } from "../../../styles/utils";
 export const StyledFooter = styled.footer`
   display: none;
+  width: 100%;
   height: 60px;
   padding: 0 16px;
   border: 1px solid ${({ theme }) => theme.colors.borderGray};
@@ -9,13 +10,15 @@ export const StyledFooter = styled.footer`
   ${textStyle("body3")};
   color: ${({ theme }) => theme.colors.guide};
 
-  div {
+  div.footer-header {
     ${flexbox()};
+    flex-direction: row;
     img {
       display: block;
       margin-right: 10px;
     }
   }
+
   ul {
     ${flexbox()}
     gap: 10px;

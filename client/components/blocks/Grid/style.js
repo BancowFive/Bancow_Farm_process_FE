@@ -115,7 +115,7 @@ export const StyledContainer = styled.div`
     }
     div.aside {
       .footer {
-        display: block;
+        ${flexbox("between")};
       }
     }
   }
