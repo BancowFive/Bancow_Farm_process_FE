@@ -12,7 +12,6 @@ export const Container = styled.div`
 export const Bars = styled.div`
   position: relative;
   ${flexbox("start")}
-  flex-grow: 1;
   margin: 0 16px 0 3px;
   height: 14px;
 `;
@@ -64,7 +63,8 @@ export const ProgressLine = styled.div.attrs(props => ({
   position: absolute;
   min-width: 293px;
   width: 100%;
-  border-top: 1.5px ${props => props.lineStyle} ${theme.colors.borderGray};
+  border-top: ${props => props.lineBorder} ${props => props.lineStyle}
+    ${theme.colors.borderGray};
 `;
 
 export const ActiveProgressLine = styled.div.attrs(props => ({
@@ -80,7 +80,8 @@ export const ActiveProgressLine = styled.div.attrs(props => ({
 }))`
   position: absolute;
   width: ${props => (props.byPercentage ? props.byPercentage : props.byActive)};
-  border-top: 3px solid ${({ theme }) => theme.colors.mainBlue};
+  border-top: ${props => props.activeLineBorder} solid
+    ${({ theme }) => theme.colors.mainBlue};
   border-radius: 5px;
   transition: ${props =>
     props.byPercentage ? "width 0.3s ease-out" : "default"};
