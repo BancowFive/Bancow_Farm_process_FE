@@ -1,14 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { auth } from "../api";
-import { axiosAuth } from "../api";
+import { axiosAuth, axiosCertification } from "../api/auth";
 
 export const getCertification = createAsyncThunk(
   "auth/getCertification",
-  async ({ phoneNumber }, { rejectWithValue }) => {
+  async (data, { rejectWithValue }) => {
     try {
-      const result = await auth.getCertification(phoneNumber);
-      return result;
+      const result = await axiosCertification("post", "/api/sendSMS", data);
+      console.log(result);
+      return result.data;
     } catch (error) {
+      console.error(error);
       return rejectWithValue(err.response.data);
     }
   },
@@ -41,7 +43,6 @@ export const fetchUserData = createAsyncThunk(
 const initialState = {
   phoneNumber: "",
   password: "",
-  data: {},
   certificationLoading: false,
   certificationDone: false,
   certificationError: null,
@@ -70,7 +71,6 @@ const authSlice = createSlice({
     [getCertification.fulfilled.type]: (state, action) => {
       state.certificationLoading = false;
       state.certificationDone = true;
-      state.password = action.payload;
     },
     [getCertification.rejected.type]: (state, action) => {
       state.certificationLoading = false;
