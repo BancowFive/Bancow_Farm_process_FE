@@ -1,7 +1,7 @@
 import { Button } from ".";
 
 export default {
-  title: "Button",
+  title: "Buttons",
   component: Button,
 };
 
@@ -13,37 +13,31 @@ const Template = args => (
 );
 
 //👇 Each story then reuses that template
-export const ButtonPrimary = Template.bind({});
-ButtonPrimary.args = {
+export const Primary = Template.bind({});
+Primary.args = {
   type: "button",
   variant: "primary",
   size: 60,
   onClick: () => {},
-  width: "360px",
 };
 
-export const ButtonGhost = Template.bind({});
-ButtonGhost.args = {
+export const Ghost = Template.bind({});
+Ghost.args = {
   type: "button",
   variant: "ghost",
   size: 60,
   onClick: () => {},
   disabled: false,
-  width: "360px",
 };
 
-export const ButtonDisabled = Template.bind({});
-ButtonDisabled.args = {
-  ...ButtonGhost.args,
+export const Disabled = Template.bind({});
+Disabled.args = {
+  ...Ghost.args,
   disabled: true,
-  width: "360px",
-  size: 60,
 };
 
-export const ButtonCheck = Template.bind({});
-ButtonCheck.args = {
+export const Checking = Template.bind({});
+Checking.args = {
   type: "button",
   variant: "checked",
-  width: "90px",
-  size: 60,
 };

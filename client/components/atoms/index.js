@@ -4,3 +4,4 @@ export { ProgressStep } from "./ProgressStep";
 export { Confirm, AverageDate, SelectedDate } from "./EmphasizedWord";
 export { TermItem } from "./TermItem";
 export { List } from "./List";
+export { Footer } from "./Footer";

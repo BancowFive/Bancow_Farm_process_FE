@@ -14,3 +14,7 @@ FormGroup.propTypes = {
   children: PropTypes.node.isRequired,
   width: PropTypes.string,
 };
+
+FormGroup.defaultProps = {
+  width: "100%",
+};
