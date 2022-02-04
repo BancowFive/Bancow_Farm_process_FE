@@ -56,12 +56,12 @@ function setInputVariant(variant) {
 }
 
 export const StyledInput = styled.input`
-  ${textStyle("body1")};
   display: block;
   width: 100%;
   padding: 0 18px;
   border: 1px solid ${({ theme }) => theme.colors.borderGray};
   border-radius: 10px;
+  ${textStyle("body1")};
   appearance: none;
 
   &::placeholder {
@@ -107,10 +107,7 @@ export const StyledInput = styled.input`
 
 export const StyledInputGroup = styled.div`
   position: relative;
-  ${({ width }) =>
-    css`
-      width: ${width};
-    `}
+  width: ${({ width }) => width};
 
   input {
     padding-right: 40px;
@@ -131,11 +128,7 @@ export const StyledInputGroup = styled.div`
 
 export const StyledSelectGroup = styled.div`
   position: relative;
-  width: 100%;
-  ${({ width }) =>
-    css`
-      width: ${width};
-    `}
+  width: ${({ width }) => (width ? width : "100%")};
 
   button {
     justify-content: flex-start;
@@ -161,18 +154,14 @@ export const StyledSelectGroup = styled.div`
 `;
 
 export const StyledFileInput = styled.label`
-  ${textStyle("body1")};
-  display: inline-block;
+  ${flexbox("between")}
+  width: ${({ width }) => (width ? width : "100%")};
   padding: 0 16px;
   border-radius: 10px;
+  ${textStyle("body1")};
   cursor: pointer;
   ${({ size }) => setInputSize(size)};
   ${({ variant }) => setInputVariant(variant)};
-  ${flexbox("between")}
-  ${({ width }) =>
-    css`
-      width: ${width};
-    `}
   input {
     display: none;
   }
