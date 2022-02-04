@@ -1,6 +1,6 @@
 export { Button, Radio } from "./Button";
 export { Input, Select } from "./Form";
-export { ProgressStep } from "./ProgressStep";
+export { ProgressStep, ProgressBar } from "./Progress";
 export { Confirm, AverageDate, SelectedDate } from "./EmphasizedWord";
 export { TermItem } from "./TermItem";
 export { List } from "./List";

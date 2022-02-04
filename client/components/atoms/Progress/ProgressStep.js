@@ -12,15 +12,20 @@ import {
 
 export const ProgressStep = ({
   height = "31px",
-  width = "auto",
+  width = "100%",
   activeStep,
   lineStyle,
+  lineBorder = "1.5px",
+  activeLineBorder = "3px",
 }) => {
   return (
     <Container className="progressContainer" height={height} width={width}>
       <Bars>
-        <ProgressLine lineStyle={lineStyle} />
-        <ActiveProgressLine active={activeStep} />
+        <ProgressLine lineBorder={lineBorder} lineStyle={lineStyle} />
+        <ActiveProgressLine
+          activeLineBorder={activeLineBorder}
+          active={activeStep}
+        />
         <Step step={"1"}>
           <ProgressDot active={activeStep >= 1 && activeStep < 4} />
           <Progress active={activeStep >= 1 && activeStep < 4}>1차</Progress>

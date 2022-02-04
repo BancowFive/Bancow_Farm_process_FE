@@ -3,15 +3,21 @@ import PropTypes from "prop-types";
 import { Container, ActiveProgressLine, ProgressLine } from "./style";
 
 export const ProgressBar = ({
+  className,
   percentage,
   lineStyle,
-  height = "auto",
-  width = "auto",
+  height = "100%",
+  width = "100%",
+  lineBorder = "1.5px",
+  activeLineBorder = "3px",
 }) => {
   return (
-    <Container className="progressContainer" height={height} width={width}>
-      <ProgressLine lineStyle={lineStyle} />
-      <ActiveProgressLine percentage={percentage} />
+    <Container className={className} height={height} width={width}>
+      <ProgressLine lineBorder={lineBorder} lineStyle={lineStyle} />
+      <ActiveProgressLine
+        activeLineBorder={activeLineBorder}
+        percentage={percentage}
+      />
     </Container>
   );
 };

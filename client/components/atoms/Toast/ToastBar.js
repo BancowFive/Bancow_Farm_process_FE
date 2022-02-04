@@ -11,6 +11,7 @@ export const ToastBar = ({ children, width, show }) => {
 };
 
 ToastBar.propTypes = {
-  width: PropTypes.number,
+  width: PropTypes.string,
   show: PropTypes.bool,
+  children: PropTypes.any.isRequired,
 };
