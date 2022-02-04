@@ -3,16 +3,18 @@ import styled, { css } from "styled-components";
 import { flexbox, textStyle } from "../../../styles/utils";
 
 const authForm = css`
-  input {
+  .input {
+    flex: 7;
     min-width: 210px;
   }
   button {
+    flex: 3;
     min-width: 90px;
     padding: 0 12px;
   }
 `;
 const addressForm = css`
-  input:first-child {
+  .input {
     min-width: 185px;
   }
   button {
@@ -21,10 +23,13 @@ const addressForm = css`
 `;
 
 const emailForm = css`
-  input:first-child {
+  .input {
+    flex: 7;
     min-width: 174px;
   }
+
   div {
+    flex: 3;
     min-width: 126px;
     padding: 0;
 
@@ -48,6 +53,7 @@ function setFormType(type) {
 }
 
 export const StyledFormGroup = styled.div`
+  width: ${({ width }) => width};
   margin-bottom: 24px;
 
   h3 {
@@ -58,16 +64,21 @@ export const StyledFormGroup = styled.div`
   }
 
   div {
-    ${flexbox("start", "start")};
+    ${flexbox("start", "center")};
     gap: 12px;
-    margin-bottom: 8px;
 
     input {
-      flex: 1;
+      margin-bottom: 8px;
       &.error {
         border: 1px solid ${({ theme }) => theme.colors.error};
       }
     }
+
+    button {
+      margin-bottom: 8px;
+    }
+
+    ${({ type }) => setFormType(type)};
   }
 
   span {
@@ -82,10 +93,8 @@ export const StyledFormGroup = styled.div`
       ${textStyle("body2")};
     }
   }
-  ${({ type }) => setFormType(type)};
 
-  ${({ width }) =>
-    css`
-      width: ${width};
-    `}
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    margin-bottom: 24px;
+  }
 `;

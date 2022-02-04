@@ -169,13 +169,7 @@ export const StyledButton = styled.button`
       }
     `}
   
-
-  ${({ block }) => block && `width: 100%;`}
   padding: 0 18px;
-
-  &:disabled {
-    cursor: not-allowed;
-  }
 
   ${({ variant }) => {
     if (
@@ -226,10 +220,6 @@ export const StyledButton = styled.button`
   }}
 
   ${({ size }) => setButtonSize(size)}
-
-
-  ${({ width }) =>
-    css`
-      width: ${width};
-    `}
+  ${({ block }) => block && `width: 100%;`}
+  width: ${({ width }) => width};
 `;

@@ -9,4 +9,8 @@ export const StyledTermList = styled.ul`
   ${flexbox("start")};
   flex-direction: column;
   gap: 16px;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    top: 134px;
+  }
 `;

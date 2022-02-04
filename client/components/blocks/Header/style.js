@@ -9,18 +9,17 @@ export const Wrapper = styled.div`
   align-items: center;
   position: fixed;
   top: 0;
-  padding: 0 24px;
 `;
 
 export const LogoWrapper = styled.span`
   position: absolute;
-  left: 24px;
+  left: 0;
 `;
 export const CallBtn = styled.button`
   border: none;
   background-color: inherit;
   position: absolute;
-  right: 24px;
+  right: 0;
   color: ${({ theme }) => theme.colors.tertiary};
   ${textStyle("body2")};
 `;

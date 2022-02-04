@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { flexbox, textStyle } from "../../../styles/utils";
 
 export const StyledButtonGroup = styled.div`
+  width: ${({ width }) => width};
   ${({ fixed }) =>
     fixed &&
     css`
@@ -19,10 +20,19 @@ export const StyledButtonGroup = styled.div`
     border-left: 1px solid ${({ theme }) => theme.colors.white};
   }
 
-  ${({ width }) =>
-    css`
-      width: ${width};
-    `}
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    &.link {
+      gap: 12px;
+
+      button {
+        border-radius: 10px;
+
+        &:nth-child(2) {
+          border-left: none;
+        }
+      }
+    }
+  }
 `;
 
 export const StyledRadioGroup = styled.div`

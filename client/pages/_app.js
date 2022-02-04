@@ -1,7 +1,7 @@
 import Head from "next/head";
 import wrapper from "../store";
 import { ThemeProvider } from "styled-components";
-import { Header } from "../components/blocks/Header";
+import { Header } from "../components";
 import { theme } from "../styles";
 import GlobalStyle from "../styles/globalStyle";
 import AppLayout from "../components/AppLayout";
