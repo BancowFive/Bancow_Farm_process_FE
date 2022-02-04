@@ -1,9 +1,34 @@
+import { useEffect, useState } from "react";
 import { Button, ButtonGroup } from "../../components";
 import ImageInput from "../../components/atoms/Form/ImageInput";
 import { StyledContainer } from "../../components/blocks/Grid/style";
 import { PictureGuide } from "../../components/blocks/PictureGuide/PictureGuide";
 
 const uploadPicture = () => {
+  const [isUploadedAll, setIsUploadedAll] = useState(false);
+  const [uploadedImages, setuploadedImages] = useState({
+    FARM_OUTSIDE: null,
+    FARM_INSIDE: null,
+    CATTLE_FRONT: null,
+    CATTLE_SIDE: null,
+    WATER_BUCKET: null,
+    FARM_FLOOR: null,
+  });
+  const [showError, setShowError] = useState(false);
+
+  const checkUploadedAll = () => {
+    //선택되지 않은 항목이 있으면(값이 "" 인 객체가 있는지 검사) 다음버튼 비활성화
+    for (const [key, value] of Object.entries(uploadedImages)) {
+      if (value === null) {
+        //이미 showError가 true이면 리렌더링 방지
+        if (!showError) {
+          setShowError(true);
+        }
+      } else {
+        setIsUploadedAll(true);
+      }
+    }
+  };
   return (
     <>
       <StyledContainer>
@@ -12,6 +37,7 @@ const uploadPicture = () => {
           <br />
           농가 사진이 필요해요
         </h2>
+        {/* 농장외부 */}
         <PictureGuide
           pictureTitle="농장 외부"
           guidance={`주요 건물 전체 모습이 잘 보이게\n찍어주세요.`}
@@ -21,9 +47,13 @@ const uploadPicture = () => {
             imgAlt: "농장외부 사진",
           }}
         />
-
-        <ImageInput />
-
+        <ImageInput
+          pictureId="FARM_OUTSIDE"
+          previewAlt="농장 외부사진"
+          setuploadedImages={setuploadedImages}
+          showError={showError}
+        />
+        {/* 농장내부 */}
         <PictureGuide
           pictureTitle="농장 내부"
           guidance={`건물 내부의 모습이 한 눈에\n들어올 수 있도록 찍어주세요.`}
@@ -33,7 +63,14 @@ const uploadPicture = () => {
             imgAlt: "농장내부 사진",
           }}
         />
+        <ImageInput
+          pictureId="FARM_INSIDE"
+          previewAlt="농장 내부사진"
+          setuploadedImages={setuploadedImages}
+          showError={showError}
+        />
         <h2>소 사진을 올려주세요</h2>
+        {/* 소 정면 */}
         <PictureGuide
           pictureTitle="소 정면"
           guidance={`소 얼굴이 정면을 향하고\n 정지된 상태로 찍어주세요.`}
@@ -43,6 +80,13 @@ const uploadPicture = () => {
             imgAlt: "소 정면 사진",
           }}
         />
+        <ImageInput
+          pictureId="CATTLE_FRONT"
+          previewAlt="소 정면사진"
+          setuploadedImages={setuploadedImages}
+          showError={showError}
+        />
+        {/* 소 측면 */}
         <PictureGuide
           pictureTitle="소 측면"
           guidance={`소의 전체적인 모습이 측면을\n 향하게 찍어주세요.`}
@@ -52,7 +96,14 @@ const uploadPicture = () => {
             imgAlt: "소 측면 사진",
           }}
         />
+        <ImageInput
+          pictureId="CATTLE_SIDE"
+          previewAlt="소 측면사진"
+          setuploadedImages={setuploadedImages}
+          showError={showError}
+        />
         <h2>비품, 기타 사진을 올려주세요</h2>
+        {/* 물통 사진 */}
         <PictureGuide
           pictureTitle="물통"
           guidance={`물통이 정면을 향하게\n 찍어주세요.`}
@@ -62,6 +113,13 @@ const uploadPicture = () => {
             imgAlt: "물통 사진",
           }}
         />
+        <ImageInput
+          pictureId="WATER_BUCKET"
+          previewAlt="물통 사진"
+          setuploadedImages={setuploadedImages}
+          showError={showError}
+        />
+        {/* 우사 바닥 */}
         <PictureGuide
           pictureTitle="우사 바닥"
           guidance={`전반적인 우사 바닥을\n 찍어주세요.`}
@@ -71,15 +129,20 @@ const uploadPicture = () => {
             imgAlt: "우사바닥 사진",
           }}
         />
+        <ImageInput
+          pictureId="FARM_FLOOR"
+          previewAlt="우사 바닥 사진"
+          setuploadedImages={setuploadedImages}
+          showError={showError}
+        />
       </StyledContainer>
       <ButtonGroup fixed>
         <Button variant="primary" size={60} to="/">
           이전
         </Button>
         <Button
-          // onClick={callApi}
-          // variant={checkedAll ? "primary" : "ghost"}
-          variant="primary"
+          onClick={checkUploadedAll}
+          variant={isUploadedAll ? "primary" : "ghost"}
           size={60}
         >
           다음
