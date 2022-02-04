@@ -15,6 +15,7 @@ export const Button = ({
   block,
   width,
   fixed,
+  className,
 }) => {
   if (to) {
     return (
@@ -29,6 +30,7 @@ export const Button = ({
         disabled={disabled}
         width={width}
         fixed={fixed}
+        className={className}
       >
         {disabled ? (
           <>{children}</>
@@ -53,6 +55,7 @@ export const Button = ({
       block={block}
       width={width}
       fixed={fixed}
+      className={className}
     >
       {children}
     </StyledButton>

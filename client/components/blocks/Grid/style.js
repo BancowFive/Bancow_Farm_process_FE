@@ -12,12 +12,12 @@ export const StyledContainer = styled.div`
   max-width: 540px;
   min-width: 360px;
   margin: 0 auto;
-  padding: 0 24px;
   overflow-y: auto;
 
   .content {
     ${flexbox("start", "start")};
     width: 100%;
+    padding: 0 24px;
     flex-direction: column;
     overflow-y: auto;
   }
@@ -54,14 +54,26 @@ export const StyledContainer = styled.div`
     color: ${({ theme }) => theme.colors.guide};
   }
 
-  div.aside {
+  .progressHeader {
     display: none;
+  }
+
+  div.aside {
+    width: 100%;
+
+    .footer {
+      display: none;
+    }
   }
 
   @media (min-width: 1024px) {
     top: 66px;
     bottom: 60px;
-    padding: 0;
+
+    .content {
+      padding: 0;
+    }
+
     h1 {
       width: 100%;
       margin: 64px 0 24px;
@@ -83,12 +95,26 @@ export const StyledContainer = styled.div`
     }
 
     div.aside {
-      display: block;
       width: 100%;
 
       .link {
         margin-bottom: 30px;
         border-radius: 10px;
+      }
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .content {
+      padding: 70px 0 0;
+    }
+
+    .progressHeader {
+      display: block;
+    }
+    div.aside {
+      .footer {
+        display: block;
       }
     }
   }
