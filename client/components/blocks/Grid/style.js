@@ -4,7 +4,7 @@ import { flexbox, textStyle } from "../../../styles/utils";
 export const StyledContainer = styled.div`
   position: absolute;
   top: 54px;
-  bottom: 60px;
+  bottom: 0;
   left: 0;
   right: 0;
   ${flexbox("between", "start")};
@@ -17,6 +17,8 @@ export const StyledContainer = styled.div`
   .content {
     ${flexbox("start", "start")};
     width: 100%;
+    flex: 1;
+    margin-bottom: 30px;
     padding: 0 24px;
     flex-direction: column;
     overflow-y: auto;
@@ -87,7 +89,6 @@ export const StyledContainer = styled.div`
     }
     div.image-wrapper {
       ${flexbox()};
-      margin-bottom: 82px;
       span {
         width: 350px !important;
         height: 300px !important;
@@ -106,7 +107,7 @@ export const StyledContainer = styled.div`
 
   @media (min-width: 1280px) {
     .content {
-      padding: 70px 0 0;
+      padding: 4px 0 0;
     }
 
     .progressHeader {
