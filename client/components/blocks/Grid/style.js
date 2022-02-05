@@ -9,6 +9,7 @@ export const StyledContainer = styled.div`
   flex-direction: column;
   max-width: 540px;
   min-width: 360px;
+  width: 100%;
   margin: 0 auto;
   overflow-y: auto;
 
