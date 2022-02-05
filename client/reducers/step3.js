@@ -3,7 +3,7 @@ import { schedule, moveStep } from "../api";
 import { router } from "next/router";
 
 export const submitAvailableDate = createAsyncThunk(
-  "schedule/submitAvailableDate",
+  "step3/submitAvailableDate",
   async ({ date, userId }, { rejectWithValue }) => {
     try {
       const result = await schedule.submitAvailableDate(date, userId);
@@ -15,7 +15,7 @@ export const submitAvailableDate = createAsyncThunk(
 );
 
 export const changeStep = createAsyncThunk(
-  "schedule/changeStep",
+  "step3/changeStep",
   async ({ PageNum, inProgress, userId }, { rejectWithValue }) => {
     try {
       const result = await moveStep(PageNum, inProgress, userId);
@@ -28,10 +28,11 @@ export const changeStep = createAsyncThunk(
 
 const initialState = {
   id: "",
+  status: "",
 };
 
-const scheduleSlice = createSlice({
-  name: "schedule",
+const step3Slice = createSlice({
+  name: "step3",
   initialState,
   reducers: {
     getUserScheduleInfo: (state, action) => {
@@ -66,4 +67,4 @@ const scheduleSlice = createSlice({
   },
 });
 
-export default scheduleSlice.reducer;
+export default step3Slice.reducer;
