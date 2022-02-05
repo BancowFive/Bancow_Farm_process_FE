@@ -59,12 +59,17 @@ export const Progress = styled.div.attrs(props => ({
 
 export const ProgressLine = styled.div.attrs(props => ({
   lineStyle: props.lineStyle || "solid",
+  growLineBorder: props.lineBorder || props.growLineBorder,
 }))`
   position: absolute;
   min-width: 293px;
   width: 100%;
   border-top: ${props => props.lineBorder} ${props => props.lineStyle}
     ${theme.colors.borderGray};
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    border-top-width: ${props => props.growLineBorder};
+  }
 `;
 
 export const ActiveProgressLine = styled.div.attrs(props => ({
@@ -77,6 +82,7 @@ export const ActiveProgressLine = styled.div.attrs(props => ({
       : props.active == 3 /* 완료(3차) = auto */
       ? "100%"
       : "0%",
+  growLineBorder: props.growLineBorder || props.activeLineBorder,
 }))`
   position: absolute;
   width: ${props => (props.byPercentage ? props.byPercentage : props.byActive)};
@@ -85,4 +91,8 @@ export const ActiveProgressLine = styled.div.attrs(props => ({
   border-radius: 5px;
   transition: ${props =>
     props.byPercentage ? "width 0.3s ease-out" : "default"};
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    border-top-width: ${props => props.growLineBorder};
+  }
 `;
