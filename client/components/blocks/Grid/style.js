@@ -66,9 +66,19 @@ export const StyledContainer = styled.div`
     }
   }
 
+  //container max 크기
+  @media (min-width: 540px) {
+    div.aside {
+      width: 100%;
+
+      .link {
+        border-radius: 10px;
+      }
+    }
+  }
+
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     top: 70px;
-
     .content {
       padding: 0;
     }
@@ -93,10 +103,8 @@ export const StyledContainer = styled.div`
     }
 
     div.aside {
-      width: 100%;
-
       .link {
-        border-radius: 10px;
+        margin-bottom: 30px;
       }
     }
   }
@@ -107,10 +115,10 @@ export const StyledContainer = styled.div`
     .progressHeader {
       display: block;
     }
+
     div.aside {
-      .link {
-        margin-bottom: 30px;
-      }
+      height: 150px;
+
       .footer {
         ${flexbox("between")};
         margin-bottom: 20px;

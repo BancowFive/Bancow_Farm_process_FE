@@ -8,13 +8,13 @@ const step1 = () => {
   return (
     <>
       <Container>
+        <Header />
+        <ProgressHeader
+          ProgressType="step"
+          activeStep={1}
+          className="progressHeader"
+        />
         <div className="content">
-          <Header />
-          <ProgressHeader
-            ProgressType="step"
-            activeStep={1}
-            className="progressHeader"
-          />
           <ProgressStep
             className="mobileProgressStep"
             lineStyle={"dashed"}

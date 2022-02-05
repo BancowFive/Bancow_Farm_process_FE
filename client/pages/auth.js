@@ -17,7 +17,7 @@ import {
 } from "../reducers/auth";
 import { printPhoneNumber } from "../utils/nums";
 
-const auth = "1234";
+const auth = "3422";
 
 const Auth = () => {
   const dispatch = useDispatch();
@@ -159,7 +159,6 @@ const Auth = () => {
         subMessage="확인을 누르시면 계속 진행합니다."
         icon="done"
         onClick={fetchData}
-        to="/terms"
       >
         확인
       </Modal>

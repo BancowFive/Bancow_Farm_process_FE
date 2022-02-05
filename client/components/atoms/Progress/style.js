@@ -5,6 +5,7 @@ import { flexbox, textStyle } from "../../../styles/utils";
 export const Container = styled.div`
   position: relative;
   min-width: 312px;
+  min-height: 31px;
   width: ${props => props.width};
   height: ${props => props.height};
 `;

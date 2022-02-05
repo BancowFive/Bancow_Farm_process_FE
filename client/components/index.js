@@ -22,4 +22,5 @@ export {
   DropDown,
   ProgressHeader,
   Side,
+  Check,
 } from "./blocks";
