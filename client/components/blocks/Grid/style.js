@@ -102,7 +102,6 @@ export const StyledContainer = styled.div`
   }
 
   @media (min-width: 1280px) {
-    top: 0;
     bottom: 125px;
 
     .content {
