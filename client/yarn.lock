@@ -3213,9 +3213,9 @@
     "postcss-value-parser" "^4.1.0"
 
 "aws-sdk@^2.1065.0":
-  "integrity" "sha512-9BZPdJgIvau8Jf2l3PxInNqQd733uKLqGGDywMV71duxNTLgdBZe2zvCkbgl22+ldC8R2LVMdS64DzchfQIxHg=="
-  "resolved" "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.1066.0.tgz"
-  "version" "2.1066.0"
+  "integrity" "sha512-3Ys1k4cNQy4z37IpPjQ9c5ldkXMeZGbWoarKHynPPY3WCEj+Nw2u6zk484fA9/lTHNN3YesLuZ0OmEzGgjFEOw=="
+  "resolved" "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.1067.0.tgz"
+  "version" "2.1067.0"
   dependencies:
     "buffer" "4.9.2"
     "events" "1.1.1"

@@ -167,3 +167,38 @@ export const StyledFileInput = styled.label`
     display: none;
   }
 `;
+
+export const StyledImageInput = styled.label`
+  ${flexbox()}
+  flex-direction: column;
+  margin: 20px 0 40px;
+  width: 100%;
+  height: 160px;
+  border: ${({ showError }) => (showError ? `1px solid #ff4e21` : "none")};
+  border-radius: 10px;
+  background-color: ${({ theme }) => theme.colors.backgroundGray};
+  .image-container {
+    margin-bottom: 6px;
+  }
+  span {
+    ${textStyle("body1")};
+    color: ${({ theme }) => theme.colors.detail};
+  }
+
+  input {
+    display: none;
+  }
+  display: ${({ showPreview }) => showPreview && "none"};
+`;
+export const Preview = styled.div`
+  ${flexbox()}
+  margin: 20px 0 40px;
+  width: 100%;
+  height: 160px;
+  border-radius: 10px;
+  background-color: ${({ theme }) => theme.colors.backgroundGray};
+  .image-container {
+    margin-bottom: 6px;
+  }
+  display: ${({ showPreview }) => !showPreview && "none"};
+`;
