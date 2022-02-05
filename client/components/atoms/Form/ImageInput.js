@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import styled from "styled-components";
 import { Preview, StyledImageInput } from "./style";
 import { getS3Auth, uploadToS3 } from "../../../modules/S3";
 
@@ -22,11 +21,6 @@ export const ImageInput = ({
   useEffect(() => {
     getS3Auth();
   }, []);
-
-  // useEffect(() => {}, [previewURL]);
-  useEffect(() => {
-    console.log(imageData);
-  }, [imageData]);
 
   const handleChange = async e => {
     //input에 파일을 올리면 s3 업로드에 필요한 매개변수 저장
@@ -65,16 +59,18 @@ export const ImageInput = ({
         showPreview={showPreview}
         htmlFor={pictureId}
       >
-        <div className="image-container">
-          <Image src="/add.svg" width={40} height={40} />
+        <div className="wrapper">
+          <div className="image-container">
+            <Image src="/add.svg" width={40} height={40} />
+          </div>
+          <span>사진추가</span>
+          <input
+            onChange={handleChange}
+            type="file"
+            id={pictureId}
+            accept="image/*"
+          />
         </div>
-        <span>사진추가</span>
-        <input
-          onChange={handleChange}
-          type="file"
-          id={pictureId}
-          accept="image/*"
-        />
       </StyledImageInput>
 
       <Preview showPreview={showPreview}>

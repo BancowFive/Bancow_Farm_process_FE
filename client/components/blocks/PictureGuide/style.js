@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { flexbox, textStyle } from "../../../styles/utils";
 
 export const GuideWrapper = styled.section`
+  width: 100%;
   .picture-title {
     ${textStyle("headline4")};
     color: ${({ theme }) => theme.colors.tertiary};

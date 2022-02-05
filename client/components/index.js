@@ -21,4 +21,5 @@ export {
   TermList,
   DropDown,
   Side,
+  Check,
 } from "./blocks";
