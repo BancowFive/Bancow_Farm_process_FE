@@ -41,7 +41,7 @@ export const axiosAuth = (method, url, data) => {
 };
 
 export const axiosCertification = (method, url, data) => {
-  const formBody = Object.keys(data)[0] + "&" + data["phoneNumber"];
+  const formBody = Object.keys(data)[0] + "=" + data["phoneNumber"];
   console.log(formBody);
   return axios({
     method,
