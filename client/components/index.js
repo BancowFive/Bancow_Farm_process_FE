@@ -20,4 +20,5 @@ export {
   Modal,
   TermList,
   DropDown,
+  Side,
 } from "./blocks";

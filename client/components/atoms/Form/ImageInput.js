@@ -65,16 +65,18 @@ export const ImageInput = ({
         showPreview={showPreview}
         htmlFor={pictureId}
       >
-        <div className="image-container">
-          <Image src="/add.svg" width={40} height={40} />
+        <div className="wrapper">
+          <div className="image-container">
+            <Image src="/add.svg" width={40} height={40} />
+          </div>
+          <span>사진추가</span>
+          <input
+            onChange={handleChange}
+            type="file"
+            id={pictureId}
+            accept="image/*"
+          />
         </div>
-        <span>사진추가</span>
-        <input
-          onChange={handleChange}
-          type="file"
-          id={pictureId}
-          accept="image/*"
-        />
       </StyledImageInput>
 
       <Preview showPreview={showPreview}>

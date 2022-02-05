@@ -5,6 +5,7 @@ import { Wrapper } from "./style";
 
 const Check = ({
   title,
+  notice,
   radioName,
   leftOption,
   leftOptionValue,
@@ -40,6 +41,7 @@ const Check = ({
   return (
     <Wrapper>
       <h3 className="title">{title}</h3>
+      <h4 className="notice">{notice ? notice : null}</h4>
       <RadioGroup>
         <div className="btn-wrapper">
           <Radio
@@ -77,6 +79,7 @@ export default Check;
 
 Check.propTypes = {
   title: PropTypes.string.isRequired,
+  notice: PropTypes.string,
   radioName: PropTypes.string.isRequired,
   leftOption: PropTypes.oneOfType([
     PropTypes.number,
