@@ -33,7 +33,7 @@ export const fetchUserData = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const result = await auth.fetchData(id);
-      return result;
+      return result.data;
     } catch (error) {
       return rejectWithValue(err.response.data);
     }
@@ -84,7 +84,6 @@ const authSlice = createSlice({
     [authorize.fulfilled.type]: (state, action) => {
       state.autorizationLoading = false;
       state.autorizationDone = true;
-      state.data = action.payload;
     },
     [authorize.rejected.type]: (state, action) => {
       state.autorizationLoading = false;

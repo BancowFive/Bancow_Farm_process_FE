@@ -67,8 +67,18 @@ export const StyledContainer = styled.div`
     }
   }
 
+  @media (min-width: 540px) {
+    div.aside {
+      width: 100%;
+
+      .link {
+        border-radius: 10px;
+      }
+    }
+  }
+
   @media (min-width: 1024px) {
-    top: 70px;
+    bottom: 30px;
 
     .content {
       padding: 0;
@@ -95,9 +105,11 @@ export const StyledContainer = styled.div`
 
     div.aside {
       width: 100%;
+      height: 150px;
 
       .link {
         border-radius: 10px;
+        margin-bottom: 30px;
       }
     }
   }
@@ -113,9 +125,6 @@ export const StyledContainer = styled.div`
       display: block;
     }
     div.aside {
-      .link {
-        margin-bottom: 30px;
-      }
       .footer {
         ${flexbox("between")};
       }
