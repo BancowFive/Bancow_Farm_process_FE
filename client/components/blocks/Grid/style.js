@@ -3,10 +3,8 @@ import { flexbox, textStyle } from "../../../styles/utils";
 
 export const StyledContainer = styled.div`
   position: absolute;
-  top: 54px;
-  bottom: 60px;
-  left: 0;
-  right: 0;
+  top: 0;
+  bottom: 0;
   ${flexbox("between", "start")};
   flex-direction: column;
   max-width: 540px;
@@ -67,8 +65,7 @@ export const StyledContainer = styled.div`
   }
 
   @media (min-width: 1024px) {
-    top: 66px;
-    bottom: 60px;
+    top: 70px;
 
     .content {
       padding: 0;
@@ -98,13 +95,15 @@ export const StyledContainer = styled.div`
       width: 100%;
 
       .link {
-        margin-bottom: 30px;
         border-radius: 10px;
       }
     }
   }
 
   @media (min-width: 1280px) {
+    top: 0;
+    bottom: 125px;
+
     .content {
       padding: 70px 0 0;
     }
@@ -113,6 +112,9 @@ export const StyledContainer = styled.div`
       display: block;
     }
     div.aside {
+      .link {
+        margin-bottom: 30px;
+      }
       .footer {
         display: block;
       }
