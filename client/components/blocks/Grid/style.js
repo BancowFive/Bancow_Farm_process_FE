@@ -3,14 +3,13 @@ import { flexbox, textStyle } from "../../../styles/utils";
 
 export const StyledContainer = styled.div`
   position: absolute;
-  top: 54px;
+  top: 0;
   bottom: 0;
-  left: 0;
-  right: 0;
   ${flexbox("between", "start")};
   flex-direction: column;
   max-width: 540px;
   min-width: 360px;
+  width: 100%;
   margin: 0 auto;
   overflow-y: auto;
 
@@ -69,8 +68,7 @@ export const StyledContainer = styled.div`
   }
 
   @media (min-width: 1024px) {
-    top: 66px;
-    bottom: 60px;
+    top: 70px;
 
     .content {
       padding: 0;
@@ -99,13 +97,14 @@ export const StyledContainer = styled.div`
       width: 100%;
 
       .link {
-        margin-bottom: 30px;
         border-radius: 10px;
       }
     }
   }
 
   @media (min-width: 1280px) {
+    bottom: 125px;
+
     .content {
       padding: 4px 0 0;
     }
@@ -114,6 +113,9 @@ export const StyledContainer = styled.div`
       display: block;
     }
     div.aside {
+      .link {
+        margin-bottom: 30px;
+      }
       .footer {
         ${flexbox("between")};
       }

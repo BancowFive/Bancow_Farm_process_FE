@@ -7,19 +7,30 @@ export const Wrapper = styled.div`
   height: 54px;
   display: flex;
   align-items: center;
-  position: fixed;
-  top: 0;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
+    display: none;
+  }
 `;
 
 export const LogoWrapper = styled.span`
   position: absolute;
-  left: 0;
+  left: 24px;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    left: 0;
+  }
 `;
+
 export const CallBtn = styled.button`
   border: none;
   background-color: inherit;
   position: absolute;
-  right: 0;
+  right: 24px;
   color: ${({ theme }) => theme.colors.tertiary};
   ${textStyle("body2")};
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    right: 0;
+  }
 `;

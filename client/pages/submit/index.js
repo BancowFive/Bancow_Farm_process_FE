@@ -2,12 +2,14 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Button } from "../../components/atoms/Button";
 import { FileInput } from "../../components/atoms/Form";
 import { ProgressHeader } from "../../components/blocks";
+import { Header } from "../../components";
 import { Container, FileInputGroup } from "./style";
 import { getS3Auth } from "../../modules/S3";
 import { submitFiles, moveStep } from "../../reducers/submit";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { Footer } from "../../components";
 
-const required = () => {
+const Required = () => {
   const dispatch = useDispatch();
 
   const { livestock, facility, fooder, shipping, business, idCard } =
@@ -55,7 +57,8 @@ const required = () => {
     <>
       <Container>
         <div className="content">
-          <ProgressHeader className="progressHeader" percentage={"40%"} />
+          <Header />
+          <ProgressHeader className="progressHeader" />
           <h2>필수 서류를 제출해 주세요</h2>
           <span className="notice">제출할 서류를 선택하세요</span>
           <FileInputGroup>
@@ -114,10 +117,13 @@ const required = () => {
           >
             제출
           </Button>
+          <div className="footer">
+            <Footer />
+          </div>
         </div>
       </Container>
     </>
   );
 };
 
-export default required;
+export default Required;
