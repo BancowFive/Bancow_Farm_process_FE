@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import styled from "styled-components";
 import { Preview, StyledImageInput } from "./style";
 import { getS3Auth, uploadToS3 } from "../../../modules/S3";
 
@@ -22,11 +21,6 @@ export const ImageInput = ({
   useEffect(() => {
     getS3Auth();
   }, []);
-
-  // useEffect(() => {}, [previewURL]);
-  useEffect(() => {
-    console.log(imageData);
-  }, [imageData]);
 
   const handleChange = async e => {
     //input에 파일을 올리면 s3 업로드에 필요한 매개변수 저장

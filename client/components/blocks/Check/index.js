@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Radio, RadioGroup } from "../../components";
+import { Radio, RadioGroup } from "../../../components";
 import { Wrapper } from "./style";
 
-const Check = ({
+export const Check = ({
   title,
   notice,
   radioName,

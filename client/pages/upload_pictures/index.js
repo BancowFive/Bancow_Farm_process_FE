@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, ButtonGroup, Container } from "../../components";
 import ImageInput from "../../components/atoms/Form/ImageInput";
-import { StyledContainer } from "../../components/blocks/Grid/style";
 import { PictureGuide } from "../../components/blocks/PictureGuide/PictureGuide";
 
 const uploadPicture = () => {

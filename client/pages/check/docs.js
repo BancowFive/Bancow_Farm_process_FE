@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { Button, ButtonGroup } from "../../components";
-import Check from "../../components/Check";
+import { Button, ButtonGroup, Check } from "../../components";
 import { StyledContainer } from "../../components/blocks/Grid/style";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";

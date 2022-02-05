@@ -1,7 +1,5 @@
 import styled from "styled-components";
-import { Button, ButtonGroup, Container, Header } from "../../components";
-import Check from "../../components/Check";
-import { StyledContainer } from "../../components/blocks/Grid/style";
+import { Button, ButtonGroup, Container, Check } from "../../components";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
