@@ -4,8 +4,8 @@ import { combineReducers } from "redux";
 import auth from "./auth";
 import terms from "./terms";
 import step1 from "./step1";
-import submit from "./submit";
-import schedule from "./schedule";
+import step2 from "./step2";
+import step3 from "./step3";
 
 const rootReducer = (state, action) => {
   switch (action.type) {
@@ -17,8 +17,8 @@ const rootReducer = (state, action) => {
         auth,
         terms,
         step1,
-        submit,
-        schedule,
+        step2,
+        step3,
       });
       return combinedReducer(state, action);
     }

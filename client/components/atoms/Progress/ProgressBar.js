@@ -10,11 +10,17 @@ export const ProgressBar = ({
   width = "100%",
   lineBorder = "1.5px",
   activeLineBorder = "3px",
+  growLineBorder,
 }) => {
   return (
     <Container className={className} height={height} width={width}>
-      <ProgressLine lineBorder={lineBorder} lineStyle={lineStyle} />
+      <ProgressLine
+        growLineBorder={growLineBorder}
+        lineBorder={lineBorder}
+        lineStyle={lineStyle}
+      />
       <ActiveProgressLine
+        growLineBorder={growLineBorder}
         activeLineBorder={activeLineBorder}
         percentage={percentage}
       />
@@ -27,4 +33,8 @@ ProgressBar.propTypes = {
   width: PropTypes.string,
   percentage: PropTypes.string,
   lineStyle: PropTypes.string,
+  lineBorder: PropTypes.string,
+  activeLineBorder: PropTypes.string,
+  growLineBorder: PropTypes.string,
+  className: PropTypes.string,
 };

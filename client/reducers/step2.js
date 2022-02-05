@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { submit, moveStep } from "../api";
 import { uploadToS3 } from "../modules/S3";
-import { useRouter } from "next/router";
 import { router } from "next/router";
 
 // 'user' API 호출 진행 + state 저장하기 함수 (임시보관용/작업 완료 후 삭제예정)
@@ -26,7 +25,7 @@ import { router } from "next/router";
 // );
 
 export const submitFiles = createAsyncThunk(
-  "submit/submitFiles",
+  "step2/submitFiles",
   async ({ file, targetId, userId }, { rejectWithValue }) => {
     try {
       const s3 = await uploadToS3(file, targetId);
@@ -48,7 +47,7 @@ export const submitFiles = createAsyncThunk(
 );
 
 export const changeStep = createAsyncThunk(
-  "submit/changeStep",
+  "step2/changeStep",
   async ({ PageNum, inProgress, userId }, { rejectWithValue }) => {
     try {
       const result = await moveStep(PageNum, inProgress, userId);
@@ -72,8 +71,8 @@ const initialState = {
   },
 };
 
-const submitSlice = createSlice({
-  name: "submit",
+const step2Slice = createSlice({
+  name: "step2",
   initialState,
   reducers: {
     getUserFileInfo: (state, action) => {
@@ -133,4 +132,4 @@ const submitSlice = createSlice({
   },
 });
 
-export default submitSlice.reducer;
+export default step2Slice.reducer;
