@@ -4,7 +4,16 @@ import { Select, List } from "../..";
 import { StyledDropDown } from "./style";
 
 const emailList = ["@naver.com", "@gmail.com", "직접입력"];
-const fodderList = ["뉴트리나", "퓨리나", "직접입력"];
+const fodderList = [
+  "퓨리나",
+  "카길",
+  "뉴트리나",
+  "농협",
+  "팜스코",
+  "천하제일",
+  "CJ Feed&Care",
+  "직접입력",
+];
 
 const getDataType = type => {
   switch (type) {

@@ -1,11 +1,7 @@
 import { Button, Container, Footer } from "../components";
 import Image from "next/image";
-import { useResponsive } from "../hooks";
-import { useEffect } from "react";
 
 export default function Home() {
-  const [width] = useResponsive();
-
   return (
     <>
       <Container>
@@ -30,18 +26,6 @@ export default function Home() {
           <Footer />
         </div>
       </Container>
-      {width < 768 && (
-        <Button
-          className="link"
-          variant="primary"
-          size={60}
-          to="/auth"
-          block
-          fixed
-        >
-          다음
-        </Button>
-      )}
     </>
   );
 }

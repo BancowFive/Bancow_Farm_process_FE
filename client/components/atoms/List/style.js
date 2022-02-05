@@ -7,7 +7,9 @@ const email = css`
 `;
 
 const fodder = css`
-  ${textStyle("body1")};
+  li {
+    ${textStyle("body1")};
+  }
 `;
 
 function setListType(type) {
@@ -37,7 +39,6 @@ export const StyledList = styled.ul`
     ${flexbox("start")};
     height: 54px;
     padding: 0 18px;
-    border-bottom: 1px solid ${({ theme }) => theme.colors.borderGray};
     ${textStyle("body1")};
     color: ${({ theme }) => theme.colors.tertiary};
     transition: background-color 200ms ease-in-out;
@@ -46,8 +47,10 @@ export const StyledList = styled.ul`
     &:hover {
       background-color: ${({ theme }) => theme.colors.backgroundGray};
     }
+  }
 
-    ${({ type }) => setListType(type)};
+  li + li {
+    border-top: 1px solid ${({ theme }) => theme.colors.borderGray};
   }
 
   &.is-open {
@@ -55,4 +58,6 @@ export const StyledList = styled.ul`
     visibility: visible;
     transform: translate3d(0, 4px, 0);
   }
+
+  ${({ type }) => setListType(type)};
 `;

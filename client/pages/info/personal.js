@@ -10,10 +10,8 @@ import {
 import { useDispatch } from "react-redux";
 import { inputEmail, inputName } from "../../reducers/step1";
 import { emailValidator } from "../../utils";
-import { useResponsive } from "../../hooks";
 
 const Personal = () => {
-  const [width] = useResponsive();
   const dispatch = useDispatch();
 
   const [isOpen, setIsOpen] = useState(true);
@@ -87,7 +85,7 @@ const Personal = () => {
           </FormGroup>
           <FormGroup type="email">
             <h3>이메일</h3>
-            <div>
+            <div className="main-input">
               <Input
                 className="input"
                 size={58}
@@ -120,37 +118,21 @@ const Personal = () => {
           </FormGroup>
         </div>
 
-        {width > 768 && (
-          <div className="aside">
-            <Button
-              className="link"
-              size={60}
-              variant={isValid ? "primary" : "ghost"}
-              disabled={!isValid}
-              block
-              onClick={savePersonalInfo}
-              to="/info/farm"
-            >
-              다음
-            </Button>
-            <Footer />
-          </div>
-        )}
+        <div className="aside">
+          <Button
+            className="link"
+            size={60}
+            variant={isValid ? "primary" : "ghost"}
+            disabled={!isValid}
+            block
+            onClick={savePersonalInfo}
+            to="/info/farm"
+          >
+            다음
+          </Button>
+          <Footer />
+        </div>
       </Container>
-      {width <= 1024 && (
-        <Button
-          className="link"
-          size={60}
-          variant={isValid ? "primary" : "ghost"}
-          disabled={!isValid}
-          block
-          fixed
-          onClick={savePersonalInfo}
-          to="/info/farm"
-        >
-          다음
-        </Button>
-      )}
     </>
   );
 };

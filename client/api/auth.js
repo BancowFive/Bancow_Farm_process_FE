@@ -1,8 +1,9 @@
-import { request, axiosAuth, DOMAIN } from ".";
+import { request, DOMAIN } from ".";
+import axios from "axios";
 
 export const auth = {
   getCertification(data) {
-    return request("post", "/api/sendSMS", data);
+    return axiosCertification("post", "/api/sendSMS", data);
   },
   authorize(data) {
     const result = axiosAuth("post", "/login", data);
@@ -14,4 +15,45 @@ export const auth = {
   logout() {
     localStorage.removeItem("token");
   },
+};
+
+export const axiosAuth = (method, url, data) => {
+  let json = JSON.stringify(data);
+  return axios({
+    method,
+    url: DOMAIN + url,
+    data: json,
+  })
+    .then(response => {
+      console.log(response);
+      if (response.headers.authorization) {
+        localStorage.setItem(
+          "token",
+          JSON.stringify(response.headers.authorization),
+        );
+      }
+      return response.headers;
+    })
+    .catch(error => {
+      console.error(error);
+      throw error.response;
+    });
+};
+
+export const axiosCertification = (method, url, data) => {
+  const formBody = Object.keys(data)[0] + "&" + data["phoneNumber"];
+  console.log(formBody);
+  return axios({
+    method,
+    url: DOMAIN + url,
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    data: formBody,
+  })
+    .then(result => {
+      return result;
+    })
+    .catch(error => {
+      console.error(error);
+      throw error.response;
+    });
 };

@@ -2,7 +2,7 @@ import { StyledFooter } from "./style";
 export const Footer = () => {
   return (
     <StyledFooter>
-      <div>
+      <div className="footer-header">
         <img src="/guide.svg" alt="문의 아이콘" aria-hidden />
         <span>진행에 어려움이 생기면 전화해주세요</span>
       </div>
