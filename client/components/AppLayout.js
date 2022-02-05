@@ -1,12 +1,25 @@
 import styled from "styled-components";
+import { flexbox } from "../styles/utils";
 import PropTypes from "prop-types";
+import { Side } from "../components";
 
 const Layout = styled.div`
-  padding-top: 54px;
+  ${flexbox()};
+`;
+
+const Content = styled.div`
+  ${flexbox("center", "start")};
+  width: 100%;
+  height: 100%;
 `;
 
 const AppLayout = ({ children }) => {
-  return <Layout>{children}</Layout>;
+  return (
+    <Layout>
+      <Side />
+      <Content>{children}</Content>
+    </Layout>
+  );
 };
 
 AppLayout.propTypes = {

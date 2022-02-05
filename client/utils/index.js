@@ -1,6 +1,6 @@
 export {
-  telNumberValidator,
-  replaceTelNumberRegx,
+  phoneNumberValidator,
+  replacePhoneNumberRegx,
   emailValidator,
 } from "./validator";
 export { setDaumPost, openDaumPost } from "./daumPost";

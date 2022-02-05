@@ -1,5 +1,5 @@
 module.exports = {
-  reactStrictMode: true,
+  crossOrigin: "anonymous",
   env: {
     IDENTITYPOOLID: process.env.IDENTITYPOOLID,
     BUCKETNAME: process.env.BUCKETNAME,

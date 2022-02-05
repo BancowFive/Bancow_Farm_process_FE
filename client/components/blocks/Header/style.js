@@ -7,15 +7,21 @@ export const Wrapper = styled.div`
   height: 54px;
   display: flex;
   align-items: center;
-  position: fixed;
-  top: 0;
-  padding: 0 24px;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
+    display: none;
+  }
 `;
 
 export const LogoWrapper = styled.span`
   position: absolute;
   left: 24px;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    left: 0;
+  }
 `;
+
 export const CallBtn = styled.button`
   border: none;
   background-color: inherit;
@@ -23,4 +29,8 @@ export const CallBtn = styled.button`
   right: 24px;
   color: ${({ theme }) => theme.colors.tertiary};
   ${textStyle("body2")};
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    right: 0;
+  }
 `;

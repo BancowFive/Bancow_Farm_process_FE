@@ -6,7 +6,13 @@ import {
   checkCollectionOfInformation,
   selectAll,
 } from "../../reducers/terms";
-import { Container, TermList, TermItem, Button } from "../../components";
+import {
+  Container,
+  TermList,
+  TermItem,
+  Button,
+  Footer,
+} from "../../components";
 
 const ServiceTerms = () => {
   const dispatch = useDispatch();
@@ -76,17 +82,20 @@ const ServiceTerms = () => {
             개인정보 선택/수집 이용
           </TermItem>
         </TermList>
+        <div className="aside">
+          <Button
+            className="link"
+            size={60}
+            variant={conditionOfUse && trustOfInformation ? "primary" : "ghost"}
+            disabled={!(conditionOfUse && trustOfInformation)}
+            to="/info/personal"
+            block
+          >
+            다음
+          </Button>
+          <Footer />
+        </div>
       </Container>
-      <Button
-        size={60}
-        variant={conditionOfUse && trustOfInformation ? "primary" : "ghost"}
-        disabled={!(conditionOfUse && trustOfInformation)}
-        to="/info/personal"
-        fixed
-        block
-      >
-        다음
-      </Button>
     </>
   );
 };

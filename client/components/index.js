@@ -9,6 +9,7 @@ export {
   ProgressStep,
   TermItem,
   List,
+  Footer,
 } from "./atoms";
 export {
   ButtonGroup,
@@ -19,4 +20,7 @@ export {
   Modal,
   TermList,
   DropDown,
+  ProgressHeader,
+  Side,
+  Check,
 } from "./blocks";

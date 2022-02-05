@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 export const ButtonGroup = ({ children, width, fixed, className }) => {
   return (
-    <StyledButtonGroup className={className} fixed={fixed} width={width}>
+    <StyledButtonGroup className={className} width={width} fixed={fixed}>
       {children}
     </StyledButtonGroup>
   );

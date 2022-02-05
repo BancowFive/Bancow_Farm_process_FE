@@ -1,7 +1,7 @@
 import { Radio } from ".";
 
 export default {
-  title: "Radio",
+  title: "Radio Buttons",
   component: Radio,
 };
 
@@ -19,12 +19,4 @@ RadioChecked.args = {
   value: "cow",
   name: "cow-choice",
   variant: "checked",
-  block: true,
-  width: "148px",
-};
-
-export const RadioUnChecked = Template.bind({});
-RadioUnChecked.args = {
-  ...RadioChecked.args,
-  variant: "unchecked",
 };

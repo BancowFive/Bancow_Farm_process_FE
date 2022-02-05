@@ -56,12 +56,12 @@ function setInputVariant(variant) {
 }
 
 export const StyledInput = styled.input`
-  ${textStyle("body1")};
   display: block;
   width: 100%;
   padding: 0 18px;
   border: 1px solid ${({ theme }) => theme.colors.borderGray};
   border-radius: 10px;
+  ${textStyle("body1")};
   appearance: none;
 
   &::placeholder {
@@ -107,10 +107,7 @@ export const StyledInput = styled.input`
 
 export const StyledInputGroup = styled.div`
   position: relative;
-  ${({ width }) =>
-    css`
-      width: ${width};
-    `}
+  width: ${({ width }) => width};
 
   input {
     padding-right: 40px;
@@ -131,11 +128,7 @@ export const StyledInputGroup = styled.div`
 
 export const StyledSelectGroup = styled.div`
   position: relative;
-  width: 100%;
-  ${({ width }) =>
-    css`
-      width: ${width};
-    `}
+  width: ${({ width }) => (width ? width : "100%")};
 
   button {
     justify-content: flex-start;
@@ -161,19 +154,55 @@ export const StyledSelectGroup = styled.div`
 `;
 
 export const StyledFileInput = styled.label`
-  ${textStyle("body1")};
-  display: inline-block;
+  ${flexbox("between")}
+  width: ${({ width }) => (width ? width : "100%")};
   padding: 0 16px;
   border-radius: 10px;
+  ${textStyle("body1")};
+  color: ${({ theme }) => theme.colors.tertiary};
   cursor: pointer;
   ${({ size }) => setInputSize(size)};
   ${({ variant }) => setInputVariant(variant)};
-  ${flexbox("between")}
-  ${({ width }) =>
-    css`
-      width: ${width};
-    `}
   input {
     display: none;
   }
+`;
+
+export const StyledImageInput = styled.label`
+  margin: 20px 0 40px;
+  width: 100%;
+  border: ${({ showError }) => (showError ? `1px solid #ff4e21` : "none")};
+  border-radius: 10px;
+  background-color: ${({ theme }) => theme.colors.backgroundGray};
+  .wrapper {
+    ${flexbox()}
+    flex-direction: column;
+    height: 160px;
+    .image-container {
+      margin-bottom: 6px;
+    }
+    span {
+      ${textStyle("body1")};
+      color: ${({ theme }) => theme.colors.detail};
+    }
+
+    input {
+      display: none;
+    }
+  }
+  display: ${({ showPreview }) => showPreview && "none"};
+`;
+export const Preview = styled.div`
+  ${flexbox()}
+  margin: 20px 0 40px;
+  width: 100%;
+  height: 160px;
+
+  background-color: ${({ theme }) => theme.colors.backgroundGray};
+  .image-container {
+    margin-bottom: 6px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  display: ${({ showPreview }) => !showPreview && "none"};
 `;

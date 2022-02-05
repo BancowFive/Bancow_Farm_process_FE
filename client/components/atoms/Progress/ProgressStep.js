@@ -10,12 +10,29 @@ import {
   Step,
 } from "./style";
 
-export const ProgressStep = ({ activeStep }) => {
+export const ProgressStep = ({
+  height = "31px",
+  width = "100%",
+  activeStep,
+  lineStyle,
+  lineBorder = "1.5px",
+  activeLineBorder = "3px",
+  growLineBorder,
+  className,
+}) => {
   return (
-    <Container>
+    <Container className={className} height={height} width={width}>
       <Bars>
-        <ProgressLine />
-        <ActiveProgressLine active={activeStep} />
+        <ProgressLine
+          growLineBorder={growLineBorder}
+          lineBorder={lineBorder}
+          lineStyle={lineStyle}
+        />
+        <ActiveProgressLine
+          growLineBorder={growLineBorder}
+          activeLineBorder={activeLineBorder}
+          active={activeStep}
+        />
         <Step step={"1"}>
           <ProgressDot active={activeStep >= 1 && activeStep < 4} />
           <Progress active={activeStep >= 1 && activeStep < 4}>1차</Progress>
@@ -36,5 +53,12 @@ export const ProgressStep = ({ activeStep }) => {
 };
 
 ProgressStep.propTypes = {
+  height: PropTypes.string,
+  width: PropTypes.string,
   activeStep: PropTypes.number.isRequired,
+  lineStyle: PropTypes.string,
+  lineBorder: PropTypes.string,
+  activeLineBorder: PropTypes.string,
+  growLineBorder: PropTypes.string,
+  className: PropTypes.string,
 };

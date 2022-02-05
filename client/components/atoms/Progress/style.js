@@ -5,13 +5,14 @@ import { flexbox, textStyle } from "../../../styles/utils";
 export const Container = styled.div`
   position: relative;
   min-width: 312px;
-  height: 31px;
+  min-height: 31px;
+  width: ${props => props.width};
+  height: ${props => props.height};
 `;
 
 export const Bars = styled.div`
   position: relative;
   ${flexbox("start")}
-  flex-grow: 1;
   margin: 0 16px 0 3px;
   height: 14px;
 `;
@@ -57,15 +58,24 @@ export const Progress = styled.div.attrs(props => ({
   width: ${props => props.width};
 `;
 
-export const ProgressLine = styled.div`
+export const ProgressLine = styled.div.attrs(props => ({
+  lineStyle: props.lineStyle || "solid",
+  growLineBorder: props.lineBorder || props.growLineBorder,
+}))`
   position: absolute;
   min-width: 293px;
   width: 100%;
-  border-top: 1.5px dashed ${({ theme }) => theme.colors.borderGray};
+  border-top: ${props => props.lineBorder} ${props => props.lineStyle}
+    ${theme.colors.borderGray};
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    border-top-width: ${props => props.growLineBorder};
+  }
 `;
 
 export const ActiveProgressLine = styled.div.attrs(props => ({
-  width:
+  byPercentage: props.percentage /* 10% 등으로 표시 */,
+  byActive:
     props.active == 1 /* 1차 = 99.5 % 293 = 36.348122 */
       ? "33.959044%"
       : props.active == 2 /* 2차 = 197 % 293 = 69.624573 */
@@ -73,9 +83,17 @@ export const ActiveProgressLine = styled.div.attrs(props => ({
       : props.active == 3 /* 완료(3차) = auto */
       ? "100%"
       : "0%",
+  growLineBorder: props.growLineBorder || props.activeLineBorder,
 }))`
   position: absolute;
-  width: ${props => props.width};
-  border-top: 3px solid ${({ theme }) => theme.colors.mainBlue};
+  width: ${props => (props.byPercentage ? props.byPercentage : props.byActive)};
+  border-top: ${props => props.activeLineBorder} solid
+    ${({ theme }) => theme.colors.mainBlue};
   border-radius: 5px;
+  transition: ${props =>
+    props.byPercentage ? "width 0.3s ease-out" : "default"};
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    border-top-width: ${props => props.growLineBorder};
+  }
 `;
