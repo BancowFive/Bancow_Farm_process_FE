@@ -68,3 +68,22 @@ export const ButtonInfo = styled.div`
     margin-top: 39px;
   }
 `;
+export const TryLater = styled.div`
+  margin-top: 20px;
+  width: 100%;
+  border: 1px solid ${({ theme }) => theme.colors.borderGray};
+  border-radius: 10px;
+  padding: 16px;
+  ${flexbox("between")}
+  .button-info {
+    ${textStyle("body3")};
+    color: ${({ theme }) => theme.colors.guide};
+  }
+
+  .try-later-button {
+    ${textStyle("body3")};
+    color: ${({ theme }) => theme.colors.tertiary};
+    text-decoration: underline;
+    font-weight: 700;
+  }
+`;
