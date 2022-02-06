@@ -1,55 +1,36 @@
-import { StyledButton } from "./style";
-import Image from "next/image";
+import { RadioInput, RadioLabel } from "./Radio_style";
 import PropTypes from "prop-types";
 
-export const Radio = ({
-  children,
-  value,
-  name,
-  size,
-  variant,
-  block,
-  width,
-  onClick,
-}) => {
+export const Radio = ({ id, value, name, children, setUserAnswers }) => {
+  const setValue = e => {
+    const { name, value } = e.target;
+    setUserAnswers(prev => ({ ...prev, [name]: value }));
+  };
   return (
-    <StyledButton
-      as="label"
-      size={size}
-      variant={variant}
-      block={block}
-      width={width}
-    >
-      {children}
-      <div className={variant === "checked" ? "is-active" : ""}>
-        {variant === "checked" && (
-          <Image src="/checked.svg" width="24px" height="24px" />
-        )}
-      </div>
-      <input
+    <>
+      <RadioInput
+        type="radio"
+        id={id}
         value={value}
         name={name}
-        type="radio"
-        className="visually-hidden"
-        onClick={e => {
-          onClick(e);
-        }}
+        onClick={setValue}
       />
-    </StyledButton>
+      <RadioLabel htmlFor={id}>
+        {children}
+        <div className="check-icon"></div>
+      </RadioLabel>
+    </>
   );
 };
 
 Radio.propTypes = {
   children: PropTypes.node.isRequired,
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   name: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   value: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string,
     PropTypes.bool,
   ]).isRequired,
-  size: PropTypes.number.isRequired,
-  variant: PropTypes.string.isRequired,
-  block: PropTypes.bool,
-  width: PropTypes.string,
-  onClick: PropTypes.func,
+  setUserAnswers: PropTypes.func,
 };
