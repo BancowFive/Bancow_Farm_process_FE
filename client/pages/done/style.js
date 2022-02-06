@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { textStyle } from "../../styles/utils";
+import { flexbox, textStyle } from "../../styles/utils";
 
 export const Container = styled.div`
   position: relative;
@@ -34,4 +34,23 @@ export const ButtonInfo = styled.div`
   ${textStyle("body3")};
   color: ${({ theme }) => theme.colors.detail};
   text-align: center;
+`;
+export const TryLater = styled.div`
+  margin-top: 20px;
+  width: 100%;
+  border: 1px solid ${({ theme }) => theme.colors.borderGray};
+  border-radius: 10px;
+  padding: 16px;
+  ${flexbox("between")}
+  .button-info {
+    ${textStyle("body3")};
+    color: ${({ theme }) => theme.colors.guide};
+  }
+
+  .try-later-button {
+    ${textStyle("body3")};
+    color: ${({ theme }) => theme.colors.tertiary};
+    text-decoration: underline;
+    font-weight: 700;
+  }
 `;
