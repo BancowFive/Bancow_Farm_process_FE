@@ -89,6 +89,15 @@ const step2Slice = createSlice({
         });
       }
     },
+    fetchStep2Data: (state, action) => {
+      state.fileType = {
+        ...state.fileType,
+        ...action.payload.farmFile.reduce((acc, cur) => {
+          acc[cur.fileType] = cur.fileType;
+          return acc;
+        }, state.fileType),
+      };
+    },
   },
   extraReducers: builder => {
     //getUserFileInfo (임시보관용/작업 완료 후 삭제예정)
@@ -132,4 +141,5 @@ const step2Slice = createSlice({
   },
 });
 
+export const { fetchStep2Data } = step2Slice.actions;
 export default step2Slice.reducer;

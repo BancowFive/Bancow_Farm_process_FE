@@ -26,6 +26,8 @@ export const saveFarmInfo = createAsyncThunk(
 );
 
 const initialState = {
+  id: "",
+  status: "",
   data: {
     name: "",
     email: "",
@@ -59,6 +61,9 @@ const step1Slice = createSlice({
       state.data.farmAddress = action.payload.address;
       state.data.farmPostCode = action.payload.postCode;
     },
+    fetchStep1Data: (state, action) => {
+      state.data = action.payload;
+    },
   },
   extraReducers: {
     [savePersonalInfo.pending.type]: (state, action) => {
@@ -90,6 +95,11 @@ const step1Slice = createSlice({
   },
 });
 
-export const { inputName, inputEmail, inputFarmName, inputFarmAddress } =
-  step1Slice.actions;
+export const {
+  inputName,
+  inputEmail,
+  inputFarmName,
+  inputFarmAddress,
+  fetchStep1Data,
+} = step1Slice.actions;
 export default step1Slice.reducer;
