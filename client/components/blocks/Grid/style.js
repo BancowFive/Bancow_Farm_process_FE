@@ -17,7 +17,6 @@ export const StyledContainer = styled.div`
     ${flexbox("start", "start")};
     width: 100%;
     flex: 1;
-    margin-bottom: 30px;
     padding: 0 24px;
     flex-direction: column;
     overflow-y: auto;
@@ -67,8 +66,20 @@ export const StyledContainer = styled.div`
     }
   }
 
-  @media (min-width: 1024px) {
+  //container max 크기
+  @media (min-width: 540px) {
+    div.aside {
+      width: 100%;
+
+      .link {
+        border-radius: 10px;
+      }
+    }
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     top: 70px;
+    bottom: 30px;
 
     .content {
       padding: 0;
@@ -94,30 +105,25 @@ export const StyledContainer = styled.div`
     }
 
     div.aside {
-      width: 100%;
-
       .link {
-        border-radius: 10px;
+        margin-bottom: 30px;
       }
     }
   }
 
-  @media (min-width: 1280px) {
-    bottom: 125px;
-
-    .content {
-      padding: 4px 0 0;
-    }
+  @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
+    bottom: 105px;
 
     .progressHeader {
       display: block;
     }
+
     div.aside {
-      .link {
-        margin-bottom: 30px;
-      }
+      height: 150px;
+
       .footer {
         ${flexbox("between")};
+        margin-bottom: 20px;
       }
     }
   }

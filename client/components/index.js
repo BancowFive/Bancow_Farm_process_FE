@@ -20,6 +20,7 @@ export {
   Modal,
   TermList,
   DropDown,
+  ProgressHeader,
   Side,
   Check,
 } from "./blocks";

@@ -7,7 +7,7 @@ import {
   Footer,
 } from "../components";
 import { useCallback, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { phoneNumberValidator, replacePhoneNumberRegx } from "../utils";
 import {
   inputPhoneNumber,
@@ -17,10 +17,9 @@ import {
 } from "../reducers/auth";
 import { printPhoneNumber } from "../utils/nums";
 
-const auth = "1234";
-
 const Auth = () => {
   const dispatch = useDispatch();
+  const { password, certificationError } = useSelector(state => state.auth);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [phoneNumberValid, setPhoneNumberValid] = useState(null);
   const [message, setMessage] = useState("");
@@ -32,15 +31,13 @@ const Auth = () => {
     setIsToggle(!isToggle);
   }, [isToggle]);
 
-  const handlePhoneNumber = useCallback(
-    event => {
-      phoneNumberValidator(event, setPhoneNumber);
-    },
-    [phoneNumber],
-  );
+  const handlePhoneNumber = useCallback(event => {
+    const phoneNumber = phoneNumberValidator(event);
+    setPhoneNumber(phoneNumber);
+  }, []);
 
-  const handleAuthNumber = useCallback(e => {
-    setAuthNumber(e.target.value);
+  const handleAuthNumber = useCallback(event => {
+    setAuthNumber(event.target.value);
   }, []);
 
   useEffect(() => {
@@ -141,10 +138,10 @@ const Auth = () => {
         <div className="aside">
           <Button
             className="link"
-            variant={authNumber === auth ? "primary" : "ghost"}
+            variant={password && authNumber === password ? "primary" : "ghost"}
             size={60}
             block
-            disabled={!(authNumber === auth)}
+            disabled={!(authNumber === password)}
             onClick={savePhoneNumber}
           >
             다음
@@ -159,7 +156,7 @@ const Auth = () => {
         subMessage="확인을 누르시면 계속 진행합니다."
         icon="done"
         onClick={fetchData}
-        to="/terms"
+        // to="/terms"
       >
         확인
       </Modal>

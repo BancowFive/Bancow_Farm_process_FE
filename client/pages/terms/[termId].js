@@ -99,6 +99,7 @@ const ServiceTermWrapper = styled.div`
   right: 0;
   top: 0;
   bottom: 0;
+  ${flexbox()};
   background-color: ${({ theme }) => theme.colors.white};
   overflow: hidden;
 

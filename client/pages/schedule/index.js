@@ -5,11 +5,11 @@ import { SelectedDate } from "../../components/atoms/EmphasizedWord";
 import { Button } from "../../components/atoms/Button";
 import { Container, Toast } from "./style";
 import { useDispatch, useSelector } from "react-redux";
-import { submitAvailableDate, moveStep } from "../../reducers/schedule";
+import { submitAvailableDate, moveStep } from "../../reducers/step3";
 
 const Schedule = () => {
   const dispatch = useDispatch();
-  const userId = useSelector(state => state.schedule.id);
+  const userId = useSelector(state => state.step3.id);
   const [selectedDate, setselectedDate] = useState();
   const [isDisabledDay, setIsDisabledDay] = useState(false);
   //공휴일 등 실사요청 불가능한 날짜, YYYYMMDD 형태
