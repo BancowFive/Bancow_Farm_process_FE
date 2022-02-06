@@ -79,8 +79,6 @@ export const StyledContainer = styled.div`
 
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     top: 70px;
-    bottom: 30px;
-
     .content {
       padding: 0;
     }
@@ -103,12 +101,6 @@ export const StyledContainer = styled.div`
         height: 300px !important;
       }
     }
-
-    div.aside {
-      .link {
-        margin-bottom: 30px;
-      }
-    }
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
@@ -123,6 +115,10 @@ export const StyledContainer = styled.div`
     div.aside {
       height: 150px;
       margin-bottom: 20px;
+
+      .link {
+        margin-bottom: 30px;
+      }
 
       .footer {
         ${flexbox("between")};
