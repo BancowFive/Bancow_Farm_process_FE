@@ -42,8 +42,10 @@ const Schedule = () => {
 
   const handleSubmit = useCallback(async () => {
     try {
+      const fulldate = selectedDate.fulldate;
       await dispatch(
-        submitAvailableDate(selectedDate.fulldate, userId),
+        //userId가 안넘어감... 왜? 여기선 71 찍힘
+        submitAvailableDate({ fulldate, userId }),
       ).unwrap();
 
       await dispatch(
@@ -56,7 +58,7 @@ const Schedule = () => {
     } catch (error) {
       console.log(error);
     }
-  }, [selectedDate]);
+  }, [selectedDate, userId]);
 
   return (
     <>

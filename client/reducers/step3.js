@@ -5,12 +5,12 @@ export const submitAvailableDate = createAsyncThunk(
   "step3/submitAvailableDate",
   async (data, { rejectWithValue }) => {
     try {
-      console.log("실행됨");
+      console.log("실행됨", data);
       const result = await schedule.submitAvailableDate(
         data.fulldate,
         data.userId,
       );
-      return result;
+      return result.data;
     } catch (error) {
       rejectWithValue(error.response.data);
     }
@@ -21,9 +21,8 @@ export const changeStep = createAsyncThunk(
   "step3/changeStep",
   async (data, { rejectWithValue }) => {
     try {
-      console.log("실행됨");
       const result = await moveStep(data.PageNum, data.inProgress, data.userId);
-      return result;
+      return result.data;
     } catch (error) {
       rejectWithValue(error.response.data);
     }

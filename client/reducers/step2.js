@@ -6,7 +6,7 @@ export const submitFiles = createAsyncThunk(
   "step2/submitFiles",
   async (data, { rejectWithValue }) => {
     try {
-      const s3 = await uploadToS3(data.file, data.targetId);
+      const s3 = await uploadToS3(data.file, data.targetId, data.userId);
 
       const fileInfo = {
         originalFileName: data.file.name,
@@ -15,10 +15,11 @@ export const submitFiles = createAsyncThunk(
         fileType: data.targetId,
       };
 
-      const result = await submit.submitFiles(fileInfo, userId);
+      const result = await submit.submitFiles(fileInfo, data.userId);
       return data.targetId; //result 불필요
     } catch (error) {
       rejectWithValue(error.response.data);
+      console.log(error);
     }
   },
 );
@@ -82,12 +83,10 @@ const step2Slice = createSlice({
     //submitFiles
     builder.addCase(submitFiles.pending, (state, action) => {
       state.submitStatus = "pending";
-      console.log("성공");
     });
     builder.addCase(submitFiles.fulfilled, (state, action) => {
       state.submitStatus = "fulfilled";
       state.fileType = { ...state.fileType, [action.payload]: action.payload };
-      console.log("성공");
     });
     builder.addCase(submitFiles.rejected, (state, action) => {
       state.submitStatus = "rejected";
