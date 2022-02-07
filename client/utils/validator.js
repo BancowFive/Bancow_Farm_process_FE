@@ -13,7 +13,7 @@ const phoneNumber13 = phoneNumber =>
   phoneNumber.replace(/-/g, "").replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
 
 export const replacePhoneNumberRegx = phoneNumber => {
-  switch (phoneNumber.length) {
+  switch (phoneNumber?.length) {
     case 10:
     case 12:
       return phoneNumber12(phoneNumber);

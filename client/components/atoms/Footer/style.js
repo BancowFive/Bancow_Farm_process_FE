@@ -37,7 +37,7 @@ export const StyledFooter = styled.footer`
     color: ${({ theme }) => theme.colors.detail};
   }
 
-  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+  @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
     ${flexbox("between")};
   }
 `;

@@ -1,4 +1,4 @@
-import { useCallback, useState, useRef, useEffect } from "react";
+import { useCallback, useState, useRef, useEffect, useMemo } from "react";
 import {
   Container,
   FormGroup,
@@ -7,53 +7,79 @@ import {
   ButtonGroup,
   DropDown,
   Footer,
+  ProgressHeader,
+  Header,
 } from "../../components";
 import { setDaumPost, openDaumPost } from "../../utils";
-import { useDispatch } from "react-redux";
-import { inputFarmName, inputFarmAddress } from "../../reducers/step1";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  inputFarmName,
+  inputFarmFodder,
+  changeStep1,
+} from "../../reducers/step1";
 
 const Farm = () => {
   const dispatch = useDispatch();
+  const { farmName, farmPostCode, farmAddress, fodder } = useSelector(
+    state => state.step1.data,
+  );
+  const { id } = useSelector(state => state.step1);
 
   const postcodeRef = useRef(null);
-
+  const [selfInput, setSelfInput] = useState("");
   const [isOpen, setIsOpen] = useState(true);
-  const [farmName, setFarmName] = useState("");
-  const [postCode, setPostCode] = useState("");
-  const [address, setAddress] = useState("");
-  const [fodder, setFodder] = useState("");
-  const selectFodder = useCallback(
-    value => {
-      setIsOpen(!isOpen);
-      setFodder(value);
-    },
-    [isOpen],
-  );
-
-  const handleFodderChange = useCallback(event => {
-    setFodder(event.target.value);
-  }, []);
 
   const farmNameChange = useCallback(event => {
-    setFarmName(event.target.value);
+    dispatch(inputFarmName(event.target.value));
   }, []);
 
   const loadPostLayout = useCallback(() => {
-    openDaumPost(setPostCode, setAddress);
+    openDaumPost(dispatch);
   }, []);
 
   useEffect(() => {
     setDaumPost();
   }, []);
 
+  useEffect(() => {
+    if (fodder === "직접입력") {
+      setSelfInput("");
+    }
+  }, [fodder]);
+
+  const selectFodder = useCallback(() => {
+    setIsOpen(!isOpen);
+  }, [isOpen]);
+
+  const handleFodderChange = useCallback(event => {
+    setSelfInput(event.target.value);
+  }, []);
+
+  const isValid = useMemo(() => {
+    if (fodder === "직접입력") {
+      return farmName && farmPostCode && farmAddress && selfInput;
+    } else {
+      return farmName && farmPostCode && farmAddress && fodder;
+    }
+  }, [farmName, farmPostCode, farmAddress, fodder, selfInput]);
+
   const saveFarmInfo = useCallback(() => {
-    dispatch(inputFarmName(farmName));
-    dispatch(inputFarmAddress({ address, postCode }));
-  }, [farmName, postCode, address]);
+    if (fodder === "직접입력") {
+      dispatch(inputFarmFodder(selfInput));
+    }
+  }, [selfInput]);
+
+  const movePage = useCallback(() => {
+    saveFarmInfo();
+    //pageNum, inProgress, id
+    dispatch(changeStep1("5", "STEP1_IN_PROGRESS", id));
+  }, []);
 
   return (
     <>
       <Container>
+        <Header />
+        <ProgressHeader className="progressHeader" growLineBorder="1px" />
         <div className="content">
           <h2>
             간단히 농가에 대해 <br />
@@ -80,7 +106,7 @@ const Farm = () => {
                 variant="primary"
                 type="text"
                 placeholder="우편번호"
-                value={postCode}
+                value={farmPostCode}
                 readOnly
               />
               <Button
@@ -99,7 +125,7 @@ const Farm = () => {
                 variant="primary"
                 type="text"
                 placeholder="상세주소 입력"
-                value={address}
+                value={farmAddress}
                 block
                 readOnly
               />
@@ -107,7 +133,7 @@ const Farm = () => {
           </FormGroup>
           <FormGroup type="fodder">
             <h3>사료</h3>
-            <div>
+            <div className="main-input">
               <DropDown
                 type="fodder"
                 onClick={selectFodder}
@@ -122,7 +148,7 @@ const Farm = () => {
                   variant="primary"
                   type="text"
                   placeholder="사료 입력"
-                  value={fodder}
+                  value={selfInput}
                   onChange={handleFodderChange}
                 />
               </div>
@@ -132,16 +158,20 @@ const Farm = () => {
 
         <div className="aside">
           <ButtonGroup className="link">
-            <Button variant="ghost" size={60} to="/info/personal">
+            <Button
+              className="link"
+              variant="ghost"
+              size={60}
+              to="/info/personal"
+            >
               이전
             </Button>
             <Button
-              variant={
-                farmName && postCode && address && fodder ? "primary" : "ghost"
-              }
-              disabled={!(farmName && postCode && address && fodder)}
+              className="link"
+              variant={isValid ? "primary" : "ghost"}
+              disabled={!isValid}
               size={60}
-              onClick={saveFarmInfo}
+              onClick={movePage}
               to="/"
             >
               다음

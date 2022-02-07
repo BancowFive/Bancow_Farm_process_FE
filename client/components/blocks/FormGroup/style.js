@@ -93,8 +93,4 @@ export const StyledFormGroup = styled.div`
       ${textStyle("body2")};
     }
   }
-
-  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    margin-bottom: 24px;
-  }
 `;
