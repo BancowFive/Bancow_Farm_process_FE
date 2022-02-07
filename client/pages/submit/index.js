@@ -45,7 +45,15 @@ const Required = () => {
     const file = e.target.files[0];
     const targetId = e.target.id;
 
-    dispatch(submitFiles(file, targetId, userId));
+    const fileSize = this.files[0].size;
+    const maxSize = 5 * 1024 * 1024;
+
+    if (fileSize > maxSize) {
+      alert("첨부파일 사이즈는 5MB 이내로 등록 가능합니다.");
+      return;
+    } else {
+      dispatch(submitFiles(file, targetId, userId));
+    }
   }, []);
 
   const movePage = useCallback(() => {
