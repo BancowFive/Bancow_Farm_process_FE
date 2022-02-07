@@ -13,7 +13,6 @@ export const getS3Auth = () => {
 export const uploadToS3 = (file, target) => {
   //파일업로드 취소 시
   if (file === undefined) {
-    console.log(e.target.files[0]);
     return;
   }
 
