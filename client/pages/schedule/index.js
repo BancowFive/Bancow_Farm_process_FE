@@ -78,9 +78,7 @@ const Schedule = () => {
           >
             확인
           </Button>
-          <div className="footer">
-            <Footer />
-          </div>
+          <Footer />
         </div>
       </Container>
     </>
