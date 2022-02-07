@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { Calendar } from "../../components/atoms/Calendar";
 import { ToastBar } from "../../components/atoms/Toast";
 import { SelectedDate } from "../../components/atoms/EmphasizedWord";
@@ -6,20 +6,29 @@ import { Header, Footer, ProgressHeader } from "../../components";
 import { Button } from "../../components/atoms/Button";
 import { Container, Toast } from "./style";
 import { useDispatch, useSelector } from "react-redux";
-import { submitAvailableDate, moveStep } from "../../reducers/step3";
+import { submitAvailableDate, changeStep3 } from "../../reducers/step3";
+import { useRouter } from "next/router";
 
 const Schedule = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
+
   const userId = useSelector(state => state.step3.id);
+  const moveAllowed = useSelector(state => state.step3.moveStatus);
   const [selectedDate, setselectedDate] = useState();
   const [isDisabledDay, setIsDisabledDay] = useState(false);
   //공휴일 등 실사요청 불가능한 날짜, YYYYMMDD 형태
   const isDisable = ["20220210", "20220216", "20220213"];
 
+  //페이지 이동
+  useEffect(() => {
+    if (moveAllowed === "fulfilled") router.replace("/done/step3");
+  }, [moveAllowed]);
+
   const getSelectedDay = useCallback(
     day =>
       setselectedDate({
-        full: day.format("YYYY-MM-DD"),
+        fulldate: day.format("YYYY-MM-DD"),
         year: day.format("YYYY"),
         month: day.format("MM"),
         day: day.format("DD"),
@@ -33,12 +42,23 @@ const Schedule = () => {
 
   const handleSubmit = useCallback(async () => {
     try {
-      await dispatch(submitAvailableDate(selectedDate.full, userId)).unwrap();
-      await dispatch(moveStep("14", "INVESTIGATION_CONFIRM", userId)).unwrap();
+      const fulldate = selectedDate.fulldate;
+      await dispatch(
+        //userId가 안넘어감... 왜? 여기선 71 찍힘
+        submitAvailableDate({ fulldate, userId }),
+      ).unwrap();
+
+      await dispatch(
+        changeStep3({
+          PageNum: "14",
+          inProgress: "INVESTIGATION_CONFIRM",
+          userId,
+        }),
+      ).unwrap();
     } catch (error) {
       console.log(error);
     }
-  }, [selectedDate]);
+  }, [selectedDate, userId]);
 
   return (
     <>

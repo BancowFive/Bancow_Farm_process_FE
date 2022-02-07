@@ -4,13 +4,15 @@ import { FileInput } from "../../components/atoms/Form";
 import { ProgressHeader } from "../../components/blocks";
 import { Header } from "../../components";
 import { Container, FileInputGroup } from "./style";
-import { getS3Auth } from "../../modules/S3";
-import { submitFiles, moveStep } from "../../reducers/step2";
+import { getS3Auth } from "../../utils";
+import { submitFiles, changeStep2 } from "../../reducers/step2";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Footer } from "../../components";
+import { useRouter } from "next/router";
 
 const Required = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const { livestock, facility, fooder, shipping, business, idCard } =
     useSelector(
@@ -24,6 +26,7 @@ const Required = () => {
       }),
       shallowEqual,
     );
+  const moveAllowed = useSelector(state => state.step2.moveStatus);
   const userId = useSelector(state => state.step2.id);
 
   const [hasSubmit, setHasSubmit] = useState(false);
@@ -32,6 +35,11 @@ const Required = () => {
   useEffect(() => {
     getS3Auth();
   }, []);
+
+  //페이지 이동
+  useEffect(() => {
+    if (moveAllowed === "fulfilled") router.replace("/done/step2");
+  }, [moveAllowed]);
 
   //제출 Valid check
   useEffect(() => {
@@ -45,12 +53,21 @@ const Required = () => {
     const file = e.target.files[0];
     const targetId = e.target.id;
 
-    dispatch(submitFiles(file, targetId, userId));
+    const fileSize = file.size;
+    const maxSize = 10 * 1024 * 1024;
+
+    if (fileSize > maxSize) {
+      alert("첨부파일 사이즈는 10MB 이내로 등록 가능합니다.");
+      return;
+    } else {
+      dispatch(submitFiles({ file, targetId, userId }));
+    }
   }, []);
 
   const movePage = useCallback(() => {
-    //pageNum, inProgress, id
-    dispatch(moveStep("11", "STEP2_COMPLETED", userId));
+    dispatch(
+      changeStep2({ PageNum: "11", inProgress: "STEP2_COMPLETED", userId }),
+    );
   }, []);
 
   return (
@@ -117,9 +134,7 @@ const Required = () => {
           >
             제출
           </Button>
-          <div className="footer">
-            <Footer />
-          </div>
+          <Footer className="footer" />
         </div>
       </Container>
     </>

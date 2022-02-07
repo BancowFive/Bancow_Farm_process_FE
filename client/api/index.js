@@ -7,7 +7,10 @@ export const request = (method, url, data) => {
   return axios({
     method,
     url: DOMAIN + url,
-    headers: authHeader(),
+    headers: {
+      ...authHeader(),
+      "Content-Type": "application/json",
+    },
     data: json,
   })
     .then(result => result)
@@ -26,7 +29,7 @@ export const movePage = (pageNum, id) => {
 
 //농장 상태 변경
 export const moveStep = (pageNum, inProgress, id) => {
-  return request("put", `/api/farm/${id}/in-progress`, {
+  return request("put", `/api/farm/${id}/inProgress`, {
     pageNum: pageNum,
     inProgress: inProgress,
   });
