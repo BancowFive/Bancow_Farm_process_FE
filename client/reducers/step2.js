@@ -85,9 +85,18 @@ const step2Slice = createSlice({
       } else {
         action.payload.data.farmFile.forEach(file => {
           let name = file.fileType;
-          state.fileType = { ...state.fileType, name };
+          state.fileType = { ...state.fileType, [name]: name };
         });
       }
+    },
+    fetchStep2Data: (state, action) => {
+      state.fileType = {
+        ...state.fileType,
+        ...action.payload.farmFile.reduce((acc, cur) => {
+          acc[cur.fileType] = cur.fileType;
+          return acc;
+        }, state.fileType),
+      };
     },
   },
   extraReducers: builder => {
@@ -109,7 +118,7 @@ const step2Slice = createSlice({
     });
     builder.addCase(submitFiles.fulfilled, (state, action) => {
       state.status = "fulfilled";
-      state.fileType = { ...state.fileType, ...action.payload };
+      state.fileType = { ...state.fileType, [action.payload]: action.payload };
       //payload 값 확인필요
       console.log(action.payload);
     });
@@ -132,4 +141,5 @@ const step2Slice = createSlice({
   },
 });
 
+export const { fetchStep2Data } = step2Slice.actions;
 export default step2Slice.reducer;

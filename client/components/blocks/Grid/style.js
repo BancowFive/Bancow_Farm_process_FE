@@ -79,7 +79,6 @@ export const StyledContainer = styled.div`
 
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     top: 70px;
-
     .content {
       padding: 0;
     }
@@ -105,7 +104,9 @@ export const StyledContainer = styled.div`
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
-    bottom: 105px;
+    @media (min-height: 1080px) {
+      bottom: 105px;
+    }
 
     .progressHeader {
       display: block;
@@ -113,6 +114,7 @@ export const StyledContainer = styled.div`
 
     div.aside {
       height: 150px;
+      margin-bottom: 20px;
 
       .link {
         margin-bottom: 30px;
@@ -120,7 +122,6 @@ export const StyledContainer = styled.div`
 
       .footer {
         ${flexbox("between")};
-        margin-bottom: 20px;
       }
     }
   }
