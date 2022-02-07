@@ -42,17 +42,19 @@ export const fetchUserData = createAsyncThunk(
 );
 
 const initialState = {
+  id: "",
+  status: "",
   phoneNumber: "",
   password: "",
   certificationLoading: false,
   certificationDone: false,
   certificationError: null,
-  autorizationLoading: false,
-  autorizationDone: false,
-  autorizationError: null,
+  authorizationLoading: false,
+  authorizationDone: false,
+  authorizationError: null,
   fetchUserDataLoading: false,
-  fetchUserDataError: false,
-  fetchUserDataDone: null,
+  fetchUserDataDone: false,
+  fetchUserDataError: null,
 };
 
 const authSlice = createSlice({
@@ -79,17 +81,17 @@ const authSlice = createSlice({
       state.certificationError = action.payload;
     },
     [authorize.pending.type]: (state, action) => {
-      state.autorizationLoading = true;
-      state.autorizationDone = false;
-      state.autorizationError = null;
+      state.authorizationLoading = true;
+      state.authorizationDone = false;
+      state.authorizationError = null;
     },
     [authorize.fulfilled.type]: (state, action) => {
-      state.autorizationLoading = false;
-      state.autorizationDone = true;
+      state.authorizationLoading = false;
+      state.authorizationDone = true;
     },
     [authorize.rejected.type]: (state, action) => {
-      state.autorizationLoading = false;
-      state.autorizationError = action.payload;
+      state.authorizationLoading = false;
+      state.authorizationError = action.payload;
     },
     [fetchUserData.pending.type]: (state, action) => {
       state.fetchUserDataLoading = true;
