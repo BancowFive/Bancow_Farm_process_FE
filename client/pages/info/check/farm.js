@@ -4,13 +4,14 @@ import { Button, ButtonGroup, Container } from "../../components";
 import { Radio } from "../../components/atoms/Button/Radio";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { Footer } from "../../../components";
 
 export const Wrapper = styled.div`
   width: 100%;
   div:not(:last-of-type) {
     margin-bottom: 30px;
   }
-  padding-bottom: ${({ showError }) => (showError ? "80px" : "60px")};
+  padding-bottom: ${({ showError }) => (showError ? "80px" : "70px")};
 `;
 
 export const InfoTitle = styled.h3`
@@ -34,15 +35,15 @@ export const RadioWrapper = styled.div`
   }
 `;
 
-const docsCheck = () => {
+const farmCheck = () => {
   const [checkedAll, setCheckedAll] = useState(false);
   const [showError, setShowError] = useState(false);
   const [userAnswers, setUserAnswers] = useState({
-    livestockFarmingBusinessRegistration: "",
-    facilitiesStructure: "",
-    annualFodderCostSpecification: "",
-    annualInspectionReport: "",
-    businessLicense: "",
+    indentification: "",
+    ownFarm: "",
+    breedingType: "",
+    population: "",
+    ownCCTV: "",
   });
 
   const router = useRouter();
@@ -88,142 +89,135 @@ const docsCheck = () => {
       <Container>
         <div className="content">
           <h2>
-            서류가 있는지 알려주세요
-            <span className="notice">
-              지금 갖고 있지 않아도 진행하실 수 있어요
-            </span>
+            농가에 대한 정보를 <br /> 알려주세요
           </h2>
           <Wrapper showError={showError}>
-            <InfoTitle>가축 사육업 등록증</InfoTitle>
+            <InfoTitle>농장주 본인이신가요?</InfoTitle>
             <RadioWrapper>
               <div className="button-wrapper">
                 <Radio
-                  id="livestockFarmingBusinessRegistration_yes"
+                  id="indentification_yes"
                   value={true}
-                  name="livestockFarmingBusinessRegistration"
+                  name="indentification"
                   setUserAnswers={setUserAnswers}
                 >
-                  있어요
+                  네
                 </Radio>
                 <Radio
-                  id="livestockFarmingBusinessRegistration_no"
+                  id="indentification_no"
                   value={false}
-                  name="livestockFarmingBusinessRegistration"
+                  name="indentification"
                   setUserAnswers={setUserAnswers}
                 >
-                  없어요
+                  아니오
                 </Radio>
               </div>
-              {showError &&
-              userAnswers.livestockFarmingBusinessRegistration === "" ? (
-                <h4 className="invalid">
-                  가축사육업 등록증 보유 여부를 선택해주세요
-                </h4>
+              {showError && userAnswers.indentification === "" ? (
+                <h4 className="invalid">본인 여부를 선택해주세요</h4>
               ) : null}
             </RadioWrapper>
 
-            <InfoTitle>축사시설 구조도</InfoTitle>
+            <InfoTitle>농장이 자가인가요?</InfoTitle>
             <RadioWrapper>
               <div className="button-wrapper">
                 <Radio
-                  id="facilitiesStructure_yes"
+                  id="ownFarm_yes"
                   value={true}
-                  name="facilitiesStructure"
+                  name="ownFarm"
                   setUserAnswers={setUserAnswers}
                 >
-                  있어요
+                  네
                 </Radio>
                 <Radio
-                  id="facilitiesStructure_no"
+                  id="ownFarm_no"
                   value={false}
-                  name="facilitiesStructure"
+                  name="ownFarm"
                   setUserAnswers={setUserAnswers}
                 >
-                  없어요
+                  아니오
                 </Radio>
               </div>
-              {showError && userAnswers.facilitiesStructure === "" ? (
-                <h4 className="invalid">
-                  축사시설 구조도 보유 여부를 선택해주세요.
-                </h4>
+              {showError && userAnswers.ownFarm === "" ? (
+                <h4 className="invalid">농장 자가 여부를 선택해주세요</h4>
               ) : null}
             </RadioWrapper>
-            <InfoTitle>사료비 명세서(1년)</InfoTitle>
+            <InfoTitle>
+              농장 유형이 무엇인가요?
+              <br />
+              <span>번식농장에 대해서는 내부 검토중입니다.</span>
+            </InfoTitle>
+
             <RadioWrapper>
               <div className="button-wrapper">
                 <Radio
-                  id="annualFodderCostSpecification_yes"
-                  value={true}
-                  name="annualFodderCostSpecification"
+                  id="비육"
+                  value="비육"
+                  name="breedingType"
                   setUserAnswers={setUserAnswers}
                 >
-                  있어요
+                  비육 농장
                 </Radio>
                 <Radio
-                  id="annualFodderCostSpecification_no"
-                  value={false}
-                  name="annualFodderCostSpecification"
+                  id="일괄"
+                  value="일괄"
+                  name="breedingType"
                   setUserAnswers={setUserAnswers}
                 >
-                  없어요
+                  일괄 농장
                 </Radio>
               </div>
-              {showError && userAnswers.annualFodderCostSpecification === "" ? (
-                <h4 className="invalid">
-                  사료비 명세서 보유 여부를 선택해주세요.
-                </h4>
+              {showError && userAnswers.breedingType === "" ? (
+                <h4 className="invalid">농장 유형을 선택해주세요</h4>
               ) : null}
             </RadioWrapper>
-            <InfoTitle>출하 성적서(1년)</InfoTitle>
+
+            <InfoTitle>가축의 수가 100마리 이상인가요?</InfoTitle>
             <RadioWrapper>
               <div className="button-wrapper">
                 <Radio
-                  id="annualInspectionReport_yes"
-                  value={true}
-                  name="annualInspectionReport"
+                  id="100마리 미만"
+                  value="100마리 미만"
+                  name="population"
                   setUserAnswers={setUserAnswers}
                 >
-                  있어요
+                  100마리 미만
                 </Radio>
                 <Radio
-                  id="annualInspectionReport_no"
-                  value={false}
-                  name="annualInspectionReport"
+                  id="100마리 이상"
+                  value="100마리 이상"
+                  name="population"
                   setUserAnswers={setUserAnswers}
                 >
-                  없어요
+                  100마리 이상
                 </Radio>
               </div>
-              {showError && userAnswers.annualInspectionReport === "" ? (
-                <h4 className="invalid">
-                  출하 성적서 보유 여부를 선택해주세요.
-                </h4>
+              {showError && userAnswers.population === "" ? (
+                <h4 className="invalid">가축의 수를 선택해주세요</h4>
               ) : null}
             </RadioWrapper>
-            <InfoTitle>사업자 등록증</InfoTitle>
+
+            <InfoTitle>농장에 CCTV가 있나요?</InfoTitle>
             <RadioWrapper>
               <div className="button-wrapper">
                 <Radio
-                  id="businessLicense_yes"
+                  id="CCTV_yes"
                   value={true}
-                  name="businessLicense"
+                  name="ownCCTV"
                   setUserAnswers={setUserAnswers}
                 >
-                  있어요
+                  네
                 </Radio>
                 <Radio
-                  id="businessLicense_no"
+                  id="CCTV_no"
                   value={false}
-                  name="businessLicense"
+                  name="ownCCTV"
                   setUserAnswers={setUserAnswers}
                 >
-                  없어요
+                  아니오
                 </Radio>
               </div>
-              {showError && userAnswers.facilitiesStructure === "" ? (
-                <h4 className="invalid">
-                  사업자 등록증 보유 여부를 선택해주세요.
-                </h4>
+              {showError && userAnswers.ownCCTV === "" ? (
+                <h4 className="invalid">CCTV 보유 여부를 선택해주세요</h4>
               ) : null}
             </RadioWrapper>
           </Wrapper>
@@ -241,10 +235,11 @@ const docsCheck = () => {
               다음
             </Button>
           </ButtonGroup>
+          <Footer />
         </div>
       </Container>
     </>
   );
 };
 
-export default docsCheck;
+export default farmCheck;
