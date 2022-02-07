@@ -57,7 +57,7 @@ const Required = () => {
     <>
       <Container>
         <Header />
-        <ProgressHeader className="progressHeader" />
+        <ProgressHeader className="progressHeader" growLineBorder="1px" />
         <div className="content">
           <h2>필수 서류를 제출해 주세요</h2>
           <span className="notice">제출할 서류를 선택하세요</span>

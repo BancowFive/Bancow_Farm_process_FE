@@ -85,7 +85,7 @@ const step2Slice = createSlice({
       } else {
         action.payload.data.farmFile.forEach(file => {
           let name = file.fileType;
-          state.fileType = { ...state.fileType, name };
+          state.fileType = { ...state.fileType, [name]: name };
         });
       }
     },
@@ -118,7 +118,7 @@ const step2Slice = createSlice({
     });
     builder.addCase(submitFiles.fulfilled, (state, action) => {
       state.status = "fulfilled";
-      state.fileType = { ...state.fileType, ...action.payload };
+      state.fileType = { ...state.fileType, [action.payload]: action.payload };
       //payload 값 확인필요
       console.log(action.payload);
     });

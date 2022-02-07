@@ -60,7 +60,7 @@ export const Progress = styled.div.attrs(props => ({
 
 export const ProgressLine = styled.div.attrs(props => ({
   lineStyle: props.lineStyle || "solid",
-  growLineBorder: props.lineBorder || props.growLineBorder,
+  growLineBorder: props.growLineBorder || props.lineBorder,
 }))`
   position: absolute;
   min-width: 293px;

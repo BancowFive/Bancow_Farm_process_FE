@@ -21,20 +21,22 @@ export const Calendar = ({
         <CalendarController today={today} month={month} setMonth={setMonth}>
           {month.format("YYYY. M")}
         </CalendarController>
-        <CalendarDate />
-        <CalendarDay
-          today={today}
-          month={month}
-          onClick={onClick}
-          disabledDate={disabledDate}
-          onDisabledAction={onDisabledAction}
-        />
-        {coloredDayInfo ? (
-          <ColorInfomation>
-            <div className="pointer info" />
-            {coloredDayInfo}
-          </ColorInfomation>
-        ) : null}
+        <div className="body">
+          <CalendarDate />
+          <CalendarDay
+            today={today}
+            month={month}
+            onClick={onClick}
+            disabledDate={disabledDate}
+            onDisabledAction={onDisabledAction}
+          />
+          {coloredDayInfo ? (
+            <ColorInfomation>
+              <div className="pointer info" />
+              {coloredDayInfo}
+            </ColorInfomation>
+          ) : null}
+        </div>
       </CalendarContainer>
     </>
   );

@@ -19,9 +19,7 @@ export const Container = styled(StyledContainer)`
 
   @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
     div.aside {
-      .footer {
-        margin: 0;
-      }
+      margin: 0;
     }
   }
 `;
