@@ -16,6 +16,7 @@ import {
   inputFarmName,
   inputFarmFodder,
   changeStep1,
+  saveFarmInfo,
 } from "../../reducers/step1";
 
 const Farm = () => {
@@ -63,14 +64,17 @@ const Farm = () => {
     }
   }, [farmName, farmPostCode, farmAddress, fodder, selfInput]);
 
-  const saveFarmInfo = useCallback(() => {
+  const saveFarm = useCallback(() => {
     if (fodder === "직접입력") {
       dispatch(inputFarmFodder(selfInput));
     }
   }, [selfInput]);
 
   const movePage = useCallback(() => {
-    saveFarmInfo();
+    saveFarm();
+    dispatch(
+      saveFarmInfo({ farmName, farmAddress, farmPostCode, fodder }, "5"),
+    );
     //pageNum, inProgress, id
     dispatch(changeStep1("5", "STEP1_IN_PROGRESS", id));
   }, []);

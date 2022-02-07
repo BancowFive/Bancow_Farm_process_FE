@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { personalInfo, farmInfo, moveStep } from "../api";
 
-export const savePersonalInfo = createAsyncThunk(
-  "step1/info/savePersonalInfo",
+export const saveFarmOwnerInfo = createAsyncThunk(
+  "step1/info/saveFarmOwnerInfo",
   async ({ data, pageNum }, { rejectWithValue }) => {
     try {
       const result = await personalInfo.savePersonalInfo(data, pageNum);

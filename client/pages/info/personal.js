@@ -11,7 +11,12 @@ import {
   Confirm,
 } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
-import { inputEmail, inputName, changeStep1 } from "../../reducers/step1";
+import {
+  inputEmail,
+  inputName,
+  changeStep1,
+  saveFarmOwnerInfo,
+} from "../../reducers/step1";
 import { emailValidator } from "../../utils";
 
 const Personal = () => {
@@ -69,6 +74,7 @@ const Personal = () => {
   }, [name, email, emailLocal, emailDomain]);
 
   const movePage = useCallback(() => {
+    dispatch(saveFarmOwnerInfo({ name, email }, "4"));
     //pageNum, inProgress, id
     dispatch(changeStep1("4", "STEP1_IN_PROGRESS", id));
   }, []);
