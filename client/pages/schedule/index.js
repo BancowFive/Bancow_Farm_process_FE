@@ -6,7 +6,7 @@ import { Header, Footer, ProgressHeader } from "../../components";
 import { Button } from "../../components/atoms/Button";
 import { Container, Toast } from "./style";
 import { useDispatch, useSelector } from "react-redux";
-import { submitAvailableDate, changeStep } from "../../reducers/step3";
+import { submitAvailableDate, changeStep3 } from "../../reducers/step3";
 import { useRouter } from "next/router";
 
 const Schedule = () => {
@@ -49,7 +49,7 @@ const Schedule = () => {
       ).unwrap();
 
       await dispatch(
-        changeStep({
+        changeStep3({
           PageNum: "14",
           inProgress: "INVESTIGATION_CONFIRM",
           userId,

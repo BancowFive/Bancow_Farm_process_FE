@@ -24,8 +24,8 @@ export const submitFiles = createAsyncThunk(
   },
 );
 
-export const changeStep = createAsyncThunk(
-  "step2/changeStep",
+export const changeStep2 = createAsyncThunk(
+  "step2/changeStep2",
   async (data, { rejectWithValue }) => {
     try {
       const result = await moveStep(data.PageNum, data.inProgress, data.userId);
@@ -92,14 +92,14 @@ const step2Slice = createSlice({
       state.submitStatus = "rejected";
     });
 
-    //changeStep
-    builder.addCase(changeStep.pending, (state, action) => {
+    //changeStep2
+    builder.addCase(changeStep2.pending, (state, action) => {
       state.moveStatus = "pending";
     });
-    builder.addCase(changeStep.fulfilled, (state, action) => {
+    builder.addCase(changeStep2.fulfilled, (state, action) => {
       state.moveStatus = "fulfilled";
     });
-    builder.addCase(changeStep.rejected, (state, action) => {
+    builder.addCase(changeStep2.rejected, (state, action) => {
       state.moveStatus = "rejected";
     });
   },

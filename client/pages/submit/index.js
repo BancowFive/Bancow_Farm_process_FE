@@ -5,7 +5,7 @@ import { ProgressHeader } from "../../components/blocks";
 import { Header } from "../../components";
 import { Container, FileInputGroup } from "./style";
 import { getS3Auth } from "../../utils";
-import { submitFiles, changeStep } from "../../reducers/step2";
+import { submitFiles, changeStep2 } from "../../reducers/step2";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Footer } from "../../components";
 import { useRouter } from "next/router";
@@ -66,7 +66,7 @@ const Required = () => {
 
   const movePage = useCallback(() => {
     dispatch(
-      changeStep({ PageNum: "11", inProgress: "STEP2_COMPLETED", userId }),
+      changeStep2({ PageNum: "11", inProgress: "STEP2_COMPLETED", userId }),
     );
   }, []);
 
