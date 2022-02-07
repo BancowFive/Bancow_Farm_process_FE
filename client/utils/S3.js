@@ -10,7 +10,7 @@ export const getS3Auth = () => {
   });
 };
 
-export const uploadToS3 = (file, target) => {
+export const uploadToS3 = (file, target, userId) => {
   //파일업로드 취소 시
   if (file === undefined) {
     return;
@@ -24,8 +24,7 @@ export const uploadToS3 = (file, target) => {
   const upload = new AWS.S3.ManagedUpload({
     params: {
       Bucket: process.env.BUCKETNAME,
-      //사용자 구분값 localStorage에서 가져오기()
-      Key: `사용자ID ${target} ${fileExtension}`,
+      Key: `${userId}_${target}_${fileExtension}`,
       Body: file,
       ContentType: type,
     },
