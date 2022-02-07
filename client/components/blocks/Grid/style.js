@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { flexbox, textStyle } from "../../../styles/utils";
+import { flexbox, positionCenterX, textStyle } from "../../../styles/utils";
 
 export const StyledContainer = styled.div`
   position: absolute;
@@ -11,14 +11,15 @@ export const StyledContainer = styled.div`
   min-width: 360px;
   width: 100%;
   margin: 0 auto;
+  padding: 0 24px;
   overflow-y: auto;
 
   .content {
     ${flexbox("start", "start")};
     width: 100%;
     flex: 1;
-    padding: 0 24px;
     flex-direction: column;
+    margin-bottom: 10px;
     overflow-y: auto;
   }
 
@@ -68,6 +69,8 @@ export const StyledContainer = styled.div`
 
   //container max 크기
   @media (min-width: 540px) {
+    padding: 0;
+
     div.aside {
       width: 100%;
 
@@ -78,22 +81,24 @@ export const StyledContainer = styled.div`
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    top: 70px;
     .content {
       padding: 0;
+      margin-bottom: 20px;
     }
 
     h1 {
       width: 100%;
       margin: 64px 0 24px;
     }
+
     h2 {
       margin: 30px 0 66px;
     }
 
     span.guide {
-      margin-bottom: 60px;
+      margin-bottom: 40px;
     }
+
     div.image-wrapper {
       ${flexbox()};
       span {
@@ -101,27 +106,31 @@ export const StyledContainer = styled.div`
         height: 300px !important;
       }
     }
+
+    .toast {
+      ${positionCenterX()};
+      bottom: 80px;
+    }
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
     @media (min-height: 1080px) {
       bottom: 105px;
     }
-
     .progressHeader {
       display: block;
     }
 
-    div.aside {
+    .toast {
+      bottom: 190px;
+    }
+
+    .aside {
       height: 150px;
       margin-bottom: 20px;
 
-      .link {
+      button.link {
         margin-bottom: 30px;
-      }
-
-      .footer {
-        ${flexbox("between")};
       }
     }
   }

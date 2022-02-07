@@ -14,6 +14,8 @@ export const saveServiceTerms = createAsyncThunk(
 );
 
 const initialState = {
+  id: "",
+  status: "",
   conditionOfUse: false,
   trustOfInformation: false,
   collectionOfInformation: false,

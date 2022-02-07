@@ -10,10 +10,13 @@ export const StyledTermList = styled.ul`
   gap: 16px;
 
   @media (min-width: 540px) {
-    top: 50%;
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    top: 166px;
+    top: 50%;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
+    top: 236px;
   }
 `;

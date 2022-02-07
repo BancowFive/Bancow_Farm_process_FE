@@ -5,27 +5,41 @@ import {
   Input,
   Modal,
   Footer,
+  ToastBar,
+  Header,
+  ProgressHeader,
 } from "../components";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { phoneNumberValidator, replacePhoneNumberRegx } from "../utils";
+import {
+  phoneNumberValidator,
+  replacePhoneNumberRegx,
+  printPhoneNumber,
+} from "../utils";
 import {
   inputPhoneNumber,
   authorize,
   fetchUserData,
   getCertification,
 } from "../reducers/auth";
-import { printPhoneNumber } from "../utils/nums";
 
 const Auth = () => {
   const dispatch = useDispatch();
-  const { password, certificationError } = useSelector(state => state.auth);
+  const {
+    password,
+    certificationError,
+    authorizationDone,
+    authorizationError,
+    fetchUserDataDone,
+  } = useSelector(state => state.auth);
+
   const [phoneNumber, setPhoneNumber] = useState("");
   const [phoneNumberValid, setPhoneNumberValid] = useState(null);
   const [message, setMessage] = useState("");
-  const [isToggle, setIsToggle] = useState(false);
-
   const [authNumber, setAuthNumber] = useState("");
+
+  const [isToggle, setIsToggle] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const toggleModal = useCallback(() => {
     setIsToggle(!isToggle);
@@ -60,7 +74,6 @@ const Auth = () => {
   }, [phoneNumber]);
 
   const savePhoneNumber = useCallback(async () => {
-    toggleModal();
     dispatch(inputPhoneNumber(printPhoneNumber(phoneNumber)));
     dispatch(
       authorize({
@@ -70,6 +83,20 @@ const Auth = () => {
     );
   }, [phoneNumber, authNumber]);
 
+  useEffect(() => {
+    if (certificationError) {
+      setIsError(true);
+      return;
+    }
+    if (authorizationDone) {
+      toggleModal();
+      return;
+    } else if (authorizationError) {
+      setIsError(true);
+      return;
+    }
+  }, [certificationError, authorizationDone, authorizationError]);
+
   const fetchData = useCallback(() => {
     dispatch(fetchUserData(printPhoneNumber(phoneNumber)));
   }, [phoneNumber]);
@@ -77,6 +104,8 @@ const Auth = () => {
   return (
     <>
       <Container>
+        <Header />
+        <ProgressHeader className="progressHeader" growLineBorder="1px" />
         <div className="content">
           <h2>
             휴대폰 본인 인증이 <br />
@@ -101,6 +130,7 @@ const Auth = () => {
                     ? "input"
                     : "error input"
                 }
+                maxLength={13}
               />
               <Button
                 size={56}
@@ -134,6 +164,17 @@ const Auth = () => {
               </div>
             </FormGroup>
           )}
+          {isError && (
+            <div className="toast">
+              <ToastBar show width={"196.5px"}>
+                {certificationError
+                  ? "서버가 불안정합니다. 인증번호 요청을 다시하세요."
+                  : authorizationError
+                  ? "서버가 불안정합니다. 본인인증에 실패하였습니다."
+                  : setIsError(false)}
+              </ToastBar>
+            </div>
+          )}
         </div>
         <div className="aside">
           <Button
@@ -156,7 +197,7 @@ const Auth = () => {
         subMessage="확인을 누르시면 계속 진행합니다."
         icon="done"
         onClick={fetchData}
-        // to="/terms"
+        to={fetchUserDataDone ? "/terms" : null}
       >
         확인
       </Modal>

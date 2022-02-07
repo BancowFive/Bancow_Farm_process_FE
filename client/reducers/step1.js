@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { personalInfo, farmInfo } from "../api";
+import { personalInfo, farmInfo, moveStep } from "../api";
 
 export const savePersonalInfo = createAsyncThunk(
   "step1/info/savePersonalInfo",
@@ -25,6 +25,18 @@ export const saveFarmInfo = createAsyncThunk(
   },
 );
 
+export const changeStep1 = createAsyncThunk(
+  "step1/changeStep",
+  async ({ PageNum, inProgress, userId }, { rejectWithValue }) => {
+    try {
+      const result = await moveStep(PageNum, inProgress, userId);
+      return result;
+    } catch (error) {
+      rejectWithValue(error.response.data);
+    }
+  },
+);
+
 const initialState = {
   id: "",
   status: "",
@@ -42,6 +54,9 @@ const initialState = {
   savePersonalInfoLoading: false,
   savePersonalInfoDone: false,
   savePersonalInfoError: null,
+  changeStep1Loading: false,
+  changeStep1Done: false,
+  changeStep1Error: null,
 };
 
 const step1Slice = createSlice({
@@ -60,6 +75,9 @@ const step1Slice = createSlice({
     inputFarmAddress: (state, action) => {
       state.data.farmAddress = action.payload.address;
       state.data.farmPostCode = action.payload.postCode;
+    },
+    inputFarmFodder: (state, action) => {
+      state.data.fodder = action.payload;
     },
     fetchStep1Data: (state, action) => {
       state.data = action.payload;
@@ -92,6 +110,19 @@ const step1Slice = createSlice({
       state.savePersonalInfoLoading = false;
       state.savePersonalInfoError = action.payload;
     },
+    [changeStep1.pending.type]: (state, action) => {
+      state.changeStep1Loading = true;
+      state.changeStep1Done = false;
+      state.changeStep1Error = null;
+    },
+    [changeStep1.fulfilled.type]: (state, action) => {
+      state.changeStep1Loading = false;
+      state.changeStep1Done = true;
+    },
+    [changeStep1.rejected.type]: (state, action) => {
+      state.changeStep1Loading = false;
+      state.changeStep1Error = action.payload;
+    },
   },
 });
 
@@ -100,6 +131,7 @@ export const {
   inputEmail,
   inputFarmName,
   inputFarmAddress,
+  inputFarmFodder,
   fetchStep1Data,
 } = step1Slice.actions;
 export default step1Slice.reducer;

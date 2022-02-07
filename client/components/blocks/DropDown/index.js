@@ -1,7 +1,9 @@
 import PropTypes from "prop-types";
 import { useState, useCallback, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Select, List } from "../..";
 import { StyledDropDown } from "./style";
+import { inputFarmFodder } from "../../../reducers/step1";
 
 const emailList = ["@naver.com", "@gmail.com", "직접입력"];
 const fodderList = [
@@ -27,13 +29,23 @@ const getDataType = type => {
 };
 
 export const DropDown = ({ onClick, isOpen, type, block }) => {
-  const [value, setValue] = useState(getDataType(type)[0]);
+  const dispatch = useDispatch();
+  const { email } = useSelector(state => state.step1.data);
+  const [value, setValue] = useState(
+    type === "email"
+      ? (email.split("@")[1] && "@" + email.split("@")[1]) ||
+          getDataType(type)[0]
+      : getDataType(type)[0],
+  );
 
   const handleClick = useCallback(e => {
     setValue(e.target.innerText);
   }, []);
 
   useEffect(() => {
+    if (type === "fodder") {
+      dispatch(inputFarmFodder(value));
+    }
     if (onClick) {
       onClick(value);
     }
