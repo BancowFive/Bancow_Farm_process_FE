@@ -1,8 +1,8 @@
 // tel number regx
-export const phoneNumberValidator = (event, func) => {
+export const phoneNumberValidator = event => {
   const regex = /^[0-9\b -]{0,13}$/;
   if (regex.test(event.target.value)) {
-    func(event.target.value);
+    return event.target.value;
   }
 };
 

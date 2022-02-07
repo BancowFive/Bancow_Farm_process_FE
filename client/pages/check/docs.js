@@ -1,16 +1,42 @@
 import styled from "styled-components";
-import { Button, ButtonGroup, Check } from "../../components";
-import { StyledContainer } from "../../components/blocks/Grid/style";
+import { flexbox, textStyle } from "../../styles/utils";
+import { Button, ButtonGroup, Container } from "../../components";
+import { Radio } from "../../components/atoms/Button/Radio";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-const CheckWrapper = styled.div`
+export const Wrapper = styled.div`
+  width: 100%;
   div:not(:last-of-type) {
     margin-bottom: 30px;
   }
+  padding-bottom: ${({ showError }) => (showError ? "80px" : "60px")};
 `;
 
-const farmCheck = () => {
+export const InfoTitle = styled.h3`
+  margin-bottom: 10px;
+  color: ${({ theme }) => theme.colors.tertiary};
+  ${textStyle("headline4")};
+  span {
+    margin-top: 4px;
+    color: ${({ theme }) => theme.colors.guide};
+    ${textStyle("body2")};
+  }
+`;
+
+export const RadioWrapper = styled.div`
+  .button-wrapper {
+    ${flexbox("between")}
+  }
+  .invalid {
+    color: ${({ theme }) => theme.colors.error};
+    ${textStyle("body2")};
+  }
+`;
+
+const docsCheck = () => {
+  const [checkedAll, setCheckedAll] = useState(false);
+  const [showError, setShowError] = useState(false);
   const [userAnswers, setUserAnswers] = useState({
     livestockFarmingBusinessRegistration: "",
     facilitiesStructure: "",
@@ -18,8 +44,7 @@ const farmCheck = () => {
     annualInspectionReport: "",
     businessLicense: "",
   });
-  const [checkedAll, setCheckedAll] = useState(false);
-  const [showError, setShowError] = useState(false);
+
   const router = useRouter();
 
   useEffect(() => {
@@ -44,7 +69,9 @@ const farmCheck = () => {
     //선택을 하지 않은 항목, 즉 빈값이 있으면 showError를 true,
     //showError는 check 컴포넌트 내에서 에러메세지의 노출 여부 결정
     for (const [key, value] of Object.entries(userAnswers)) {
-      if (value === "") setShowError(true);
+      if (value === "") {
+        setShowError(true);
+      }
     }
   };
 
@@ -56,89 +83,168 @@ const farmCheck = () => {
       router.push("/check/docs");
     }
   };
-
   return (
     <>
-      <StyledContainer>
-        <h2>
-          서류가 있는지 알려주세요
-          <span className="notice">
-            지금 갖고 있지 않아도 진행하실 수 있어요
-          </span>
-        </h2>
+      <Container>
+        <div className="content">
+          <h2>
+            서류가 있는지 알려주세요
+            <span className="notice">
+              지금 갖고 있지 않아도 진행하실 수 있어요
+            </span>
+          </h2>
+          <Wrapper showError={showError}>
+            <InfoTitle>가축 사육업 등록증</InfoTitle>
+            <RadioWrapper>
+              <div className="button-wrapper">
+                <Radio
+                  id="livestockFarmingBusinessRegistration_yes"
+                  value={true}
+                  name="livestockFarmingBusinessRegistration"
+                  setUserAnswers={setUserAnswers}
+                >
+                  있어요
+                </Radio>
+                <Radio
+                  id="livestockFarmingBusinessRegistration_no"
+                  value={false}
+                  name="livestockFarmingBusinessRegistration"
+                  setUserAnswers={setUserAnswers}
+                >
+                  없어요
+                </Radio>
+              </div>
+              {showError &&
+              userAnswers.livestockFarmingBusinessRegistration === "" ? (
+                <h4 className="invalid">
+                  가축사육업 등록증 보유 여부를 선택해주세요
+                </h4>
+              ) : null}
+            </RadioWrapper>
 
-        <CheckWrapper>
-          <Check
-            title="가축 사육업 등록증"
-            radioName="livestockFarmingBusinessRegistration"
-            leftOption="있어요"
-            leftOptionValue={true}
-            rightOption="없어요"
-            rightOptionValue={false}
-            setUserAnswers={setUserAnswers}
-            invalidMessage="가축사육업 등록증 보유 여부를 선택해주세요."
-            showError={showError}
-          />
-          <Check
-            title="축사시설 구조도"
-            radioName="facilitiesStructure"
-            leftOption="있어요"
-            leftOptionValue={true}
-            rightOption="없어요"
-            rightOptionValue={false}
-            setUserAnswers={setUserAnswers}
-            invalidMessage="축사시설 구조도 보유 여부를 선택해주세요."
-            showError={showError}
-          />
-          <Check
-            title="사료비 명세서(1년)"
-            radioName="annualFodderCostSpecification"
-            leftOption="있어요"
-            leftOptionValue={true}
-            rightOption="없어요"
-            rightOptionValue={false}
-            setUserAnswers={setUserAnswers}
-            invalidMessage="사료비 명세서 보유 여부를 선택해주세요."
-            showError={showError}
-          />
-          <Check
-            title="출하 성적서(1년)"
-            radioName="annualInspectionReport"
-            leftOption="있어요"
-            leftOptionValue={true}
-            rightOption="없어요"
-            rightOptionValue={false}
-            setUserAnswers={setUserAnswers}
-            invalidMessage="출하 성적서 보유 여부를 선택해주세요."
-            showError={showError}
-          />
-          <Check
-            title="사업자 등록증"
-            radioName="businessLicense"
-            leftOption="있어요"
-            leftOptionValue={true}
-            rightOption="없어요"
-            rightOptionValue={false}
-            setUserAnswers={setUserAnswers}
-            invalidMessage="사업자 등록증 보유 여부를 선택해주세요."
-            showError={showError}
-          />
-        </CheckWrapper>
-      </StyledContainer>
-      <ButtonGroup fixed>
-        <Button variant="primary" size={60} to="/">
-          이전
-        </Button>
-        <Button
-          onClick={callApi}
-          variant={checkedAll ? "primary" : "ghost"}
-          size={60}
-        >
-          다음
-        </Button>
-      </ButtonGroup>
+            <InfoTitle>축사시설 구조도</InfoTitle>
+            <RadioWrapper>
+              <div className="button-wrapper">
+                <Radio
+                  id="facilitiesStructure_yes"
+                  value={true}
+                  name="facilitiesStructure"
+                  setUserAnswers={setUserAnswers}
+                >
+                  있어요
+                </Radio>
+                <Radio
+                  id="facilitiesStructure_no"
+                  value={false}
+                  name="facilitiesStructure"
+                  setUserAnswers={setUserAnswers}
+                >
+                  없어요
+                </Radio>
+              </div>
+              {showError && userAnswers.facilitiesStructure === "" ? (
+                <h4 className="invalid">
+                  축사시설 구조도 보유 여부를 선택해주세요.
+                </h4>
+              ) : null}
+            </RadioWrapper>
+            <InfoTitle>사료비 명세서(1년)</InfoTitle>
+            <RadioWrapper>
+              <div className="button-wrapper">
+                <Radio
+                  id="annualFodderCostSpecification_yes"
+                  value={true}
+                  name="annualFodderCostSpecification"
+                  setUserAnswers={setUserAnswers}
+                >
+                  있어요
+                </Radio>
+                <Radio
+                  id="annualFodderCostSpecification_no"
+                  value={false}
+                  name="annualFodderCostSpecification"
+                  setUserAnswers={setUserAnswers}
+                >
+                  없어요
+                </Radio>
+              </div>
+              {showError && userAnswers.annualFodderCostSpecification === "" ? (
+                <h4 className="invalid">
+                  사료비 명세서 보유 여부를 선택해주세요.
+                </h4>
+              ) : null}
+            </RadioWrapper>
+            <InfoTitle>출하 성적서(1년)</InfoTitle>
+            <RadioWrapper>
+              <div className="button-wrapper">
+                <Radio
+                  id="annualInspectionReport_yes"
+                  value={true}
+                  name="annualInspectionReport"
+                  setUserAnswers={setUserAnswers}
+                >
+                  있어요
+                </Radio>
+                <Radio
+                  id="annualInspectionReport_no"
+                  value={false}
+                  name="annualInspectionReport"
+                  setUserAnswers={setUserAnswers}
+                >
+                  없어요
+                </Radio>
+              </div>
+              {showError && userAnswers.annualInspectionReport === "" ? (
+                <h4 className="invalid">
+                  출하 성적서 보유 여부를 선택해주세요.
+                </h4>
+              ) : null}
+            </RadioWrapper>
+            <InfoTitle>사업자 등록증</InfoTitle>
+            <RadioWrapper>
+              <div className="button-wrapper">
+                <Radio
+                  id="businessLicense_yes"
+                  value={true}
+                  name="businessLicense"
+                  setUserAnswers={setUserAnswers}
+                >
+                  있어요
+                </Radio>
+                <Radio
+                  id="businessLicense_no"
+                  value={false}
+                  name="businessLicense"
+                  setUserAnswers={setUserAnswers}
+                >
+                  없어요
+                </Radio>
+              </div>
+              {showError && userAnswers.facilitiesStructure === "" ? (
+                <h4 className="invalid">
+                  사업자 등록증 보유 여부를 선택해주세요.
+                </h4>
+              ) : null}
+            </RadioWrapper>
+          </Wrapper>
+        </div>
+        <div className="aside">
+          <ButtonGroup fixed>
+            <Button variant="primary" size={60} to="/">
+              이전
+            </Button>
+            <Button
+              onClick={callApi}
+              variant={checkedAll ? "primary" : "ghost"}
+              size={60}
+            >
+              다음
+            </Button>
+          </ButtonGroup>
+        </div>
+      </Container>
     </>
   );
 };
 
-export default farmCheck;
+export default docsCheck;

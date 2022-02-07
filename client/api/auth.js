@@ -27,10 +27,7 @@ export const axiosAuth = (method, url, data) => {
     .then(response => {
       console.log(response);
       if (response.headers.authorization) {
-        localStorage.setItem(
-          "token",
-          JSON.stringify(response.headers.authorization),
-        );
+        localStorage.setItem("token", response.headers.authorization);
       }
       return response.headers;
     })
@@ -41,8 +38,7 @@ export const axiosAuth = (method, url, data) => {
 };
 
 export const axiosCertification = (method, url, data) => {
-  const formBody = Object.keys(data)[0] + "&" + data["phoneNumber"];
-  console.log(formBody);
+  const formBody = Object.keys(data)[0] + "=" + data["phoneNumber"];
   return axios({
     method,
     url: DOMAIN + url,

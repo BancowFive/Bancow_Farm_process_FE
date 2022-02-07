@@ -10,10 +10,16 @@ export const Container = styled(StyledContainer)`
     margin: 0;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     h2 {
       margin: 30px 0 10px;
       ${textStyle("headline1")};
+    }
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
+    div.aside {
+      margin: 0;
     }
   }
 `;
@@ -26,7 +32,7 @@ export const FileInputGroup = styled.div`
     margin-top: 20px;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     margin: 30px 0 100px;
     label + label {
       margin-top: 30px;

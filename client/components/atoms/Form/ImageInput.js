@@ -2,24 +2,54 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Preview, StyledImageInput } from "./style";
 import { getS3Auth, uploadToS3 } from "../../../modules/S3";
+import { inputPicture } from "../../../reducers/step1";
+import { useDispatch, useSelector } from "react-redux";
 
 export const ImageInput = ({
+  //사진 항목을 구분하는 id
   pictureId,
   previewAlt,
   setuploadedImages,
   showError,
+  savedImage,
+  imageIndex,
 }) => {
   const [showPreview, setShowPreview] = useState(false);
   const [previewURL, setPreviewURL] = useState("/");
+
+  //ImageInput내에서 업로드 된 각 사진의 정보
   const [imageData, setImageData] = useState({
-    originalImageName: null,
-    changedImageName: null,
-    imageUrl: null,
-    ImageType: null,
+    originalImageName: "",
+    changedImageName: "",
+    imageUrl: "",
+    imageType: "",
   });
+  const dispatch = useDispatch();
+
+  // 사용자가 사진을 올리면 redux state 업데이트;
+  useEffect(() => {
+    //이전으로 다녀오더라도 새로 업로드한 사진이 보일 수 있도록
+    //받아온 imageUrl이 있으면 리덕스 state에 업데이트
+    if (imageData.imageUrl !== "") {
+      dispatch(
+        inputPicture({
+          imageIndex,
+          ...imageData,
+        }),
+      );
+    }
+  }, [imageData]);
 
   useEffect(() => {
     getS3Auth();
+    console.log(savedImage);
+    if (savedImage) {
+      setShowPreview(true);
+      setPreviewURL(savedImage);
+      //중간저장 불러오기
+      //리덕스에 이미지 url이 있으면  각 사진 제출여부 state 중 현재 항목 true
+      setuploadedImages(prev => ({ ...prev, [pictureId]: true }));
+    }
   }, []);
 
   const handleChange = async e => {
@@ -45,8 +75,6 @@ export const ImageInput = ({
       imageUrl: result.Location,
       ImageType: pictureId,
     }));
-    //업로드 되었는지 체크, 이 함수를 API 통신이 완료 된 후로 옮길 예정
-    setuploadedImages(prev => ({ ...prev, [pictureId]: true }));
   };
 
   const uploadToServer = () => {

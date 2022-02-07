@@ -1,14 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { auth } from "../api";
 import { axiosAuth, axiosCertification } from "../api/auth";
+import { fetchStep1Data, inputName } from "./step1";
+import { fetchStep2Data } from "./step2";
 
 export const getCertification = createAsyncThunk(
   "auth/getCertification",
   async (data, { rejectWithValue }) => {
     try {
       const result = await axiosCertification("post", "/api/sendSMS", data);
-      console.log(result);
-      return result.data;
+      return result.data.data;
     } catch (error) {
       console.error(error);
       return rejectWithValue(err.response.data);
@@ -30,12 +31,12 @@ export const authorize = createAsyncThunk(
 
 export const fetchUserData = createAsyncThunk(
   "auth/fetchUserData",
-  async (id, { rejectWithValue }) => {
+  async (id, thunkApi) => {
     try {
       const result = await auth.fetchData(id);
-      return result;
+      thunkApi.dispatch(fetchStep1Data(result.data.data));
     } catch (error) {
-      return rejectWithValue(err.response.data);
+      return thunkApi.rejectWithValue(err.response.data);
     }
   },
 );
@@ -71,6 +72,7 @@ const authSlice = createSlice({
     [getCertification.fulfilled.type]: (state, action) => {
       state.certificationLoading = false;
       state.certificationDone = true;
+      state.password = action.payload.password;
     },
     [getCertification.rejected.type]: (state, action) => {
       state.certificationLoading = false;
@@ -84,7 +86,6 @@ const authSlice = createSlice({
     [authorize.fulfilled.type]: (state, action) => {
       state.autorizationLoading = false;
       state.autorizationDone = true;
-      state.data = action.payload;
     },
     [authorize.rejected.type]: (state, action) => {
       state.autorizationLoading = false;

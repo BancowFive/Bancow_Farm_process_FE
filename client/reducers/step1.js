@@ -26,18 +26,22 @@ export const saveFarmInfo = createAsyncThunk(
 );
 
 const initialState = {
-  name: "",
-  email: "",
-  savePersonalInfoLoading: false,
-  savePersonalInfoDone: false,
-  savePersonalInfoError: null,
-  farmName: "",
-  farmPostCode: "",
-  farmAddress: "",
-  fodder: "",
+  id: "",
+  status: "",
+  data: {
+    name: "",
+    email: "",
+    farmName: "",
+    farmPostCode: "",
+    farmAddress: "",
+    fodder: "",
+  },
   saveFarmInfoLoading: false,
   saveFarmInfoDone: false,
   saveFarmInfoError: null,
+  savePersonalInfoLoading: false,
+  savePersonalInfoDone: false,
+  savePersonalInfoError: null,
 };
 
 const step1Slice = createSlice({
@@ -45,17 +49,20 @@ const step1Slice = createSlice({
   initialState,
   reducers: {
     inputName: (state, action) => {
-      state.name = action.payload;
+      state.data.name = action.payload;
     },
     inputEmail: (state, action) => {
-      state.email = action.payload;
+      state.data.email = action.payload;
     },
     inputFarmName: (state, action) => {
-      state.farmName = action.payload;
+      state.data.farmName = action.payload;
     },
     inputFarmAddress: (state, action) => {
-      state.farmAddress = action.payload.address;
-      state.farmPostCode = action.payload.postCode;
+      state.data.farmAddress = action.payload.address;
+      state.data.farmPostCode = action.payload.postCode;
+    },
+    fetchStep1Data: (state, action) => {
+      state.data = action.payload;
     },
   },
   extraReducers: {
@@ -88,6 +95,11 @@ const step1Slice = createSlice({
   },
 });
 
-export const { inputName, inputEmail, inputFarmName, inputFarmAddress } =
-  step1Slice.actions;
+export const {
+  inputName,
+  inputEmail,
+  inputFarmName,
+  inputFarmAddress,
+  fetchStep1Data,
+} = step1Slice.actions;
 export default step1Slice.reducer;

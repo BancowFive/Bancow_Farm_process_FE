@@ -1,15 +1,11 @@
 import styled from "styled-components";
-import { textStyle } from "../../styles/utils";
+import { flexbox, textStyle } from "../../styles/utils";
+import { StyledContainer } from "../../components/blocks/Grid/style";
 
-export const Container = styled.div`
-  position: relative;
-  padding: 0 24px;
-  width: 360px;
-  margin: 0 auto;
-
+export const Container = styled(StyledContainer)`
   h1 {
+    width: 100%;
     margin: 50px 0 0;
-    ${textStyle("headline1")};
     color: ${({ theme }) => theme.colors.primary};
   }
 
@@ -18,20 +14,76 @@ export const Container = styled.div`
     ${textStyle("headline2")};
     color: ${({ theme }) => theme.colors.detail};
   }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    h1 {
+      margin-top: 74px;
+      font-size: 30px;
+      line-height: 44px;
+      letter-spacing: -0.4px;
+    }
+
+    h2 {
+      ${textStyle("headline3")};
+      margin: 24px 0 0;
+    }
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
+    .mobileProgressStep {
+      display: none;
+    }
+  }
 `;
 
 export const ImgContainer = styled.div.attrs(props => ({
   margin: props.step ? "64px" : "102px",
 }))`
-  height: 300px;
+  ${flexbox()}
+  width: 100%;
   margin-top: ${props => props.margin};
-  vertical-align: middle;
+
+  span {
+    width: 312px !important;
+    height: 300px !important;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    justify-content: flex-end;
+    margin-top: 42px;
+
+    span {
+      width: 350px !important;
+      height: 340px !important;
+    }
+  }
 `;
 
 export const ButtonInfo = styled.div`
-  margin: 52px 0 20px;
-  width: 312px;
+  margin: 52px auto 20px;
   ${textStyle("body3")};
   color: ${({ theme }) => theme.colors.detail};
-  text-align: center;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    margin-top: 39px;
+  }
+`;
+export const TryLater = styled.div`
+  margin-top: 20px;
+  width: 100%;
+  border: 1px solid ${({ theme }) => theme.colors.borderGray};
+  border-radius: 10px;
+  padding: 16px;
+  ${flexbox("between")}
+  .button-info {
+    ${textStyle("body3")};
+    color: ${({ theme }) => theme.colors.guide};
+  }
+
+  .try-later-button {
+    ${textStyle("body3")};
+    color: ${({ theme }) => theme.colors.tertiary};
+    text-decoration: underline;
+    font-weight: 700;
+  }
 `;

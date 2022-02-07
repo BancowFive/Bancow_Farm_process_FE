@@ -1,20 +1,15 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";
 import logger from "redux-logger";
-import createSagaMiddleware from "redux-saga";
-
+// import { customMiddleware1, customMiddleware2 } from "./middlewares";
 import reducer from "../reducers/index";
-import rootSaga from "../sagas";
 
 const createStore = () => {
-  const sagaMiddleware = createSagaMiddleware();
   const store = configureStore({
     reducer,
-    middleware: [...getDefaultMiddleware(), sagaMiddleware, logger],
+    middleware: [...getDefaultMiddleware(), logger],
     devTools: process.env.NODE_ENV !== "production",
   });
-
-  store.sagaTask = sagaMiddleware.run(rootSaga);
 
   return store;
 };

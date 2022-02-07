@@ -17,12 +17,19 @@ export const ProgressStep = ({
   lineStyle,
   lineBorder = "1.5px",
   activeLineBorder = "3px",
+  growLineBorder,
+  className,
 }) => {
   return (
-    <Container className="progressContainer" height={height} width={width}>
+    <Container className={className} height={height} width={width}>
       <Bars>
-        <ProgressLine lineBorder={lineBorder} lineStyle={lineStyle} />
+        <ProgressLine
+          growLineBorder={growLineBorder}
+          lineBorder={lineBorder}
+          lineStyle={lineStyle}
+        />
         <ActiveProgressLine
+          growLineBorder={growLineBorder}
           activeLineBorder={activeLineBorder}
           active={activeStep}
         />
@@ -50,4 +57,8 @@ ProgressStep.propTypes = {
   width: PropTypes.string,
   activeStep: PropTypes.number.isRequired,
   lineStyle: PropTypes.string,
+  lineBorder: PropTypes.string,
+  activeLineBorder: PropTypes.string,
+  growLineBorder: PropTypes.string,
+  className: PropTypes.string,
 };
