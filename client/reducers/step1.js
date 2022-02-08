@@ -124,7 +124,7 @@ const step1Slice = createSlice({
     fetchStep1Data: (state, action) => {
       state.data = action.payload;
     },
-        inputCheckFarm: (state, action) => {
+    inputCheckFarm: (state, action) => {
       state.data.indentification = action.payload.indentification;
       state.data.ownFarm = action.payload.ownFarm;
       state.data.breedingType = action.payload.breedingType;
@@ -176,7 +176,7 @@ const step1Slice = createSlice({
     [saveFarmInfo.rejected.type]: (state, action) => {
       state.saveFarmInfoLoading = false;
       state.saveFarmInfoError = action.payload;
-
+    },
   },
 });
 

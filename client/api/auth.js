@@ -23,27 +23,29 @@ const axiosAuth = async (method, url, data) => {
 const axiosCertification = async (method, url, data) => {
   const formBody = Object.keys(data)[0] + "=" + data["phoneNumber"];
   try {
-    const result = await axios({
+    const response = await axios({
       method,
       url: DOMAIN + url,
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       data: formBody,
     });
-    return result;
+    console.log(response);
+    return response;
   } catch (error) {
     console.error(error);
     throw error.response;
   }
 };
+
 export const auth = {
   getCertification(data) {
-    return axiosCertification("post", "/api/sendSMS", data);
+    const result = axiosCertification("post", "/api/sendSMS", data);
+    return result;
   },
   authorize(data) {
     const result = axiosAuth("post", "/login", data);
     return result;
   },
-
   logout() {
     localStorage.removeItem("token");
   },

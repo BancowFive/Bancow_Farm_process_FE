@@ -1,14 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { auth, checkInProgress, fetchData, movePage } from "../api";
+import { auth, checkInProgress, fetchData } from "../api";
 import { checkProgressStep, checkProcessStep } from "../utils/checkStep";
-import { fetchStep1Data } from "./step1";
-import { fetchStep2Data } from "./step2";
 
 export const getCertification = createAsyncThunk(
   "auth/getCertification",
   async (data, { rejectWithValue }) => {
     try {
-      const result = await auth.getCertification("post", "/api/sendSMS", data);
+      const result = await auth.getCertification(data);
       return result.data.data;
     } catch (error) {
       console.error(error);
@@ -21,7 +19,7 @@ export const authorize = createAsyncThunk(
   "auth/authorize",
   async (data, { rejectWithValue }) => {
     try {
-      const result = await auth.authorize("post", "/login", data);
+      const result = await auth.authorize(data);
       return result.data;
     } catch (error) {
       return rejectWithValue(err.response.data);
