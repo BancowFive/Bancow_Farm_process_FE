@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { personalInfo, farmInfo, moveStep } from "../api";
+import { personalInfo, farmInfo } from "../api";
 
 export const saveFarmOwnerInfo = createAsyncThunk(
   "step1/info/saveFarmOwnerInfo",
@@ -25,18 +25,6 @@ export const saveFarmInfo = createAsyncThunk(
   },
 );
 
-export const changeStep1 = createAsyncThunk(
-  "step1/changeStep",
-  async ({ PageNum, inProgress, userId }, { rejectWithValue }) => {
-    try {
-      const result = await moveStep(PageNum, inProgress, userId);
-      return result;
-    } catch (error) {
-      rejectWithValue(error.response.data);
-    }
-  },
-);
-
 const initialState = {
   id: "",
   status: "",
@@ -51,12 +39,9 @@ const initialState = {
   saveFarmInfoLoading: false,
   saveFarmInfoDone: false,
   saveFarmInfoError: null,
-  savePersonalInfoLoading: false,
-  savePersonalInfoDone: false,
-  savePersonalInfoError: null,
-  changeStep1Loading: false,
-  changeStep1Done: false,
-  changeStep1Error: null,
+  saveFarmOwnerInfoLoading: false,
+  saveFarmOwnerInfoDone: false,
+  saveFarmOwnerInfoError: null,
 };
 
 const step1Slice = createSlice({
@@ -84,44 +69,31 @@ const step1Slice = createSlice({
     },
   },
   extraReducers: {
-    [savePersonalInfo.pending.type]: (state, action) => {
-      state.savePersonalInfoLoading = true;
-      state.savePersonalInfoDone = false;
-      state.savePersonalInfoError = null;
+    [saveFarmOwnerInfo.pending.type]: (state, action) => {
+      state.saveFarmOwnerInfoLoading = true;
+      state.saveFarmOwnerInfoDone = false;
+      state.saveFarmOwnerInfoError = null;
     },
-    [savePersonalInfo.fulfilled.type]: (state, action) => {
-      state.savePersonalInfoLoading = false;
-      state.savePersonalInfoDone = true;
+    [saveFarmOwnerInfo.fulfilled.type]: (state, action) => {
+      state.saveFarmOwnerInfoLoading = false;
+      state.saveFarmOwnerInfoDone = true;
     },
-    [savePersonalInfo.rejected.type]: (state, action) => {
-      state.savePersonalInfoLoading = false;
-      state.savePersonalInfoError = action.payload;
+    [saveFarmOwnerInfo.rejected.type]: (state, action) => {
+      state.saveFarmOwnerInfoLoading = false;
+      state.saveFarmOwnerInfoError = action.payload;
     },
-    [savePersonalInfo.pending.type]: (state, action) => {
-      state.savePersonalInfoLoading = true;
-      state.savePersonalInfoDone = false;
-      state.savePersonalInfoError = null;
+    [saveFarmInfo.pending.type]: (state, action) => {
+      state.saveFarmInfoLoading = true;
+      state.saveFarmInfoDone = false;
+      state.saveFarmInfoError = null;
     },
-    [savePersonalInfo.fulfilled.type]: (state, action) => {
-      state.savePersonalInfoLoading = false;
-      state.savePersonalInfoDone = true;
+    [saveFarmInfo.fulfilled.type]: (state, action) => {
+      state.saveFarmInfoLoading = false;
+      state.saveFarmInfoDone = true;
     },
-    [savePersonalInfo.rejected.type]: (state, action) => {
-      state.savePersonalInfoLoading = false;
-      state.savePersonalInfoError = action.payload;
-    },
-    [changeStep1.pending.type]: (state, action) => {
-      state.changeStep1Loading = true;
-      state.changeStep1Done = false;
-      state.changeStep1Error = null;
-    },
-    [changeStep1.fulfilled.type]: (state, action) => {
-      state.changeStep1Loading = false;
-      state.changeStep1Done = true;
-    },
-    [changeStep1.rejected.type]: (state, action) => {
-      state.changeStep1Loading = false;
-      state.changeStep1Error = action.payload;
+    [saveFarmInfo.rejected.type]: (state, action) => {
+      state.saveFarmInfoLoading = false;
+      state.saveFarmInfoError = action.payload;
     },
   },
 });
