@@ -11,6 +11,7 @@ import {
 } from "../components";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useInput } from "../hooks";
 import {
   phoneNumberValidator,
   replacePhoneNumberRegx,
@@ -19,7 +20,7 @@ import {
 import {
   inputPhoneNumber,
   authorize,
-  fetchUserData,
+  checkUserInProgress,
   getCertification,
 } from "../reducers/auth";
 
@@ -36,7 +37,7 @@ const Auth = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [phoneNumberValid, setPhoneNumberValid] = useState(null);
   const [message, setMessage] = useState("");
-  const [authNumber, setAuthNumber] = useState("");
+  const [authNumber, handleAuthNumber] = useInput("");
 
   const [isToggle, setIsToggle] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -48,10 +49,6 @@ const Auth = () => {
   const handlePhoneNumber = useCallback(event => {
     const phoneNumber = phoneNumberValidator(event);
     setPhoneNumber(phoneNumber);
-  }, []);
-
-  const handleAuthNumber = useCallback(event => {
-    setAuthNumber(event.target.value);
   }, []);
 
   useEffect(() => {
@@ -98,7 +95,7 @@ const Auth = () => {
   }, [certificationError, authorizationDone, authorizationError]);
 
   const fetchData = useCallback(() => {
-    dispatch(fetchUserData(printPhoneNumber(phoneNumber)));
+    dispatch(checkUserInProgress(printPhoneNumber(phoneNumber)));
   }, [phoneNumber]);
 
   return (
