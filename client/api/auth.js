@@ -10,7 +10,7 @@ export const auth = {
     return result;
   },
   fetchData(id) {
-    return request("get", `/api/farm/checkInfo/${id}`);
+    return request("get", `/api/farm/checkInProgress/${id}`);
   },
   logout() {
     localStorage.removeItem("token");

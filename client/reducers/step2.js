@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { submit, moveStep } from "../api";
-import { uploadToS3 } from "../modules/S3";
+import { uploadToS3 } from "../utils/S3";
 import { router } from "next/router";
 
 // 'user' API 호출 진행 + state 저장하기 함수 (임시보관용/작업 완료 후 삭제예정)

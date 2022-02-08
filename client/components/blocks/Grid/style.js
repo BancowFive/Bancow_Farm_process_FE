@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { flexbox, textStyle } from "../../../styles/utils";
+import { flexbox, positionCenterX, textStyle } from "../../../styles/utils";
 
 export const StyledContainer = styled.div`
   position: absolute;
@@ -19,6 +19,7 @@ export const StyledContainer = styled.div`
     flex: 1;
     padding: 0 24px;
     flex-direction: column;
+    margin-bottom: 10px;
     overflow-y: auto;
   }
 
@@ -72,9 +73,10 @@ export const StyledContainer = styled.div`
 
   //container max 크기
   @media (min-width: 540px) {
+    padding: 0;
+
     div.aside {
       width: 100%;
-
       .link {
         border-radius: 10px;
       }
@@ -82,22 +84,24 @@ export const StyledContainer = styled.div`
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    top: 70px;
     .content {
       padding: 0;
+      margin-bottom: 20px;
     }
 
     h1 {
       width: 100%;
       margin: 64px 0 24px;
     }
+
     h2 {
       margin: 30px 0 66px;
     }
 
     span.guide {
-      margin-bottom: 60px;
+      margin-bottom: 40px;
     }
+
     div.image-wrapper {
       ${flexbox()};
       span {
@@ -105,27 +109,31 @@ export const StyledContainer = styled.div`
         height: 300px !important;
       }
     }
-  }
 
-  @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
-    @media (min-height: 1080px) {
-      bottom: 105px;
+    .toast {
+      ${positionCenterX()};
+      bottom: 80px;
     }
 
-    .progressHeader {
-      display: block;
-    }
-
-    div.aside {
-      height: 150px;
-      margin-bottom: 20px;
-
-      .link {
-        margin-bottom: 30px;
+    @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
+      @media (min-height: 1080px) {
+        bottom: 105px;
+      }
+      .progressHeader {
+        display: block;
       }
 
-      .footer {
-        ${flexbox("between")};
+      .toast {
+        bottom: 190px;
+      }
+
+      .aside {
+        height: 150px;
+        margin-bottom: 20px;
+
+        button.link {
+          margin-bottom: 30px;
+        }
       }
     }
   }

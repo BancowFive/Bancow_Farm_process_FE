@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { flexbox, textStyle } from "../../styles/utils";
-import { Button, ButtonGroup, Container } from "../../components";
-import { Radio } from "../../components/atoms/Button/Radio";
+import { flexbox, textStyle } from "../../../styles/utils";
+import { Button, ButtonGroup, Container } from "../../../components";
+import { Radio } from "../../../components/atoms/Button/Radio";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { inputCheckFarm } from "../../reducers/step1";
+import { inputCheckFarm } from "../../../reducers/step1";
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -37,6 +37,8 @@ export const RadioWrapper = styled.div`
 `;
 
 const farmCheck = () => {
+  console.log("안녕");
+
   const [checkedAll, setCheckedAll] = useState(false);
   const [showError, setShowError] = useState(false);
   const [userAnswers, setUserAnswers] = useState({
@@ -120,7 +122,7 @@ const farmCheck = () => {
 
       //리덕스에 상태 업데이트
       updateReduxState();
-      router.push("/check/docs");
+      router.push("/info/check/docs");
     }
   };
   return (
@@ -274,7 +276,7 @@ const farmCheck = () => {
         </div>
         <div className="aside">
           <ButtonGroup fixed>
-            <Button onClick={moveToPrev} variant="primary" size={60} to="/">
+            <Button onClick={moveToPrev} variant="primary" size={60}>
               이전
             </Button>
             <Button

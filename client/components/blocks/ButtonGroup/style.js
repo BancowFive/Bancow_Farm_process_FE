@@ -20,7 +20,7 @@ export const StyledButtonGroup = styled.div`
     border-left: 1px solid ${({ theme }) => theme.colors.white};
   }
 
-  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+  @media (min-width: 540px) {
     &.link {
       gap: 12px;
 

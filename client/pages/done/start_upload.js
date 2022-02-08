@@ -12,7 +12,7 @@ const startUpload = () => {
     //로그아웃 api
   };
   const moveToPrev = () => {
-    router.push("/check/docs");
+    router.push("/info/check/docs");
   };
   const moveToNext = () => {
     router.push("/upload_pictures");
@@ -44,7 +44,7 @@ const startUpload = () => {
         </div>
         <div className="aside">
           <ButtonGroup fixed>
-            <Button onClick={moveToPrev} variant="primary" size={60} to="/">
+            <Button onClick={moveToPrev} variant="primary" size={60}>
               이전
             </Button>
             <Button onClick={moveToNext} variant="primary" size={60}>

@@ -6,29 +6,39 @@ import {
   Input,
   DropDown,
   Footer,
+  Header,
+  ProgressHeader,
+  Confirm,
 } from "../../components";
-import { useDispatch } from "react-redux";
-import { inputEmail, inputName } from "../../reducers/step1";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  inputEmail,
+  inputName,
+  changeStep1,
+  saveFarmOwnerInfo,
+} from "../../reducers/step1";
 import { emailValidator } from "../../utils";
 
 const Personal = () => {
   const dispatch = useDispatch();
+  const { name, email } = useSelector(state => state.step1.data);
+  const { id } = useSelector(state => state.step1);
 
+  const [emailLocal, setEmailLocal] = useState(email.split("@")[0]);
+  const [emailDomain, setEmailDomain] = useState(email.split("@")[1] || "");
   const [isOpen, setIsOpen] = useState(true);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [emailDomain, setEmailDomain] = useState("");
-  const [selfInput, setSelfInput] = useState("");
+  const [isValid, setIsValid] = useState(false);
+
   const handleNameChange = useCallback(event => {
-    setName(event.target.value);
+    dispatch(inputName(event.target.value));
   }, []);
 
-  const handleEmailChange = useCallback(event => {
-    setEmail(event.target.value);
+  const handleEmailLocalChange = useCallback(event => {
+    setEmailLocal(event.target.value);
   }, []);
 
   const handleSelfInputChange = useCallback(event => {
-    setSelfInput(event.target.value);
+    dispatch(inputEmail(event.target.value));
   }, []);
 
   const selectEmail = useCallback(
@@ -41,35 +51,51 @@ const Personal = () => {
 
   useEffect(() => {
     if (emailDomain === "직접입력") {
-      setEmail("");
+      setEmailLocal("");
     }
   }, [emailDomain]);
 
-  const isValid = useMemo(() => {
-    if (emailDomain === "직접입력") {
-      return emailValidator(selfInput);
-    } else {
-      return emailValidator(email + emailDomain);
-    }
-  }, [email, emailDomain, selfInput]);
+  // const isValid = useMemo(() => {
+  //   if (emailDomain === "직접입력") {
+  //     return name && emailValidator(email);
+  //   } else {
+  //     return name && emailValidator(emailLocal + emailDomain);
+  //   }
+  // }, [name, emailLocal, emailDomain, email]);
 
   const savePersonalInfo = useCallback(() => {
-    dispatch(inputName(name));
     if (emailDomain === "직접입력") {
-      dispatch(inputEmail(selfInput));
+      dispatch(inputEmail(email));
+      setIsValid(name && emailValidator(email));
     } else {
-      dispatch(inputEmail(email + emailDomain));
+      dispatch(inputEmail(emailLocal + emailDomain));
+      setIsValid(name && emailValidator(emailLocal + emailDomain));
     }
-  }, [name, email, emailDomain, selfInput]);
+  }, [name, email, emailLocal, emailDomain]);
+
+  const movePage = useCallback(() => {
+    dispatch(saveFarmOwnerInfo({ name, email }, "4"));
+    //pageNum, inProgress, id
+    dispatch(changeStep1("4", "STEP1_IN_PROGRESS", id));
+  }, []);
 
   return (
     <>
       <Container>
+        <Header />
+        <ProgressHeader className="progressHeader" growLineBorder="1px" />
         <div className="content">
-          <h2>
-            간단히 농가에 대해 <br />
-            알려주세요
-          </h2>
+          {isValid ? (
+            <h2>
+              입력한 정보를 <br />
+              <Confirm>확인</Confirm>해주세요
+            </h2>
+          ) : (
+            <h2>
+              간단히 농가에 대해 <br />
+              알려주세요
+            </h2>
+          )}
           <FormGroup>
             <h3>농장주 이름</h3>
             <div>
@@ -93,8 +119,8 @@ const Personal = () => {
                 type="text"
                 placeholder="이메일"
                 disabled={emailDomain === "직접입력"}
-                value={email}
-                onChange={handleEmailChange}
+                value={emailLocal}
+                onChange={handleEmailLocalChange}
               />
               <DropDown
                 type="email"
@@ -110,7 +136,7 @@ const Personal = () => {
                   variant="primary"
                   type="text"
                   placeholder="이메일 입력"
-                  value={selfInput}
+                  value={email}
                   onChange={handleSelfInputChange}
                 />
               </div>
@@ -123,10 +149,9 @@ const Personal = () => {
             className="link"
             size={60}
             variant={isValid ? "primary" : "ghost"}
-            disabled={!isValid}
             block
-            onClick={savePersonalInfo}
-            to="/info/farm"
+            onClick={!isValid ? savePersonalInfo : movePage}
+            to={isValid ? "/info/farm" : null}
           >
             다음
           </Button>

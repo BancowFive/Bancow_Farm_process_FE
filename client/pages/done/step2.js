@@ -37,9 +37,7 @@ const step2 = () => {
           <Button className="link" variant="primary" size={60} block to="/">
             확인
           </Button>
-          <div className="footer">
-            <Footer />
-          </div>
+          <Footer />
         </div>
       </Container>
     </>

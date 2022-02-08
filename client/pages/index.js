@@ -1,10 +1,18 @@
-import { Button, Container, Footer } from "../components";
+import {
+  Button,
+  Container,
+  Footer,
+  Header,
+  ProgressHeader,
+} from "../components";
 import Image from "next/image";
 
 export default function Home() {
   return (
     <>
       <Container>
+        <Header />
+        <ProgressHeader className="progressHeader" growLineBorder="1px" />
         <div className="content">
           <h1>
             안녕하세요 <br />

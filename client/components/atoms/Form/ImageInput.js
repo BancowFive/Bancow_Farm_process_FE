@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Preview, StyledImageInput } from "./style";
-import { getS3Auth, uploadToS3 } from "../../../modules/S3";
+import { getS3Auth, uploadToS3 } from "../../../utils/S3";
 import { inputPicture } from "../../../reducers/step1";
 import { useDispatch, useSelector } from "react-redux";
 

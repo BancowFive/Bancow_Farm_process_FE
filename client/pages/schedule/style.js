@@ -4,6 +4,7 @@ import { textStyle, flexbox } from "../../styles/utils";
 
 export const Container = styled(StyledContainer)`
   .content {
+    bottom: 10px;
     padding: 0;
   }
 
