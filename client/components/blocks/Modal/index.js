@@ -2,6 +2,8 @@ import PropTypes from "prop-types";
 import { ModalBackGround, ModalBox, ContentsWrapper } from "./style";
 import Image from "next/image";
 import { ButtonGroup, Button } from "../..";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 function getModalIcon(icon) {
   switch (icon) {
@@ -34,6 +36,12 @@ export const Modal = ({
   onClick,
   children,
 }) => {
+  const router = useRouter();
+  useEffect(() => {
+    if (to === null) {
+      router.replace("/auth");
+    }
+  }, []);
   return open ? (
     <ModalBackGround>
       <ModalBox>

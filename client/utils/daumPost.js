@@ -1,3 +1,5 @@
+import { inputFarmAddress } from "../reducers/step1";
+
 const id = "daum-postcode";
 const src = "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
 
@@ -12,12 +14,16 @@ export const setDaumPost = () => {
   return isAlready;
 };
 
-export const openDaumPost = (setPostCode, setAddress) => {
+export const openDaumPost = dispatch => {
   window.daum.postcode.load(() => {
     const postcode = new window.daum.Postcode({
       oncomplete: function (data) {
-        setPostCode(data.zonecode);
-        setAddress(data.roadAddress);
+        dispatch(
+          inputFarmAddress({
+            address: data.zonecode,
+            postCode: data.roadAddress,
+          }),
+        );
       },
     });
     postcode.open();

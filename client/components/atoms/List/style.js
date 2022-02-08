@@ -8,6 +8,7 @@ const email = css`
 
 const fodder = css`
   li {
+    padding: 0 18px;
     ${textStyle("body1")};
   }
 `;
@@ -38,8 +39,6 @@ export const StyledList = styled.ul`
   li {
     ${flexbox("start")};
     height: 54px;
-    padding: 0 18px;
-    ${textStyle("body1")};
     color: ${({ theme }) => theme.colors.tertiary};
     transition: background-color 200ms ease-in-out;
     user-select: none;

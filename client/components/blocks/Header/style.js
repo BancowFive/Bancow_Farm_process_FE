@@ -17,7 +17,7 @@ export const LogoWrapper = styled.span`
   position: absolute;
   left: 24px;
 
-  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+  @media (min-width: 540px) {
     left: 0;
   }
 `;
@@ -30,7 +30,7 @@ export const CallBtn = styled.button`
   color: ${({ theme }) => theme.colors.tertiary};
   ${textStyle("body2")};
 
-  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+  @media (min-width: 540px) {
     right: 0;
   }
 `;

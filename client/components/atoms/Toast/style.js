@@ -2,10 +2,10 @@ import styled from "styled-components";
 import { textStyle, flexbox } from "../../../styles/utils";
 
 export const StyledToastBar = styled.div.attrs(props => ({
-  visibility: `${props.show ? "visible" : "hidden"}`,
+  display: `${props.show ? "block" : "none"}`,
   width: props.width || "auto",
 }))`
-  visibility: ${props => props.visibility};
+  display: ${props => props.display};
   ${flexbox()};
   ${textStyle("body2")};
   color: ${({ theme }) => theme.colors.error};
