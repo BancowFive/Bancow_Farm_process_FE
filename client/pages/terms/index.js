@@ -15,7 +15,7 @@ import {
   Header,
   ProgressHeader,
 } from "../../components";
-import { changeStep1 } from "./../reducers/step1";
+import { changePage } from "../../reducers/move";
 import { saveServiceTerms } from "../../reducers/terms";
 
 const ServiceTerms = () => {
@@ -48,12 +48,11 @@ const ServiceTerms = () => {
           trustOfInformation,
           collectionOfInformation,
         },
-        "3",
+        "1",
       ),
     );
-    //pageNum, inProgress, id
-    dispatch(changeStep1("3", "STEP1_IN_PROGRESS", id));
-  }, []);
+    dispatch(changePage(2, id));
+  }, [conditionOfUse, trustOfInformation, collectionOfInformation, id]);
   return (
     <>
       <Container>
