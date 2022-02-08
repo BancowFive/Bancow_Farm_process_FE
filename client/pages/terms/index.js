@@ -15,7 +15,7 @@ import {
   Header,
   ProgressHeader,
 } from "../../components";
-import { changeStep1 } from "./../reducers/step1";
+import { changeStep1 } from "../../reducers/step1";
 import { saveServiceTerms } from "../../reducers/terms";
 
 const ServiceTerms = () => {

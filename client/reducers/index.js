@@ -1,11 +1,19 @@
 import { HYDRATE } from "next-redux-wrapper";
 import { combineReducers } from "redux";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage/session";
 
 import auth from "./auth";
 import terms from "./terms";
 import step1 from "./step1";
 import step2 from "./step2";
 import step3 from "./step3";
+
+const persistConfig = {
+  key: "root",
+  storage,
+  whiteList: ["step1", "step2"],
+};
 
 const rootReducer = (state, action) => {
   switch (action.type) {
@@ -25,4 +33,4 @@ const rootReducer = (state, action) => {
   }
 };
 
-export default rootReducer;
+export default persistReducer(persistConfig, rootReducer);
