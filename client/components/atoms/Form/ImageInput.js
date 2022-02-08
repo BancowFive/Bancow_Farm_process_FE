@@ -26,10 +26,23 @@ export const ImageInput = ({
   });
   const dispatch = useDispatch();
 
-  // 사용자가 사진을 올리면 redux state 업데이트;
+  //처음 페이지가 렌더링 되었을 때, 기존 데이터가 있을 경우 불러오기
   useEffect(() => {
-    //이전으로 다녀오더라도 새로 업로드한 사진이 보일 수 있도록
-    //받아온 imageUrl이 있으면 리덕스 state에 업데이트
+    //s3 인증 정보 불러오기
+    getS3Auth();
+    // console.log(savedImage);
+    //Props로 전달받은 이미지 URL(saveImage)
+    if (savedImage) {
+      setShowPreview(true);
+      setPreviewURL(savedImage);
+      //중간저장 불러오기
+      setuploadedImages(prev => ({ ...prev, [pictureId]: true }));
+    }
+  }, []);
+
+  //이전으로 다녀오더라도 새로 업로드한 사진 반영하기 위해
+  // 사용자가 새로 사진을 올리면 redux state 업데이트;
+  useEffect(() => {
     if (imageData.imageUrl !== "") {
       dispatch(
         inputPicture({
@@ -39,18 +52,6 @@ export const ImageInput = ({
       );
     }
   }, [imageData]);
-
-  useEffect(() => {
-    getS3Auth();
-    console.log(savedImage);
-    if (savedImage) {
-      setShowPreview(true);
-      setPreviewURL(savedImage);
-      //중간저장 불러오기
-      //리덕스에 이미지 url이 있으면  각 사진 제출여부 state 중 현재 항목 true
-      setuploadedImages(prev => ({ ...prev, [pictureId]: true }));
-    }
-  }, []);
 
   const handleChange = async e => {
     //input에 파일을 올리면 s3 업로드에 필요한 매개변수 저장
@@ -75,6 +76,8 @@ export const ImageInput = ({
       imageUrl: result.Location,
       ImageType: pictureId,
     }));
+    //사진 업로드 후 업로드 여부 갱신
+    setuploadedImages(prev => ({ ...prev, [pictureId]: true }));
   };
 
   const uploadToServer = () => {
