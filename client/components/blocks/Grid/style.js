@@ -11,16 +11,20 @@ export const StyledContainer = styled.div`
   min-width: 360px;
   width: 100%;
   margin: 0 auto;
-  padding: 0 24px;
   overflow-y: auto;
 
   .content {
     ${flexbox("start", "start")};
     width: 100%;
     flex: 1;
+    padding: 0 24px;
     flex-direction: column;
     margin-bottom: 10px;
     overflow-y: auto;
+  }
+
+  .upload-padding {
+    padding-bottom: 50px;
   }
 
   h1 {
@@ -73,7 +77,6 @@ export const StyledContainer = styled.div`
 
     div.aside {
       width: 100%;
-
       .link {
         border-radius: 10px;
       }
@@ -111,26 +114,26 @@ export const StyledContainer = styled.div`
       ${positionCenterX()};
       bottom: 80px;
     }
-  }
 
-  @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
-    @media (min-height: 1080px) {
-      bottom: 105px;
-    }
-    .progressHeader {
-      display: block;
-    }
+    @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
+      @media (min-height: 1080px) {
+        bottom: 105px;
+      }
+      .progressHeader {
+        display: block;
+      }
 
-    .toast {
-      bottom: 190px;
-    }
+      .toast {
+        bottom: 190px;
+      }
 
-    .aside {
-      height: 150px;
-      margin-bottom: 20px;
+      .aside {
+        height: 150px;
+        margin-bottom: 20px;
 
-      button.link {
-        margin-bottom: 30px;
+        button.link {
+          margin-bottom: 30px;
+        }
       }
     }
   }
