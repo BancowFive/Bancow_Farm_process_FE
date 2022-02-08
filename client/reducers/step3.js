@@ -1,28 +1,25 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { schedule, moveStep } from "../api";
+import { router } from "next/router";
 
 export const submitAvailableDate = createAsyncThunk(
   "step3/submitAvailableDate",
-  async (data, { rejectWithValue }) => {
+  async ({ date, userId }, { rejectWithValue }) => {
     try {
-      console.log("실행됨", data);
-      const result = await schedule.submitAvailableDate(
-        data.fulldate,
-        data.userId,
-      );
-      return result.data;
+      const result = await schedule.submitAvailableDate(date, userId);
+      return result;
     } catch (error) {
       rejectWithValue(error.response.data);
     }
   },
 );
 
-export const changeStep3 = createAsyncThunk(
-  "step3/changeStep3",
-  async (data, { rejectWithValue }) => {
+export const changeStep = createAsyncThunk(
+  "step3/changeStep",
+  async ({ PageNum, inProgress, userId }, { rejectWithValue }) => {
     try {
-      const result = await moveStep(data.PageNum, data.inProgress, data.userId);
-      return result.data;
+      const result = await moveStep(PageNum, inProgress, userId);
+      return result;
     } catch (error) {
       rejectWithValue(error.response.data);
     }
@@ -31,8 +28,7 @@ export const changeStep3 = createAsyncThunk(
 
 const initialState = {
   id: "",
-  submitStatus: "",
-  moveStatus: "",
+  status: "",
 };
 
 const step3Slice = createSlice({
@@ -47,28 +43,26 @@ const step3Slice = createSlice({
   extraReducers: builder => {
     //submitAvailableDate
     builder.addCase(submitAvailableDate.pending, (state, action) => {
-      state.submitStatus = "pending";
+      state.status = "pending";
     });
     builder.addCase(submitAvailableDate.fulfilled, (state, action) => {
-      state.submitStatus = "fulfilled";
-      alert("신청되었습니다.");
+      state.status = "fulfilled";
     });
     builder.addCase(submitAvailableDate.rejected, (state, action) => {
-      state.submitStatus = "rejected";
-      alert("신청 중간에 오류가 발생했습니다. 다시 신청해주세요.");
-      return;
+      state.status = "rejected";
     });
 
-    //changeStep3
-    builder.addCase(changeStep3.pending, (state, action) => {
-      state.moveStatus = "pending";
+    //moveStep
+    builder.addCase(changeStep.pending, (state, action) => {
+      state.status = "pending";
     });
-    builder.addCase(changeStep3.fulfilled, (state, action) => {
-      state.moveStatus = "fulfilled";
+    builder.addCase(changeStep.fulfilled, (state, action) => {
+      state.status = "fulfilled";
+      //페이지 이동
+      router.replace("/done/step3");
     });
-    builder.addCase(changeStep3.rejected, (state, action) => {
-      state.moveStatus = "rejected";
-      return;
+    builder.addCase(changeStep.rejected, (state, action) => {
+      state.status = "rejected";
     });
   },
 });

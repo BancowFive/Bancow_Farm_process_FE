@@ -1,38 +1,71 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, ButtonGroup, Container } from "../../components";
+import { inputPicture } from "../../reducers/step1";
 import ImageInput from "../../components/atoms/Form/ImageInput";
 import { PictureGuide } from "../../components/blocks/PictureGuide/PictureGuide";
+import { useRouter } from "next/router";
 
 const uploadPicture = () => {
   const [isUploadedAll, setIsUploadedAll] = useState(false);
+  //각 사진의 업로드 상태
   const [uploadedImages, setuploadedImages] = useState({
-    FARM_OUTSIDE: null,
-    FARM_INSIDE: null,
-    CATTLE_FRONT: null,
-    CATTLE_SIDE: null,
-    WATER_BUCKET: null,
-    FARM_FLOOR: null,
-    FARM_VENTILATOR: null,
+    FARM_OUTSIDE: false,
+    FARM_INSIDE: false,
+    CATTLE_FRONT: false,
+    CATTLE_SIDE: false,
+    WATER_BUCKET: false,
+    FARM_FLOOR: false,
+    FARM_VENTILATOR: false,
   });
+  // 각 ImageInput에 error표현을 위한 border 노출 여부
   const [showError, setShowError] = useState(false);
 
-  const checkUploadedAll = () => {
-    //선택되지 않은 항목이 있으면(값이 "" 인 객체가 있는지 검사) 다음버튼 비활성화
+  const router = useRouter();
+
+  //리덕스에서 중간 저장 값 가져오기
+  const imageArray = useSelector(state => state.step1.data.farmImage);
+  // console.log(imageArray);
+
+  useEffect(() => {
+    //각 사진을 모두 업로드 하면 버튼 시각적 활성화
+    // console.log(uploadedImages);
     for (const [key, value] of Object.entries(uploadedImages)) {
-      if (value === null) {
+      if (value === false) return;
+    }
+    setIsUploadedAll(true);
+  }, [uploadedImages]);
+
+  const checkUploadedAll = () => {
+    //선택되지 않은 항목이 있으면(값이 "" 인 객체가 있는지 검사) 있으면 에러메세지 노출
+    for (const [key, value] of Object.entries(uploadedImages)) {
+      if (value === false) {
         //이미 showError가 true이면 리렌더링 방지
         if (!showError) {
           setShowError(true);
         }
-      } else {
-        setIsUploadedAll(true);
+        return false;
       }
+    }
+    return true;
+  };
+  //이전 버튼 클릭시
+  const moveToPrev = () => {
+    router.push("/done/start_upload");
+  };
+  //다음버튼 클릭시
+  const moveToNext = () => {
+    const result = checkUploadedAll();
+    if (result) {
+      //다음페이지로 라우팅하는 코드
+      console.log("통과");
+      router.push("/done/step1");
     }
   };
   return (
     <>
       <Container>
-        <div className="content">
+        <div className="content upload-padding">
           <h2>
             1차 심사를 위해
             <br />
@@ -49,6 +82,8 @@ const uploadPicture = () => {
             }}
           />
           <ImageInput
+            savedImage={imageArray[0].imageUrl}
+            imageIndex={0}
             pictureId="FARM_OUTSIDE"
             previewAlt="농장 외부사진"
             setuploadedImages={setuploadedImages}
@@ -65,6 +100,8 @@ const uploadPicture = () => {
             }}
           />
           <ImageInput
+            savedImage={imageArray[1].imageUrl}
+            imageIndex={1}
             pictureId="FARM_INSIDE"
             previewAlt="농장 내부사진"
             setuploadedImages={setuploadedImages}
@@ -82,6 +119,8 @@ const uploadPicture = () => {
             }}
           />
           <ImageInput
+            savedImage={imageArray[2].imageUrl}
+            imageIndex={2}
             pictureId="CATTLE_FRONT"
             previewAlt="소 정면사진"
             setuploadedImages={setuploadedImages}
@@ -98,6 +137,8 @@ const uploadPicture = () => {
             }}
           />
           <ImageInput
+            savedImage={imageArray[3].imageUrl}
+            imageIndex={3}
             pictureId="CATTLE_SIDE"
             previewAlt="소 측면사진"
             setuploadedImages={setuploadedImages}
@@ -115,6 +156,8 @@ const uploadPicture = () => {
             }}
           />
           <ImageInput
+            savedImage={imageArray[4].imageUrl}
+            imageIndex={4}
             pictureId="WATER_BUCKET"
             previewAlt="물통 사진"
             setuploadedImages={setuploadedImages}
@@ -131,6 +174,8 @@ const uploadPicture = () => {
             }}
           />
           <ImageInput
+            savedImage={imageArray[5].imageUrl}
+            imageIndex={5}
             pictureId="FARM_FLOOR"
             previewAlt="우사 바닥 사진"
             setuploadedImages={setuploadedImages}
@@ -147,6 +192,8 @@ const uploadPicture = () => {
             }}
           />
           <ImageInput
+            savedImage={imageArray[6].imageUrl}
+            imageIndex={6}
             pictureId="FARM_VENTILATOR"
             previewAlt="환풍기 사진"
             setuploadedImages={setuploadedImages}
@@ -155,11 +202,11 @@ const uploadPicture = () => {
         </div>
         <div className="aside">
           <ButtonGroup fixed>
-            <Button variant="primary" size={60} to="/">
+            <Button variant="primary" size={60} onClick={moveToPrev}>
               이전
             </Button>
             <Button
-              onClick={checkUploadedAll}
+              onClick={moveToNext}
               variant={isUploadedAll ? "primary" : "ghost"}
               size={60}
             >
