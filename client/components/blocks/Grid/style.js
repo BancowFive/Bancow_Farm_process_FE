@@ -22,6 +22,10 @@ export const StyledContainer = styled.div`
     overflow-y: auto;
   }
 
+  .upload-padding {
+    padding-bottom: 50px;
+  }
+
   h1 {
     display: block;
     width: 280px;
