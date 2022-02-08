@@ -84,32 +84,32 @@ const step1Slice = createSlice({
     },
   },
   extraReducers: {
-    [savePersonalInfo.pending.type]: (state, action) => {
-      state.savePersonalInfoLoading = true;
-      state.savePersonalInfoDone = false;
-      state.savePersonalInfoError = null;
-    },
-    [savePersonalInfo.fulfilled.type]: (state, action) => {
-      state.savePersonalInfoLoading = false;
-      state.savePersonalInfoDone = true;
-    },
-    [savePersonalInfo.rejected.type]: (state, action) => {
-      state.savePersonalInfoLoading = false;
-      state.savePersonalInfoError = action.payload;
-    },
-    [savePersonalInfo.pending.type]: (state, action) => {
-      state.savePersonalInfoLoading = true;
-      state.savePersonalInfoDone = false;
-      state.savePersonalInfoError = null;
-    },
-    [savePersonalInfo.fulfilled.type]: (state, action) => {
-      state.savePersonalInfoLoading = false;
-      state.savePersonalInfoDone = true;
-    },
-    [savePersonalInfo.rejected.type]: (state, action) => {
-      state.savePersonalInfoLoading = false;
-      state.savePersonalInfoError = action.payload;
-    },
+    // [savePersonalInfo.pending.type]: (state, action) => {
+    //   state.savePersonalInfoLoading = true;
+    //   state.savePersonalInfoDone = false;
+    //   state.savePersonalInfoError = null;
+    // },
+    // [savePersonalInfo.fulfilled.type]: (state, action) => {
+    //   state.savePersonalInfoLoading = false;
+    //   state.savePersonalInfoDone = true;
+    // },
+    // [savePersonalInfo.rejected.type]: (state, action) => {
+    //   state.savePersonalInfoLoading = false;
+    //   state.savePersonalInfoError = action.payload;
+    // },
+    // [savePersonalInfo.pending.type]: (state, action) => {
+    //   state.savePersonalInfoLoading = true;
+    //   state.savePersonalInfoDone = false;
+    //   state.savePersonalInfoError = null;
+    // },
+    // [savePersonalInfo.fulfilled.type]: (state, action) => {
+    //   state.savePersonalInfoLoading = false;
+    //   state.savePersonalInfoDone = true;
+    // },
+    // [savePersonalInfo.rejected.type]: (state, action) => {
+    //   state.savePersonalInfoLoading = false;
+    //   state.savePersonalInfoError = action.payload;
+    // },
     [changeStep1.pending.type]: (state, action) => {
       state.changeStep1Loading = true;
       state.changeStep1Done = false;
