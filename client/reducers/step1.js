@@ -35,6 +35,63 @@ const initialState = {
     farmPostCode: "",
     farmAddress: "",
     fodder: "",
+    // farm-check
+    indentification: "",
+    ownFarm: "",
+    breedingType: "",
+    population: "",
+    ownCCTV: "",
+    // docs-check
+    livestockFarmingBusinessRegistration: "",
+    facilitiesStructure: "",
+    annualFodderCostSpecification: "",
+    annualInspectionReport: "",
+    businessLicense: "",
+    //upload pictures
+    farmImage: [
+      {
+        originalImageName: "",
+        changedImageName: "",
+        imageUrl: "",
+        imageType: "",
+      },
+      {
+        originalImageName: "",
+        changedImageName: "",
+        imageUrl: "",
+        imageType: "",
+      },
+      {
+        originalImageName: "",
+        changedImageName: "",
+        imageUrl: "",
+        imageType: "",
+      },
+      {
+        originalImageName: "",
+        changedImageName: "",
+        imageUrl: "",
+        imageType: "",
+      },
+      {
+        originalImageName: "",
+        changedImageName: "",
+        imageUrl: "",
+        imageType: "",
+      },
+      {
+        originalImageName: "",
+        changedImageName: "",
+        imageUrl: "",
+        imageType: "",
+      },
+      {
+        originalImageName: "",
+        changedImageName: "",
+        imageUrl: "",
+        imageType: "",
+      },
+    ],
   },
   saveFarmInfoLoading: false,
   saveFarmInfoDone: false,
@@ -63,6 +120,31 @@ const step1Slice = createSlice({
     },
     fetchStep1Data: (state, action) => {
       state.data = action.payload;
+    },
+    inputCheckFarm: (state, action) => {
+      state.data.indentification = action.payload.indentification;
+      state.data.ownFarm = action.payload.ownFarm;
+      state.data.breedingType = action.payload.breedingType;
+      state.data.population = action.payload.population;
+      state.data.ownCCTV = action.payload.ownCCTV;
+    },
+    inputCheckDocs: (state, action) => {
+      state.data.livestockFarmingBusinessRegistration =
+        action.payload.livestockFarmingBusinessRegistration;
+      state.data.facilitiesStructure = action.payload.facilitiesStructure;
+      state.data.annualFodderCostSpecification =
+        action.payload.annualFodderCostSpecification;
+      state.data.annualInspectionReport = action.payload.annualInspectionReport;
+      state.data.businessLicense = action.payload.businessLicense;
+    },
+    inputPicture: (state, action) => {
+      const imageIndex = action.payload.imageIndex;
+      state.data.farmImage[imageIndex].originalImageName =
+        action.payload.originalImageName;
+      state.data.farmImage[imageIndex].changedImageName =
+        action.payload.changedImageName;
+      state.data.farmImage[imageIndex].imageUrl = action.payload.imageUrl;
+      state.data.farmImage[imageIndex].imageType = action.payload.imageType;
     },
   },
   extraReducers: {
@@ -101,5 +183,8 @@ export const {
   inputFarmName,
   inputFarmAddress,
   fetchStep1Data,
+  inputPicture,
+  inputCheckFarm,
+  inputCheckDocs,
 } = step1Slice.actions;
 export default step1Slice.reducer;

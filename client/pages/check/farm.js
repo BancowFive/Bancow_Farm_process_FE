@@ -4,13 +4,15 @@ import { Button, ButtonGroup, Container } from "../../components";
 import { Radio } from "../../components/atoms/Button/Radio";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { inputCheckFarm } from "../../reducers/step1";
 
 export const Wrapper = styled.div`
   width: 100%;
   div:not(:last-of-type) {
     margin-bottom: 30px;
   }
-  padding-bottom: ${({ showError }) => (showError ? "80px" : "70px")};
+  padding-bottom: ${({ showError }) => (showError ? "80px" : "68px")};
 `;
 
 export const InfoTitle = styled.h3`
@@ -46,15 +48,38 @@ const farmCheck = () => {
   });
 
   const router = useRouter();
+  const dispatch = useDispatch();
+
+  //기존에 저장 값이 있다면 불러오기.
+  const { indentification, ownFarm, breedingType, population, ownCCTV } =
+    useSelector(state => ({
+      indentification: state.step1.data.indentification,
+      ownFarm: state.step1.data.ownFarm,
+      breedingType: state.step1.data.breedingType,
+      population: state.step1.data.population,
+      ownCCTV: state.step1.data.ownCCTV,
+    }));
+
+  //페이지가 렌더링될 때 리덕스에 있는 데이터를 userAnswers에 넣어준다.
+  useEffect(() => {
+    setUserAnswers({
+      indentification,
+      ownFarm,
+      breedingType,
+      population,
+      ownCCTV,
+    });
+  }, []);
 
   useEffect(() => {
     //유저의 대답이 바뀔 때 마다 모든항목이 체크되었는지 확인하는 함수 호출(isCheckedAll)
     if (!checkedAll) {
       isCheckedAll();
     }
+    //유저 대답이 바뀔 때마다 리덕스에 업데이트
+    updateReduxState();
+    // console.log(userAnswers);
   }, [userAnswers]);
-
-  console.log(userAnswers);
 
   const isCheckedAll = () => {
     //선택되지 않은 항목이 있으면(값이 "" 인 객체가 있는지 검사) 다음버튼 비활성화
@@ -75,11 +100,26 @@ const farmCheck = () => {
     }
   };
 
-  const callApi = () => {
+  //리덕스에 상태 업데이트
+  const updateReduxState = () => {
+    dispatch(
+      inputCheckFarm({
+        ...userAnswers,
+      }),
+    );
+  };
+  const moveToPrev = () => {
+    router.push("/info/farm");
+  };
+
+  const moveToNext = () => {
     if (!checkedAll) {
       handleError();
     } else {
       //api로 데이터 보내기
+
+      //리덕스에 상태 업데이트
+      updateReduxState();
       router.push("/check/docs");
     }
   };
@@ -99,6 +139,8 @@ const farmCheck = () => {
                   value={true}
                   name="indentification"
                   setUserAnswers={setUserAnswers}
+                  //초기값이 빈 문자열이라 falsy하기 때문에 이하의 삼항연산자 필요
+                  prevAnswer={indentification === true ? true : false}
                 >
                   네
                 </Radio>
@@ -107,6 +149,7 @@ const farmCheck = () => {
                   value={false}
                   name="indentification"
                   setUserAnswers={setUserAnswers}
+                  prevAnswer={indentification === false ? true : false}
                 >
                   아니오
                 </Radio>
@@ -124,6 +167,7 @@ const farmCheck = () => {
                   value={true}
                   name="ownFarm"
                   setUserAnswers={setUserAnswers}
+                  prevAnswer={ownFarm === true ? true : false}
                 >
                   네
                 </Radio>
@@ -132,6 +176,7 @@ const farmCheck = () => {
                   value={false}
                   name="ownFarm"
                   setUserAnswers={setUserAnswers}
+                  prevAnswer={ownFarm === false ? true : false}
                 >
                   아니오
                 </Radio>
@@ -153,6 +198,7 @@ const farmCheck = () => {
                   value="비육"
                   name="breedingType"
                   setUserAnswers={setUserAnswers}
+                  prevAnswer={breedingType === "비육" ? true : false}
                 >
                   비육 농장
                 </Radio>
@@ -161,6 +207,7 @@ const farmCheck = () => {
                   value="일괄"
                   name="breedingType"
                   setUserAnswers={setUserAnswers}
+                  prevAnswer={breedingType === "일괄" ? true : false}
                 >
                   일괄 농장
                 </Radio>
@@ -178,6 +225,7 @@ const farmCheck = () => {
                   value="100마리 미만"
                   name="population"
                   setUserAnswers={setUserAnswers}
+                  prevAnswer={population === "100마리 미만" ? true : false}
                 >
                   100마리 미만
                 </Radio>
@@ -186,6 +234,7 @@ const farmCheck = () => {
                   value="100마리 이상"
                   name="population"
                   setUserAnswers={setUserAnswers}
+                  prevAnswer={population === "100마리 이상" ? true : false}
                 >
                   100마리 이상
                 </Radio>
@@ -203,6 +252,7 @@ const farmCheck = () => {
                   value={true}
                   name="ownCCTV"
                   setUserAnswers={setUserAnswers}
+                  prevAnswer={ownCCTV === true ? true : false}
                 >
                   네
                 </Radio>
@@ -211,6 +261,7 @@ const farmCheck = () => {
                   value={false}
                   name="ownCCTV"
                   setUserAnswers={setUserAnswers}
+                  prevAnswer={ownCCTV === false ? true : false}
                 >
                   아니오
                 </Radio>
@@ -223,11 +274,11 @@ const farmCheck = () => {
         </div>
         <div className="aside">
           <ButtonGroup fixed>
-            <Button variant="primary" size={60} to="/">
+            <Button onClick={moveToPrev} variant="primary" size={60} to="/">
               이전
             </Button>
             <Button
-              onClick={callApi}
+              onClick={moveToNext}
               variant={checkedAll ? "primary" : "ghost"}
               size={60}
             >
