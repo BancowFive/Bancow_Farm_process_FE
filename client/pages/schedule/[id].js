@@ -13,8 +13,8 @@ const Schedule = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const userId = useSelector(state => state.step3.id);
-  const moveAllowed = useSelector(state => state.step3.moveStatus);
+  const userId = useSelector(state => state.auth.id);
+  const moveAllowed = useSelector(state => state.step3.changeStatus);
   const [selectedDate, setselectedDate] = useState();
   const [isDisabledDay, setIsDisabledDay] = useState(false);
   //공휴일 등 실사요청 불가능한 날짜, YYYYMMDD 형태
@@ -44,14 +44,13 @@ const Schedule = () => {
     try {
       const fulldate = selectedDate.fulldate;
       await dispatch(
-        //userId가 안넘어감... 왜? 여기선 71 찍힘
-        submitAvailableDate({ fulldate, userId }),
+        submitAvailableDate({ fulldate, PageNum: "14", userId }),
       ).unwrap();
 
       await dispatch(
         changeStep3({
           PageNum: "14",
-          inProgress: "INVESTIGATION_CONFIRM",
+          inProgress: "STEP3_COMPLETED",
           userId,
         }),
       ).unwrap();
