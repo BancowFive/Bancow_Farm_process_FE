@@ -58,9 +58,9 @@ export const StyledContainer = styled.div`
     color: ${({ theme }) => theme.colors.guide};
   }
 
-  .progressHeader {
+  /* .progressHeader {
     display: none;
-  }
+  } */
 
   div.aside {
     width: 100%;
@@ -118,9 +118,9 @@ export const StyledContainer = styled.div`
       @media (min-height: 1080px) {
         bottom: 105px;
       }
-      .progressHeader {
+      /* .progressHeader {
         display: block;
-      }
+      } */
 
       .toast {
         bottom: 190px;
