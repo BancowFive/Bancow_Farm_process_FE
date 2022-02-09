@@ -72,7 +72,11 @@ const Farm = () => {
   const movePage = useCallback(() => {
     saveFarm();
     dispatch(
-      saveFarmInfo({ farmName, farmAddress, farmPostCode, fodder }, id, 3),
+      saveFarmInfo({
+        data: { farmName, farmAddress, farmPostCode, fodder },
+        id,
+        pageNum: 3,
+      }),
     );
     // dispatch(changePage(4, id));
   }, [farmName, farmAddress, farmPostCode, fodder, id]);
