@@ -5,7 +5,8 @@ import { Radio } from "../../../components/atoms/Button/Radio";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { inputCheckFarm } from "../../../reducers/step1";
+import { inputCheckFarm, saveFarmCheck } from "../../../reducers/step1";
+import { changePage } from "../../../reducers/move";
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -37,39 +38,38 @@ export const RadioWrapper = styled.div`
 `;
 
 const farmCheck = () => {
-  console.log("안녕");
-
   const [checkedAll, setCheckedAll] = useState(false);
   const [showError, setShowError] = useState(false);
   const [userAnswers, setUserAnswers] = useState({
-    indentification: "",
+    identification: "",
     ownFarm: "",
     breedingType: "",
     population: "",
-    ownCCTV: "",
+    cctv: "",
   });
 
   const router = useRouter();
   const dispatch = useDispatch();
-
+  // 리덕스에서 아이디 불러오기
+  const { id } = useSelector(state => state.step1);
   //기존에 저장 값이 있다면 불러오기.
-  const { indentification, ownFarm, breedingType, population, ownCCTV } =
+  const { identification, ownFarm, breedingType, population, cctv } =
     useSelector(state => ({
-      indentification: state.step1.data.indentification,
+      identification: state.step1.data.identification,
       ownFarm: state.step1.data.ownFarm,
       breedingType: state.step1.data.breedingType,
       population: state.step1.data.population,
-      ownCCTV: state.step1.data.ownCCTV,
+      cctv: state.step1.data.cctv,
     }));
 
   //페이지가 렌더링될 때 리덕스에 있는 데이터를 userAnswers에 넣어준다.
   useEffect(() => {
     setUserAnswers({
-      indentification,
+      identification,
       ownFarm,
       breedingType,
       population,
-      ownCCTV,
+      cctv,
     });
   }, []);
 
@@ -118,11 +118,17 @@ const farmCheck = () => {
     if (!checkedAll) {
       handleError();
     } else {
-      //api로 데이터 보내기
-
       //리덕스에 상태 업데이트
+      console.log("리덕스에 상태 업데이트");
       updateReduxState();
-      router.push("/info/check/docs");
+
+      //농가 정보 체크 api로 데이터 보내기
+      console.log("농가 정보 체크 api로 데이터 보내기");
+      dispatch(saveFarmCheck({ data: userAnswers, pageNum: 4, id }));
+
+      // // 페이지 변경 api
+      // dispatch(changePage(5, id));
+      // router.push("/info/check/docs");
     }
   };
   return (
@@ -137,26 +143,26 @@ const farmCheck = () => {
             <RadioWrapper>
               <div className="button-wrapper">
                 <Radio
-                  id="indentification_yes"
+                  id="identification_yes"
                   value={true}
-                  name="indentification"
+                  name="identification"
                   setUserAnswers={setUserAnswers}
                   //초기값이 빈 문자열이라 falsy하기 때문에 이하의 삼항연산자 필요
-                  prevAnswer={indentification === true ? true : false}
+                  prevAnswer={identification === true ? true : false}
                 >
                   네
                 </Radio>
                 <Radio
-                  id="indentification_no"
+                  id="identification_no"
                   value={false}
-                  name="indentification"
+                  name="identification"
                   setUserAnswers={setUserAnswers}
-                  prevAnswer={indentification === false ? true : false}
+                  prevAnswer={identification === false ? true : false}
                 >
                   아니오
                 </Radio>
               </div>
-              {showError && userAnswers.indentification === "" ? (
+              {showError && userAnswers.identification === "" ? (
                 <h4 className="invalid">본인 여부를 선택해주세요</h4>
               ) : null}
             </RadioWrapper>
@@ -250,32 +256,32 @@ const farmCheck = () => {
             <RadioWrapper>
               <div className="button-wrapper">
                 <Radio
-                  id="CCTV_yes"
+                  id="cctv_yes"
                   value={true}
-                  name="ownCCTV"
+                  name="cctv"
                   setUserAnswers={setUserAnswers}
-                  prevAnswer={ownCCTV === true ? true : false}
+                  prevAnswer={cctv === true ? true : false}
                 >
                   네
                 </Radio>
                 <Radio
-                  id="CCTV_no"
+                  id="cctv_no"
                   value={false}
-                  name="ownCCTV"
+                  name="cctv"
                   setUserAnswers={setUserAnswers}
-                  prevAnswer={ownCCTV === false ? true : false}
+                  prevAnswer={cctv === false ? true : false}
                 >
                   아니오
                 </Radio>
               </div>
-              {showError && userAnswers.ownCCTV === "" ? (
+              {showError && userAnswers.cctv === "" ? (
                 <h4 className="invalid">CCTV 보유 여부를 선택해주세요</h4>
               ) : null}
             </RadioWrapper>
           </Wrapper>
         </div>
         <div className="aside">
-          <ButtonGroup fixed>
+          <ButtonGroup>
             <Button onClick={moveToPrev} variant="primary" size={60}>
               이전
             </Button>
