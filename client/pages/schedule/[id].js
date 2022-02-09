@@ -2,7 +2,7 @@ import React, { useCallback, useState, useEffect } from "react";
 import { Calendar } from "../../components/atoms/Calendar";
 import { ToastBar } from "../../components/atoms/Toast";
 import { SelectedDate } from "../../components/atoms/EmphasizedWord";
-import { Header, Footer, ProgressHeader } from "../../components";
+import { Footer, ProgressHeader } from "../../components";
 import { Button } from "../../components/atoms/Button";
 import { Container, Toast } from "./style";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,8 +13,8 @@ const Schedule = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const userId = useSelector(state => state.step3.id);
-  const moveAllowed = useSelector(state => state.step3.moveStatus);
+  const userId = useSelector(state => state.auth.id);
+  const moveAllowed = useSelector(state => state.step3.changeStatus);
   const [selectedDate, setselectedDate] = useState();
   const [isDisabledDay, setIsDisabledDay] = useState(false);
   //공휴일 등 실사요청 불가능한 날짜, YYYYMMDD 형태
@@ -44,14 +44,13 @@ const Schedule = () => {
     try {
       const fulldate = selectedDate.fulldate;
       await dispatch(
-        //userId가 안넘어감... 왜? 여기선 71 찍힘
-        submitAvailableDate({ fulldate, userId }),
+        submitAvailableDate({ fulldate, PageNum: "14", userId }),
       ).unwrap();
 
       await dispatch(
         changeStep3({
           PageNum: "14",
-          inProgress: "INVESTIGATION_CONFIRM",
+          inProgress: "STEP3_COMPLETED",
           userId,
         }),
       ).unwrap();
@@ -63,8 +62,7 @@ const Schedule = () => {
   return (
     <>
       <Container>
-        <Header />
-        <ProgressHeader growLineBorder="1px" className="progressHeader" />
+        <ProgressHeader className="progressHeader" growLineBorder="1px" />
         <div className="content">
           {selectedDate ? (
             <h2 className="choose">
@@ -98,7 +96,7 @@ const Schedule = () => {
           >
             확인
           </Button>
-          <Footer />
+          <Footer className="footer" />
         </div>
       </Container>
     </>

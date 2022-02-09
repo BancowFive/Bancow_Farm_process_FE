@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { personalInfo, farmInfo, moveStep } from "../api";
+import { personalInfo, farmInfo } from "../api";
 
 export const saveFarmOwnerInfo = createAsyncThunk(
   "step1/info/saveFarmOwnerInfo",
-  async ({ data, pageNum }, { rejectWithValue }) => {
+  async ({ data, id, pageNum }, { rejectWithValue }) => {
     try {
-      const result = await personalInfo.savePersonalInfo(data, pageNum);
+      const result = await personalInfo.savePersonalInfo(data, id, pageNum);
       return result;
     } catch (error) {
       return rejectWithValue(err.response.data);
@@ -15,9 +15,9 @@ export const saveFarmOwnerInfo = createAsyncThunk(
 
 export const saveFarmInfo = createAsyncThunk(
   "step1/info/saveFarmInfo",
-  async ({ data, pageNum }, { rejectWithValue }) => {
+  async ({ data, id, pageNum }, { rejectWithValue }) => {
     try {
-      const result = await farmInfo.saveFarmInfo(data, pageNum);
+      const result = await farmInfo.saveFarmInfo(data, id, pageNum);
       return result;
     } catch (error) {
       return rejectWithValue(err.response.data);
@@ -25,21 +25,7 @@ export const saveFarmInfo = createAsyncThunk(
   },
 );
 
-export const changeStep1 = createAsyncThunk(
-  "step1/changeStep",
-  async ({ PageNum, inProgress, userId }, { rejectWithValue }) => {
-    try {
-      const result = await moveStep(PageNum, inProgress, userId);
-      return result;
-    } catch (error) {
-      rejectWithValue(error.response.data);
-    }
-  },
-);
-
 const initialState = {
-  id: "",
-  status: "",
   data: {
     name: "",
     email: "",
@@ -108,12 +94,9 @@ const initialState = {
   saveFarmInfoLoading: false,
   saveFarmInfoDone: false,
   saveFarmInfoError: null,
-  savePersonalInfoLoading: false,
-  savePersonalInfoDone: false,
-  savePersonalInfoError: null,
-  changeStep1Loading: false,
-  changeStep1Done: false,
-  changeStep1Error: null,
+  saveFarmOwnerInfoLoading: false,
+  saveFarmOwnerInfoDone: false,
+  saveFarmOwnerInfoError: null,
 };
 
 const step1Slice = createSlice({
@@ -165,47 +148,34 @@ const step1Slice = createSlice({
       state.data.farmImage[imageIndex].imageType = action.payload.imageType;
     },
   },
-  // extraReducers: {
-  //   [savePersonalInfo.pending.type]: (state, action) => {
-  //     state.savePersonalInfoLoading = true;
-  //     state.savePersonalInfoDone = false;
-  //     state.savePersonalInfoError = null;
-  //   },
-  //   [savePersonalInfo.fulfilled.type]: (state, action) => {
-  //     state.savePersonalInfoLoading = false;
-  //     state.savePersonalInfoDone = true;
-  //   },
-  //   [savePersonalInfo.rejected.type]: (state, action) => {
-  //     state.savePersonalInfoLoading = false;
-  //     state.savePersonalInfoError = action.payload;
-  //   },
-  //   [savePersonalInfo.pending.type]: (state, action) => {
-  //     state.savePersonalInfoLoading = true;
-  //     state.savePersonalInfoDone = false;
-  //     state.savePersonalInfoError = null;
-  //   },
-  //   [savePersonalInfo.fulfilled.type]: (state, action) => {
-  //     state.savePersonalInfoLoading = false;
-  //     state.savePersonalInfoDone = true;
-  //   },
-  //   [savePersonalInfo.rejected.type]: (state, action) => {
-  //     state.savePersonalInfoLoading = false;
-  //     state.savePersonalInfoError = action.payload;
-  //   },
-  //   [changeStep1.pending.type]: (state, action) => {
-  //     state.changeStep1Loading = true;
-  //     state.changeStep1Done = false;
-  //     state.changeStep1Error = null;
-  //   },
-  //   [changeStep1.fulfilled.type]: (state, action) => {
-  //     state.changeStep1Loading = false;
-  //     state.changeStep1Done = true;
-  //   },
-  //   [changeStep1.rejected.type]: (state, action) => {
-  //     state.changeStep1Loading = false;
-  //     state.changeStep1Error = action.payload;
-  //   },
-  // },
+  extraReducers: {
+    [saveFarmOwnerInfo.pending.type]: (state, action) => {
+      state.saveFarmOwnerInfoLoading = true;
+      state.saveFarmOwnerInfoDone = false;
+      state.saveFarmOwnerInfoError = null;
+    },
+    [saveFarmOwnerInfo.fulfilled.type]: (state, action) => {
+      state.saveFarmOwnerInfoLoading = false;
+      state.saveFarmOwnerInfoDone = true;
+    },
+    [saveFarmOwnerInfo.rejected.type]: (state, action) => {
+      state.saveFarmOwnerInfoLoading = false;
+      state.saveFarmOwnerInfoError = action.payload;
+    },
+    [saveFarmInfo.pending.type]: (state, action) => {
+      state.saveFarmInfoLoading = true;
+      state.saveFarmInfoDone = false;
+      state.saveFarmInfoError = null;
+    },
+    [saveFarmInfo.fulfilled.type]: (state, action) => {
+      state.saveFarmInfoLoading = false;
+      state.saveFarmInfoDone = true;
+    },
+    [saveFarmInfo.rejected.type]: (state, action) => {
+      state.saveFarmInfoLoading = false;
+      state.saveFarmInfoError = action.payload;
+    },
+  },
 });
 
 export const {

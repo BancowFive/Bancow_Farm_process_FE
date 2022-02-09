@@ -1,18 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { auth } from "../api";
-import { axiosAuth, axiosCertification } from "../api/auth";
-import { fetchStep1Data, inputName } from "./step1";
-import { fetchStep2Data } from "./step2";
+import { auth, checkInProgress, fetchData } from "../api";
+import { checkProgressStep, checkProcessStep } from "../utils/checkStep";
 
 export const getCertification = createAsyncThunk(
   "auth/getCertification",
   async (data, { rejectWithValue }) => {
     try {
-      const result = await axiosCertification("post", "/api/sendSMS", data);
+      const result = await auth.getCertification(data);
       return result.data.data;
     } catch (error) {
       console.error(error);
-      return rejectWithValue(err.response.data);
+      return rejectWithValue(error.response.data);
     }
   },
 );
@@ -21,22 +19,37 @@ export const authorize = createAsyncThunk(
   "auth/authorize",
   async (data, { rejectWithValue }) => {
     try {
-      const result = await axiosAuth("post", "/login", data);
-      return result.data;
+      const result = await auth.authorize(data);
+      console.log(result);
     } catch (error) {
-      return rejectWithValue(err.response.data);
+      return rejectWithValue(error.response.data);
+    }
+  },
+);
+
+export const checkUserInProgress = createAsyncThunk(
+  "auth/checkInProgress",
+  async (phoneNumber, thunkApi) => {
+    try {
+      const result = await checkInProgress(phoneNumber);
+      const { inProgress, id } = result.data.data;
+      thunkApi.dispatch(getUserInfo({ id, inProgress }));
+      checkProgressStep(inProgress, id, thunkApi);
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.response.data);
     }
   },
 );
 
 export const fetchUserData = createAsyncThunk(
   "auth/fetchUserData",
-  async (id, thunkApi) => {
+  async (data, thunkApi) => {
     try {
-      const result = await auth.fetchData(id);
-      thunkApi.dispatch(fetchStep1Data(result.data.data));
+      const { step, id } = data;
+      const result = await fetchData(step, id);
+      checkProcessStep(step, result.data.data, thunkApi);
     } catch (error) {
-      return thunkApi.rejectWithValue(err.response.data);
+      return thunkApi.rejectWithValue(error.response.data);
     }
   },
 );
@@ -55,6 +68,9 @@ const initialState = {
   fetchUserDataLoading: false,
   fetchUserDataDone: false,
   fetchUserDataError: null,
+  checkUserInProgressLoading: false,
+  checkUserInProgressDone: false,
+  checkUserInProgressError: null,
 };
 
 const authSlice = createSlice({
@@ -63,6 +79,10 @@ const authSlice = createSlice({
   reducers: {
     inputPhoneNumber: (state, action) => {
       state.phoneNumber = action.payload;
+    },
+    getUserInfo: (state, action) => {
+      state.id = action.payload.id;
+      state.status = action.payload.inProgress;
     },
   },
   extraReducers: {
@@ -106,8 +126,21 @@ const authSlice = createSlice({
       state.fetchUserDataLoading = false;
       state.fetchUserDataError = action.payload;
     },
+    [checkUserInProgress.pending.type]: (state, action) => {
+      state.checkUserInProgressLoading = true;
+      state.checkUserInProgressDone = false;
+      state.checkUserInProgressError = null;
+    },
+    [checkUserInProgress.fulfilled.type]: (state, action) => {
+      state.checkUserInProgressLoading = false;
+      state.checkUserInProgressDone = true;
+    },
+    [checkUserInProgress.rejected.type]: (state, action) => {
+      state.checkUserInProgressLoading = false;
+      state.checkUserInProgressError = action.payload;
+    },
   },
 });
 
-export const { inputPhoneNumber } = authSlice.actions;
+export const { inputPhoneNumber, getUserInfo } = authSlice.actions;
 export default authSlice.reducer;

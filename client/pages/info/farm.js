@@ -1,4 +1,5 @@
 import { useCallback, useState, useRef, useEffect, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Container,
   FormGroup,
@@ -8,23 +9,21 @@ import {
   DropDown,
   Footer,
   ProgressHeader,
-  Header,
 } from "../../components";
-import { setDaumPost, openDaumPost } from "../../utils";
-import { useDispatch, useSelector } from "react-redux";
 import {
   inputFarmName,
   inputFarmFodder,
-  changeStep1,
   saveFarmInfo,
 } from "../../reducers/step1";
+import { changePage } from "../../reducers/move";
+import { setDaumPost, openDaumPost } from "../../utils";
 
 const Farm = () => {
   const dispatch = useDispatch();
   const { farmName, farmPostCode, farmAddress, fodder } = useSelector(
     state => state.step1.data,
   );
-  const { id } = useSelector(state => state.step1);
+  const { id } = useSelector(state => state.auth);
 
   const postcodeRef = useRef(null);
   const [selfInput, setSelfInput] = useState("");
@@ -73,16 +72,18 @@ const Farm = () => {
   const movePage = useCallback(() => {
     saveFarm();
     dispatch(
-      saveFarmInfo({ farmName, farmAddress, farmPostCode, fodder }, "5"),
+      saveFarmInfo({
+        data: { farmName, farmAddress, farmPostCode, fodder },
+        id,
+        pageNum: 3,
+      }),
     );
-    //pageNum, inProgress, id
-    dispatch(changeStep1("5", "STEP1_IN_PROGRESS", id));
-  }, []);
+    // dispatch(changePage(4, id));
+  }, [farmName, farmAddress, farmPostCode, fodder, id]);
 
   return (
     <>
       <Container>
-        <Header />
         <ProgressHeader className="progressHeader" growLineBorder="1px" />
         <div className="content">
           <h2>

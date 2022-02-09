@@ -19,7 +19,6 @@ export const StyledContainer = styled.div`
     flex: 1;
     padding: 0 24px;
     flex-direction: column;
-    margin-bottom: 10px;
     overflow-y: auto;
   }
 
@@ -59,9 +58,9 @@ export const StyledContainer = styled.div`
     color: ${({ theme }) => theme.colors.guide};
   }
 
-  .progressHeader {
+  /* .progressHeader {
     display: none;
-  }
+  } */
 
   div.aside {
     width: 100%;
@@ -84,9 +83,9 @@ export const StyledContainer = styled.div`
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    top: 70px;
     .content {
       padding: 0;
-      margin-bottom: 20px;
     }
 
     h1 {
@@ -119,9 +118,9 @@ export const StyledContainer = styled.div`
       @media (min-height: 1080px) {
         bottom: 105px;
       }
-      .progressHeader {
+      /* .progressHeader {
         display: block;
-      }
+      } */
 
       .toast {
         bottom: 190px;

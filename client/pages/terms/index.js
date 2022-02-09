@@ -12,15 +12,14 @@ import {
   TermItem,
   Button,
   Footer,
-  Header,
   ProgressHeader,
 } from "../../components";
-import { changeStep1 } from "./../reducers/step1";
+import { changePage } from "../../reducers/move";
 import { saveServiceTerms } from "../../reducers/terms";
 
 const ServiceTerms = () => {
   const dispatch = useDispatch();
-  const { id } = useSelector(state => state.terms);
+  const { id } = useSelector(state => state.auth);
   const { conditionOfUse, trustOfInformation, collectionOfInformation } =
     useSelector(state => state.terms);
 
@@ -42,22 +41,21 @@ const ServiceTerms = () => {
   );
   const movePage = useCallback(() => {
     dispatch(
-      saveServiceTerms(
-        {
+      saveServiceTerms({
+        serviceTerms: {
           conditionOfUse,
           trustOfInformation,
           collectionOfInformation,
         },
-        "3",
-      ),
+        id,
+        pageNum: 1,
+      }),
     );
-    //pageNum, inProgress, id
-    dispatch(changeStep1("3", "STEP1_IN_PROGRESS", id));
-  }, []);
+    // dispatch(changePage(2, id));
+  }, [conditionOfUse, trustOfInformation, collectionOfInformation, id]);
   return (
     <>
       <Container>
-        <Header />
         <ProgressHeader className="progressHeader" growLineBorder="1px" />
         <div className="content">
           <h2>
