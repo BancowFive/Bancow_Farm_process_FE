@@ -7,7 +7,6 @@ import {
   Input,
   DropDown,
   Footer,
-  Header,
   ProgressHeader,
   Confirm,
 } from "../../components";
@@ -18,10 +17,10 @@ import { emailValidator } from "../../utils";
 const Personal = () => {
   const dispatch = useDispatch();
   const { name, email } = useSelector(state => state.step1.data);
-  const { id } = useSelector(state => state.step1);
+  const { id } = useSelector(state => state.auth);
 
-  const [emailLocal, setEmailLocal] = useState(email.split("@")[0]);
-  const [emailDomain, setEmailDomain] = useState(email.split("@")[1] || "");
+  const [emailLocal, setEmailLocal] = useState(email?.split("@")[0] || "");
+  const [emailDomain, setEmailDomain] = useState(email?.split("@")[1] || "");
   const [isOpen, setIsOpen] = useState(true);
   const [isValid, setIsValid] = useState(false);
 
@@ -62,14 +61,13 @@ const Personal = () => {
   }, [name, email, emailLocal, emailDomain]);
 
   const movePage = useCallback(() => {
-    dispatch(saveFarmOwnerInfo({ name, email }, 2));
-    dispatch(changePage(3, id));
+    dispatch(saveFarmOwnerInfo({ name, email }, id, 2));
+    // dispatch(changePage(3, id));
   }, [name, email, id]);
 
   return (
     <>
       <Container>
-        <Header />
         <ProgressHeader className="progressHeader" growLineBorder="1px" />
         <div className="content">
           {isValid ? (

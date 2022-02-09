@@ -3,12 +3,12 @@ import { terms } from "../api";
 
 export const saveServiceTerms = createAsyncThunk(
   "terms/saveServiceTerms",
-  async ({ serviceTerms, pageNum }, { rejectWithValue }) => {
+  async ({ serviceTerms, id, pageNum }, { rejectWithValue }) => {
     try {
-      const result = await terms.saveServiceTerms(serviceTerms, pageNum);
-      return result;
+      console.log(serviceTerms, id);
+      await terms.saveServiceTerms(serviceTerms, id, pageNum);
     } catch (error) {
-      return rejectWithValue(err.response.data);
+      return rejectWithValue(error.response.data);
     }
   },
 );

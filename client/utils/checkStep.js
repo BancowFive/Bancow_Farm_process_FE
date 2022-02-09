@@ -5,17 +5,17 @@ import { fetchStep2Data } from "../reducers/step2";
 
 export const checkProgressStep = (inProgress, id, thunkApi) => {
   if (inProgress === "STEP1_IN_PROGRESS") {
-    thunkApi.dispatch(fetchUserData(1));
+    thunkApi.dispatch(fetchUserData({ step: 1, id, inProgress }));
   } else if (inProgress === "STEP1_COMPLETED") {
     thunkApi.dispatch(movePage(8, id));
   } else if (inProgress === "STEP2_IN_PROGRESS") {
-    thunkApi.dispatch(fetchUserData(2));
+    thunkApi.dispatch(fetchUserData({ step: 2, id, inProgress }));
   } else if (inProgress === "STEP2_COMPLETED") {
     thunkApi.dispatch(movePage(11, id));
   } else if (inProgress === "INVESTIGATION_REQUEST") {
     thunkApi.dispatch(movePage(12, id));
   } else if (inProgress === "INVESTIGATION_CONFIRM") {
-    thunkApi.dispatch(movePage(13, id));
+    thunkApi.dispatch(movePage(14, id));
   } else if (inProgress === "PROCESS_DONE") {
     thunkApi.dispatch(movePage(14, id));
   }

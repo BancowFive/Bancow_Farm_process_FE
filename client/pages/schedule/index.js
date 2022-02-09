@@ -2,7 +2,7 @@ import React, { useCallback, useState, useEffect } from "react";
 import { Calendar } from "../../components/atoms/Calendar";
 import { ToastBar } from "../../components/atoms/Toast";
 import { SelectedDate } from "../../components/atoms/EmphasizedWord";
-import { Header, Footer, ProgressHeader } from "../../components";
+import { Footer, ProgressHeader } from "../../components";
 import { Button } from "../../components/atoms/Button";
 import { Container, Toast } from "./style";
 import { useDispatch, useSelector } from "react-redux";
@@ -63,8 +63,7 @@ const Schedule = () => {
   return (
     <>
       <Container>
-        <Header />
-        <ProgressHeader growLineBorder="1px" className="progressHeader" />
+        <ProgressHeader className="progressHeader" growLineBorder="1px" />
         <div className="content">
           {selectedDate ? (
             <h2 className="choose">
@@ -98,7 +97,7 @@ const Schedule = () => {
           >
             확인
           </Button>
-          <Footer />
+          <Footer className="footer" />
         </div>
       </Container>
     </>

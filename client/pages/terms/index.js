@@ -12,7 +12,6 @@ import {
   TermItem,
   Button,
   Footer,
-  Header,
   ProgressHeader,
 } from "../../components";
 import { changePage } from "../../reducers/move";
@@ -20,7 +19,7 @@ import { saveServiceTerms } from "../../reducers/terms";
 
 const ServiceTerms = () => {
   const dispatch = useDispatch();
-  const { id } = useSelector(state => state.terms);
+  const { id } = useSelector(state => state.auth);
   const { conditionOfUse, trustOfInformation, collectionOfInformation } =
     useSelector(state => state.terms);
 
@@ -48,15 +47,15 @@ const ServiceTerms = () => {
           trustOfInformation,
           collectionOfInformation,
         },
-        "1",
+        id,
+        1,
       ),
     );
-    dispatch(changePage(2, id));
+    // dispatch(changePage(2, id));
   }, [conditionOfUse, trustOfInformation, collectionOfInformation, id]);
   return (
     <>
       <Container>
-        <Header />
         <ProgressHeader className="progressHeader" growLineBorder="1px" />
         <div className="content">
           <h2>

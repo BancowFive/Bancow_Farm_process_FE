@@ -68,7 +68,7 @@ export const ProgressLine = styled.div.attrs(props => ({
   border-top: ${props => props.lineBorder} ${props => props.lineStyle}
     ${theme.colors.borderGray};
 
-  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+  @media (min-width: 540px) {
     border-top-width: ${props => props.growLineBorder};
   }
 `;
@@ -93,7 +93,7 @@ export const ActiveProgressLine = styled.div.attrs(props => ({
   transition: ${props =>
     props.byPercentage ? "width 0.3s ease-out" : "default"};
 
-  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+  @media (min-width: 540px) {
     border-top-width: ${props => props.growLineBorder};
   }
 `;

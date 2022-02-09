@@ -10,7 +10,7 @@ export const getCertification = createAsyncThunk(
       return result.data.data;
     } catch (error) {
       console.error(error);
-      return rejectWithValue(err.response.data);
+      return rejectWithValue(error.response.data);
     }
   },
 );
@@ -20,9 +20,9 @@ export const authorize = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const result = await auth.authorize(data);
-      return result.data;
+      console.log(result);
     } catch (error) {
-      return rejectWithValue(err.response.data);
+      return rejectWithValue(error.response.data);
     }
   },
 );
@@ -35,19 +35,20 @@ export const checkUserInProgress = createAsyncThunk(
       const { inProgress, id } = result.data.data;
       checkProgressStep(inProgress, id, thunkApi);
     } catch (error) {
-      return thunkApi.rejectWithValue(err.response.data);
+      return thunkApi.rejectWithValue(error.response.data);
     }
   },
 );
 
 export const fetchUserData = createAsyncThunk(
   "auth/fetchUserData",
-  async (step, thunkApi) => {
+  async (data, thunkApi) => {
     try {
-      const result = await fetchData(step);
+      const { step, id, inProgress } = data;
+      const result = await fetchData(step, { id, inProgress });
       checkProcessStep(step, result.data.data, thunkApi);
     } catch (error) {
-      return thunkApi.rejectWithValue(err.response.data);
+      return thunkApi.rejectWithValue(error.response.data);
     }
   },
 );
