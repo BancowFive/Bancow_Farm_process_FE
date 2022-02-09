@@ -18,8 +18,6 @@ export const StyledContainer = styled.div`
     ${flexbox("start", "start")};
     width: 100%;
     flex: 1;
-    flex-direction: column;
-    margin-bottom: 10px;
     overflow-y: auto;
   }
 
@@ -84,7 +82,6 @@ export const StyledContainer = styled.div`
     top: 70px;
     .content {
       padding: 0;
-      margin-bottom: 20px;
     }
 
     h1 {
