@@ -5,6 +5,7 @@ export const DOMAIN = "http://15.164.228.240:8080";
 export const request = async (method, url, data) => {
   let json = JSON.stringify(data);
   try {
+    console.log(json);
     const result = await axios({
       method,
       url: DOMAIN + url,
@@ -42,8 +43,9 @@ export const checkInProgress = phoneNumber => {
 };
 
 // 단계에 맞는 데이터 fetch하기
-export const fetchData = step => {
-  return request("get", `/api/farm/checkStep${step}`);
+export const fetchData = (step, data) => {
+  console.log(JSON.stringify(data));
+  return request("get", `/api/farm/checkStep${step}`, data);
 };
 
 export { auth } from "./auth";
