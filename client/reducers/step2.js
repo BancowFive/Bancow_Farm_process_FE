@@ -38,8 +38,6 @@ export const changeStep = createAsyncThunk(
 );
 
 const initialState = {
-  id: "",
-  status: "",
   fileType: {
     LIVESTOCK_REGISTRATION: null,
     STRUCTURAL_DIAGRAM: null,

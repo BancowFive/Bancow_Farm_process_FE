@@ -33,6 +33,7 @@ export const checkUserInProgress = createAsyncThunk(
     try {
       const result = await checkInProgress(phoneNumber);
       const { inProgress, id } = result.data.data;
+      thunkApi.dispatch(getUserInfo({ id, inProgress }));
       checkProgressStep(inProgress, id, thunkApi);
     } catch (error) {
       return thunkApi.rejectWithValue(error.response.data);
@@ -44,8 +45,8 @@ export const fetchUserData = createAsyncThunk(
   "auth/fetchUserData",
   async (data, thunkApi) => {
     try {
-      const { step, id, inProgress } = data;
-      const result = await fetchData(step, { id, inProgress });
+      const { step, id } = data;
+      const result = await fetchData(step, id);
       checkProcessStep(step, result.data.data, thunkApi);
     } catch (error) {
       return thunkApi.rejectWithValue(error.response.data);
@@ -78,6 +79,10 @@ const authSlice = createSlice({
   reducers: {
     inputPhoneNumber: (state, action) => {
       state.phoneNumber = action.payload;
+    },
+    getUserInfo: (state, action) => {
+      state.id = action.payload.id;
+      state.status = action.payload.inProgress;
     },
   },
   extraReducers: {
@@ -137,5 +142,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { inputPhoneNumber } = authSlice.actions;
+export const { inputPhoneNumber, getUserInfo } = authSlice.actions;
 export default authSlice.reducer;

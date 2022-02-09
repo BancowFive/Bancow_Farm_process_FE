@@ -26,8 +26,6 @@ export const saveFarmInfo = createAsyncThunk(
 );
 
 const initialState = {
-  id: "",
-  status: "",
   data: {
     name: "",
     email: "",
