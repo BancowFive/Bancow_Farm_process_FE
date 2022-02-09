@@ -28,7 +28,8 @@ export const changeStep3 = createAsyncThunk(
 
 const initialState = {
   id: "",
-  status: "",
+  submitStatus: "",
+  changeStatus: "",
 };
 
 const step3Slice = createSlice({
@@ -43,26 +44,26 @@ const step3Slice = createSlice({
   extraReducers: builder => {
     //submitAvailableDate
     builder.addCase(submitAvailableDate.pending, (state, action) => {
-      state.status = "pending";
+      state.submitStatus = "pending";
     });
     builder.addCase(submitAvailableDate.fulfilled, (state, action) => {
-      state.status = "fulfilled";
+      state.submitStatus = "fulfilled";
     });
     builder.addCase(submitAvailableDate.rejected, (state, action) => {
-      state.status = "rejected";
+      state.submitStatus = "rejected";
     });
 
     //changeStep3
     builder.addCase(changeStep3.pending, (state, action) => {
-      state.status = "pending";
+      state.changeStatus = "pending";
     });
     builder.addCase(changeStep3.fulfilled, (state, action) => {
-      state.status = "fulfilled";
+      state.changeStatus = "fulfilled";
       //페이지 이동
       router.replace("/done/step3");
     });
     builder.addCase(changeStep3.rejected, (state, action) => {
-      state.status = "rejected";
+      state.changeStatus = "rejected";
     });
   },
 });

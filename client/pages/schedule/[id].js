@@ -13,8 +13,8 @@ const Schedule = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const userId = useSelector(state => state.step3.id);
-  const moveAllowed = useSelector(state => state.step3.moveStatus);
+  const userId = useSelector(state => state.auth.id);
+  const moveAllowed = useSelector(state => state.step3.changeStatus);
   const [selectedDate, setselectedDate] = useState();
   const [isDisabledDay, setIsDisabledDay] = useState(false);
   //공휴일 등 실사요청 불가능한 날짜, YYYYMMDD 형태
