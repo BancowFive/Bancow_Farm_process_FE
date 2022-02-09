@@ -14,8 +14,8 @@ export const submitAvailableDate = createAsyncThunk(
   },
 );
 
-export const changeStep = createAsyncThunk(
-  "step3/changeStep",
+export const changeStep3 = createAsyncThunk(
+  "step3/changeStep3",
   async ({ PageNum, inProgress, userId }, { rejectWithValue }) => {
     try {
       const result = await moveStep(PageNum, inProgress, userId);
@@ -52,16 +52,16 @@ const step3Slice = createSlice({
       state.status = "rejected";
     });
 
-    //moveStep
-    builder.addCase(changeStep.pending, (state, action) => {
+    //changeStep3
+    builder.addCase(changeStep3.pending, (state, action) => {
       state.status = "pending";
     });
-    builder.addCase(changeStep.fulfilled, (state, action) => {
+    builder.addCase(changeStep3.fulfilled, (state, action) => {
       state.status = "fulfilled";
       //페이지 이동
       router.replace("/done/step3");
     });
-    builder.addCase(changeStep.rejected, (state, action) => {
+    builder.addCase(changeStep3.rejected, (state, action) => {
       state.status = "rejected";
     });
   },
