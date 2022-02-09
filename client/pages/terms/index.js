@@ -12,7 +12,6 @@ import {
   TermItem,
   Button,
   Footer,
-  Header,
   ProgressHeader,
 } from "../../components";
 import { changePage } from "../../reducers/move";
@@ -56,7 +55,6 @@ const ServiceTerms = () => {
   return (
     <>
       <Container>
-        <Header />
         <ProgressHeader className="progressHeader" growLineBorder="1px" />
         <div className="content">
           <h2>

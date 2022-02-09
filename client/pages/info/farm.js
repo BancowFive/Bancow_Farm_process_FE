@@ -9,7 +9,6 @@ import {
   DropDown,
   Footer,
   ProgressHeader,
-  Header,
 } from "../../components";
 import {
   inputFarmName,
@@ -79,7 +78,6 @@ const Farm = () => {
   return (
     <>
       <Container>
-        <Header />
         <ProgressHeader className="progressHeader" growLineBorder="1px" />
         <div className="content">
           <h2>

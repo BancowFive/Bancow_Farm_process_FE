@@ -16,7 +16,7 @@ export const ProgressHeader = ({
   lineBorder = "4px",
   activeLineBorder = "4px",
   growLineBorder,
-  showProgress,
+  showProgress = false,
 }) => {
   return (
     <>

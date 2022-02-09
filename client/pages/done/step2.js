@@ -1,6 +1,6 @@
 import React from "react";
-import { Button, AverageDate, ProgressStep } from "../../components/atoms";
-import { Header, Footer, ProgressHeader } from "../../components";
+import { Button, AverageDate } from "../../components/atoms";
+import { Footer, ProgressHeader } from "../../components";
 import { Container, ButtonInfo, ImgContainer } from "./style";
 import Image from "next/image";
 import cowAndMePic from "../../public/cow_plus_me.svg";
@@ -9,19 +9,14 @@ const step2 = () => {
   return (
     <>
       <Container>
-        <Header />
         <ProgressHeader
           ProgressType="step"
-          activeStep={2}
+          activeStep={1}
           className="progressHeader"
+          showProgress={true}
+          growLineBorder="4px"
         />
         <div className="content">
-          <ProgressStep
-            className="mobileProgressStep"
-            lineStyle={"dashed"}
-            activeStep={2}
-            growLineBorder={"4px"}
-          />
           <h1>2차 신청이 완료되었어요</h1>
           <h2>
             평균 <AverageDate>2일 이내</AverageDate>로

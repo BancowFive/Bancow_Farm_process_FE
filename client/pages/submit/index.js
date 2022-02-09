@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Button } from "../../components/atoms/Button";
 import { FileInput } from "../../components/atoms/Form";
 import { ProgressHeader } from "../../components/blocks";
-import { Header } from "../../components";
 import { Container, FileInputGroup } from "./style";
 import { getS3Auth } from "../../utils";
 import { submitFiles, changeStep2 } from "../../reducers/step2";
@@ -73,12 +72,7 @@ const Required = () => {
   return (
     <>
       <Container>
-        <ProgressHeader
-          ProgressType="bar"
-          className="progressHeader"
-          showProgress={false}
-          growLineBorder="1px"
-        />
+        <ProgressHeader className="progressHeader" growLineBorder="1px" />
         <div className="content">
           <h2>필수 서류를 제출해 주세요</h2>
           <span className="notice">제출할 서류를 선택하세요</span>
