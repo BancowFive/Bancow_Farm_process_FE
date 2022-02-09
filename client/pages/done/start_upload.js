@@ -2,7 +2,7 @@ import React from "react";
 import { Container, ButtonInfo, ImgContainer, TryLater } from "./style";
 import Image from "next/image";
 import cowAndMePic from "../../public/cow_plus_me.svg";
-import { Button, ButtonGroup } from "../../components";
+import { Button, ButtonGroup, Header, ProgressHeader } from "../../components";
 import { useRouter } from "next/router";
 
 const startUpload = () => {
@@ -20,6 +20,13 @@ const startUpload = () => {
   return (
     <>
       <Container>
+        <Header />
+        <ProgressHeader
+          ProgressType="bar"
+          growLineBorder="1px"
+          className="progressHeader"
+        />
+
         <div className="content">
           <h1>
             이제부터
@@ -28,7 +35,7 @@ const startUpload = () => {
             <br />
             올려주세요
           </h1>
-          <ImgContainer>
+          <ImgContainer step="upload">
             <Image src={cowAndMePic} alt="소와 나" />
           </ImgContainer>
           <TryLater>
@@ -43,7 +50,7 @@ const startUpload = () => {
           </TryLater>
         </div>
         <div className="aside">
-          <ButtonGroup fixed>
+          <ButtonGroup>
             <Button onClick={moveToPrev} variant="primary" size={60}>
               이전
             </Button>
