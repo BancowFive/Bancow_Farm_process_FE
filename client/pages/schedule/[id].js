@@ -50,7 +50,7 @@ const Schedule = () => {
       await dispatch(
         changeStep3({
           PageNum: "14",
-          inProgress: "INVESTIGATION_CONFIRM",
+          inProgress: "STEP3_COMPLETED",
           userId,
         }),
       ).unwrap();
