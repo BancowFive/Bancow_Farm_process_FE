@@ -44,8 +44,7 @@ const Schedule = () => {
     try {
       const fulldate = selectedDate.fulldate;
       await dispatch(
-        //userId가 안넘어감... 왜? 여기선 71 찍힘
-        submitAvailableDate({ fulldate, userId }),
+        submitAvailableDate({ fulldate, PageNum: "14", userId }),
       ).unwrap();
 
       await dispatch(

@@ -4,9 +4,9 @@ import { router } from "next/router";
 
 export const submitAvailableDate = createAsyncThunk(
   "step3/submitAvailableDate",
-  async ({ date, userId }, { rejectWithValue }) => {
+  async ({ date, PageNum, userId }, { rejectWithValue }) => {
     try {
-      const result = await schedule.submitAvailableDate(date, userId);
+      const result = await schedule.submitAvailableDate(date, PageNum, userId);
       return result;
     } catch (error) {
       rejectWithValue(error.response.data);
