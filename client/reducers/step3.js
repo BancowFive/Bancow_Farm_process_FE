@@ -39,9 +39,9 @@ const step3Slice = createSlice({
   name: "step3",
   initialState,
   reducers: {
-    getUserScheduleInfo: (state, action) => {
+    fetchStep3Data: (state, action) => {
       //id값 받기
-      state.id = action.payload.data.id;
+      state.id = action.payload.id;
     },
   },
   extraReducers: builder => {

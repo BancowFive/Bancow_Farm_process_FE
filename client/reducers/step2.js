@@ -56,20 +56,23 @@ const step2Slice = createSlice({
   reducers: {
     getUserFileInfo: (state, action) => {
       //id값 받기
-      state.id = action.payload.data.id;
+      state.id = action.payload.id;
 
       //fileType 정보 받기
-      if (action.payload.data.farmFile.length === 0) {
+      if (action.payload.farmFile.length === 0) {
         return;
       } else {
-        action.payload.data.farmFile.forEach(file => {
+        action.payload.farmFile.forEach(file => {
           let name = file.fileType;
           state.fileType = { ...state.fileType, [name]: name };
         });
       }
     },
     fetchStep2Data: (state, action) => {
+      //id값 받기
       state.id = action.payload.id;
+
+      //fileType 정보 받기
       state.fileType = {
         ...state.fileType,
         ...action.payload.farmFile.reduce((acc, cur) => {
