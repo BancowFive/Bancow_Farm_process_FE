@@ -25,8 +25,8 @@ export const submitFiles = createAsyncThunk(
   },
 );
 
-export const changeStep = createAsyncThunk(
-  "step2/changeStep",
+export const changeStep2 = createAsyncThunk(
+  "step2/changeStep2",
   async ({ PageNum, inProgress, userId }, { rejectWithValue }) => {
     try {
       const result = await moveStep(PageNum, inProgress, userId);
@@ -38,8 +38,8 @@ export const changeStep = createAsyncThunk(
 );
 
 const initialState = {
-  id: "",
-  status: "",
+  submitStatus: "",
+  changeStatus: "",
   fileType: {
     LIVESTOCK_REGISTRATION: null,
     STRUCTURAL_DIAGRAM: null,
@@ -54,7 +54,7 @@ const step2Slice = createSlice({
   name: "step2",
   initialState,
   reducers: {
-    getUserFileInfo: (state, action) => {
+    fetchStep2Data: (state, action) => {
       //id값 받기
       state.id = action.payload.id;
 
@@ -68,46 +68,31 @@ const step2Slice = createSlice({
         });
       }
     },
-    fetchStep2Data: (state, action) => {
-      //id값 받기
-      state.id = action.payload.id;
-
-      //fileType 정보 받기
-      state.fileType = {
-        ...state.fileType,
-        ...action.payload.farmFile.reduce((acc, cur) => {
-          acc[cur.fileType] = cur.fileType;
-          return acc;
-        }, state.fileType),
-      };
-    },
   },
   extraReducers: builder => {
     //submitFiles
     builder.addCase(submitFiles.pending, (state, action) => {
-      state.status = "pending";
+      state.submitStatus = "pending";
     });
     builder.addCase(submitFiles.fulfilled, (state, action) => {
-      state.status = "fulfilled";
+      state.submitStatus = "fulfilled";
       state.fileType = { ...state.fileType, [action.payload]: action.payload };
-      //payload 값 확인필요
-      console.log(action.payload);
     });
     builder.addCase(submitFiles.rejected, (state, action) => {
-      state.status = "rejected";
+      state.submitStatus = "rejected";
     });
 
-    //moveStep
-    builder.addCase(changeStep.pending, (state, action) => {
-      state.status = "pending";
+    //changeStep2
+    builder.addCase(changeStep2.pending, (state, action) => {
+      state.changeStatus = "pending";
     });
-    builder.addCase(changeStep.fulfilled, (state, action) => {
-      state.status = "fulfilled";
+    builder.addCase(changeStep2.fulfilled, (state, action) => {
+      state.changeStatus = "fulfilled";
       //페이지 이동
       router.replace("/done/step2");
     });
-    builder.addCase(changeStep.rejected, (state, action) => {
-      state.status = "rejected";
+    builder.addCase(changeStep2.rejected, (state, action) => {
+      state.changeStatus = "rejected";
     });
   },
 });

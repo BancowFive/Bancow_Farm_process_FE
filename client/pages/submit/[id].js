@@ -25,8 +25,8 @@ const Required = () => {
       }),
       shallowEqual,
     );
-  const moveAllowed = useSelector(state => state.step2.moveStatus);
-  const userId = useSelector(state => state.step2.id);
+  const moveAllowed = useSelector(state => state.step2.changeStatus);
+  const userId = useSelector(state => state.auth.id);
 
   const [hasSubmit, setHasSubmit] = useState(false);
 

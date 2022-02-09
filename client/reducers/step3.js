@@ -4,9 +4,9 @@ import { router } from "next/router";
 
 export const submitAvailableDate = createAsyncThunk(
   "step3/submitAvailableDate",
-  async ({ date, userId }, { rejectWithValue }) => {
+  async ({ date, PageNum, userId }, { rejectWithValue }) => {
     try {
-      const result = await schedule.submitAvailableDate(date, userId);
+      const result = await schedule.submitAvailableDate(date, PageNum, userId);
       return result;
     } catch (error) {
       rejectWithValue(error.response.data);
@@ -14,8 +14,8 @@ export const submitAvailableDate = createAsyncThunk(
   },
 );
 
-export const changeStep = createAsyncThunk(
-  "step3/changeStep",
+export const changeStep3 = createAsyncThunk(
+  "step3/changeStep3",
   async ({ PageNum, inProgress, userId }, { rejectWithValue }) => {
     try {
       const result = await moveStep(PageNum, inProgress, userId);
@@ -28,7 +28,8 @@ export const changeStep = createAsyncThunk(
 
 const initialState = {
   id: "",
-  status: "",
+  submitStatus: "",
+  changeStatus: "",
 };
 
 const step3Slice = createSlice({
@@ -43,26 +44,26 @@ const step3Slice = createSlice({
   extraReducers: builder => {
     //submitAvailableDate
     builder.addCase(submitAvailableDate.pending, (state, action) => {
-      state.status = "pending";
+      state.submitStatus = "pending";
     });
     builder.addCase(submitAvailableDate.fulfilled, (state, action) => {
-      state.status = "fulfilled";
+      state.submitStatus = "fulfilled";
     });
     builder.addCase(submitAvailableDate.rejected, (state, action) => {
-      state.status = "rejected";
+      state.submitStatus = "rejected";
     });
 
-    //moveStep
-    builder.addCase(changeStep.pending, (state, action) => {
-      state.status = "pending";
+    //changeStep3
+    builder.addCase(changeStep3.pending, (state, action) => {
+      state.changeStatus = "pending";
     });
-    builder.addCase(changeStep.fulfilled, (state, action) => {
-      state.status = "fulfilled";
+    builder.addCase(changeStep3.fulfilled, (state, action) => {
+      state.changeStatus = "fulfilled";
       //페이지 이동
       router.replace("/done/step3");
     });
-    builder.addCase(changeStep.rejected, (state, action) => {
-      state.status = "rejected";
+    builder.addCase(changeStep3.rejected, (state, action) => {
+      state.changeStatus = "rejected";
     });
   },
 });

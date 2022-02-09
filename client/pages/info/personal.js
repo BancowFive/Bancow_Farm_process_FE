@@ -61,7 +61,7 @@ const Personal = () => {
   }, [name, email, emailLocal, emailDomain]);
 
   const movePage = useCallback(() => {
-    dispatch(saveFarmOwnerInfo({ name, email }, id, 2));
+    dispatch(saveFarmOwnerInfo({ data: { name, email }, id, pageNum: 2 }));
     // dispatch(changePage(3, id));
   }, [name, email, id]);
 

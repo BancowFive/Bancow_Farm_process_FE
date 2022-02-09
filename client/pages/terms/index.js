@@ -41,15 +41,15 @@ const ServiceTerms = () => {
   );
   const movePage = useCallback(() => {
     dispatch(
-      saveServiceTerms(
-        {
+      saveServiceTerms({
+        serviceTerms: {
           conditionOfUse,
           trustOfInformation,
           collectionOfInformation,
         },
         id,
-        1,
-      ),
+        pageNum: 1,
+      }),
     );
     // dispatch(changePage(2, id));
   }, [conditionOfUse, trustOfInformation, collectionOfInformation, id]);
