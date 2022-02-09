@@ -15,7 +15,7 @@ export const checkProgressStep = (inProgress, id, thunkApi) => {
   } else if (inProgress === "INVESTIGATION_REQUEST") {
     thunkApi.dispatch(movePage(12, id));
   } else if (inProgress === "INVESTIGATION_CONFIRM") {
-    thunkApi.dispatch(movePage(13, id));
+    thunkApi.dispatch(movePage(14, id));
   } else if (inProgress === "PROCESS_DONE") {
     thunkApi.dispatch(movePage(14, id));
   }
