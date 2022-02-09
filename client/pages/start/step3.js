@@ -4,8 +4,11 @@ import { Footer, ProgressHeader } from "../../components";
 import { Container, ImgContainer } from "./style";
 import Image from "next/image";
 import cowAndMePic from "../../public/cow_plus_me.svg";
+import { useSelector } from "react-redux";
 
 const Step3 = () => {
+  const userId = useSelector(state => state.auth.id);
+
   return (
     <>
       <Container>
@@ -26,7 +29,13 @@ const Step3 = () => {
           </ImgContainer>
         </div>
         <div className="aside">
-          <Button className="link" variant="primary" size={60} block to="/">
+          <Button
+            className="link"
+            variant="primary"
+            size={60}
+            block
+            to={`schedule/${userId}`}
+          >
             확인
           </Button>
           <Footer className="footer" />
