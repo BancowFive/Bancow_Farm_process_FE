@@ -4,6 +4,8 @@ import { ThemeProvider } from "styled-components";
 import { theme } from "../styles";
 import GlobalStyle from "../styles/globalStyle";
 import AppLayout from "../components/AppLayout";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistor } from "../store";
 
 function App({ Component, pageProps }) {
   return (
@@ -19,10 +21,12 @@ function App({ Component, pageProps }) {
         />
       </Head>
       <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <AppLayout>
-          <Component {...pageProps} />
-        </AppLayout>
+        <PersistGate loading={null} persistor={persistor}>
+          <GlobalStyle />
+          <AppLayout>
+            <Component {...pageProps} />
+          </AppLayout>
+        </PersistGate>
       </ThemeProvider>
     </>
   );
