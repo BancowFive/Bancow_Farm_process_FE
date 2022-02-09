@@ -3,9 +3,9 @@ import { movePage, moveStep } from "../api";
 
 export const changeStep = createAsyncThunk(
   "move/changeStep",
-  async ({ PageNum, inProgress, id }, thunkApi) => {
+  async ({ pageNum, inProgress, id }, thunkApi) => {
     try {
-      const result = await moveStep(PageNum, inProgress, id);
+      const result = await moveStep(pageNum, inProgress, id);
       return result;
     } catch (error) {
       thunkApi.rejectWithValue(error.response.data);
@@ -15,10 +15,11 @@ export const changeStep = createAsyncThunk(
 
 export const changePage = createAsyncThunk(
   "move/changePage",
-  async ({ PageNum, id }, thunkApi) => {
+  async ({ pageNum, id }, thunkApi) => {
+    console.log("페이지 이동", pageNum, id);
     try {
-      const result = await movePage(PageNum, id);
-      return result;
+      const result = await movePage(pageNum, id);
+      // return result;
     } catch (error) {
       thunkApi.rejectWithValue(error.response.data);
     }

@@ -35,9 +35,10 @@ export const saveFarmCheck = createAsyncThunk(
         data.pageNum,
         data.id,
       );
-      return result;
+      // return result;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      console.log(error);
+      return rejectWithValue(error.data.error);
     }
   },
 );
@@ -197,19 +198,19 @@ const step1Slice = createSlice({
       state.saveFarmInfoLoading = false;
       state.saveFarmInfoError = action.payload;
     },
-    // [saveFarmCheck.pending.type]: (state, action) => {
-    //   state.saveFarmCheckLoading = true;
-    //   state.saveFarmCheckDone = false;
-    //   state.saveFarmCheckError = null;
-    // },
-    // [saveFarmCheck.fulfilled.type]: (state, action) => {
-    //   state.saveFarmCheckLoading = false;
-    //   state.saveFarmCheckDone = true;
-    // },
-    // [saveFarmCheck.rejected.type]: (state, action) => {
-    //   state.saveFarmCheckLoading = false;
-    //   state.saveFarmCheckError = action.payload;
-    // },
+    [saveFarmCheck.pending.type]: (state, action) => {
+      state.saveFarmCheckLoading = true;
+      state.saveFarmCheckDone = false;
+      state.saveFarmCheckError = null;
+    },
+    [saveFarmCheck.fulfilled.type]: (state, action) => {
+      state.saveFarmCheckLoading = false;
+      state.saveFarmCheckDone = true;
+    },
+    [saveFarmCheck.rejected.type]: (state, action) => {
+      state.saveFarmCheckLoading = false;
+      state.saveFarmCheckError = action.payload;
+    },
   },
 });
 

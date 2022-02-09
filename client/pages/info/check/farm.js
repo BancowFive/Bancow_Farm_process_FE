@@ -51,7 +51,8 @@ const farmCheck = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   // 리덕스에서 아이디 불러오기
-  const { id } = useSelector(state => state.step1);
+  const { id, saveFarmCheckError } = useSelector(state => state.step1);
+
   //기존에 저장 값이 있다면 불러오기.
   const { identification, ownFarm, breedingType, population, cctv } =
     useSelector(state => ({
@@ -126,9 +127,19 @@ const farmCheck = () => {
       console.log("농가 정보 체크 api로 데이터 보내기");
       dispatch(saveFarmCheck({ data: userAnswers, pageNum: 4, id }));
 
-      // // 페이지 변경 api
-      // dispatch(changePage(5, id));
-      // router.push("/info/check/docs");
+      //api 통신 실패시 다음 페이지로 보내지 않음
+      // const saveFarmCheckError = useSelector(state => state.step1);
+      console.log("sdsdsdsd", saveFarmCheckError);
+
+      if (saveFarmCheckError) {
+        //통신 실패시 다음화면 X
+        alert("데이터 저장에 실패 했습니다.");
+        return;
+      }
+      // 페이지 변경 api
+      console.log("페이지 변경 api");
+      dispatch(changePage({ pageNum: 5, id }));
+      router.push("/info/check/docs");
     }
   };
   return (
