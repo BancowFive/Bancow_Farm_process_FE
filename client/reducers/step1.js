@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { personalInfo, farmInfo } from "../api";
+import { personalInfo, farmInfo, farmCheck } from "../api/info";
 
 export const saveFarmOwnerInfo = createAsyncThunk(
   "step1/info/saveFarmOwnerInfo",
@@ -8,7 +8,7 @@ export const saveFarmOwnerInfo = createAsyncThunk(
       const result = await personalInfo.savePersonalInfo(data, pageNum);
       return result;
     } catch (error) {
-      return rejectWithValue(err.response.data);
+      return rejectWithValue(error.response.data);
     }
   },
 );
@@ -20,7 +20,24 @@ export const saveFarmInfo = createAsyncThunk(
       const result = await farmInfo.saveFarmInfo(data, pageNum);
       return result;
     } catch (error) {
-      return rejectWithValue(err.response.data);
+      return rejectWithValue(error.response.data);
+    }
+  },
+);
+
+export const saveFarmCheck = createAsyncThunk(
+  "step1/info/check/saveFarmCheck",
+  async (data, { rejectWithValue }) => {
+    try {
+      console.log("데이터 : ", data);
+      const result = await farmCheck.saveFarmCheck(
+        data.data,
+        data.pageNum,
+        data.id,
+      );
+      return result;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
     }
   },
 );
@@ -36,11 +53,11 @@ const initialState = {
     farmAddress: "",
     fodder: "",
     // farm-check
-    indentification: "",
+    identification: "",
     ownFarm: "",
     breedingType: "",
     population: "",
-    ownCCTV: "",
+    cctv: "",
     // docs-check
     livestockFarmingBusinessRegistration: "",
     facilitiesStructure: "",
@@ -99,6 +116,9 @@ const initialState = {
   saveFarmOwnerInfoLoading: false,
   saveFarmOwnerInfoDone: false,
   saveFarmOwnerInfoError: null,
+  saveFarmCheckLoading: false,
+  saveFarmCheckDone: false,
+  saveFarmCheckError: null,
 };
 
 const step1Slice = createSlice({
@@ -125,11 +145,11 @@ const step1Slice = createSlice({
       state.data = action.payload;
     },
     inputCheckFarm: (state, action) => {
-      state.data.indentification = action.payload.indentification;
+      state.data.identification = action.payload.identification;
       state.data.ownFarm = action.payload.ownFarm;
       state.data.breedingType = action.payload.breedingType;
       state.data.population = action.payload.population;
-      state.data.ownCCTV = action.payload.ownCCTV;
+      state.data.cctv = action.payload.cctv;
     },
     inputCheckDocs: (state, action) => {
       state.data.livestockFarmingBusinessRegistration =
@@ -177,6 +197,19 @@ const step1Slice = createSlice({
       state.saveFarmInfoLoading = false;
       state.saveFarmInfoError = action.payload;
     },
+    // [saveFarmCheck.pending.type]: (state, action) => {
+    //   state.saveFarmCheckLoading = true;
+    //   state.saveFarmCheckDone = false;
+    //   state.saveFarmCheckError = null;
+    // },
+    // [saveFarmCheck.fulfilled.type]: (state, action) => {
+    //   state.saveFarmCheckLoading = false;
+    //   state.saveFarmCheckDone = true;
+    // },
+    // [saveFarmCheck.rejected.type]: (state, action) => {
+    //   state.saveFarmCheckLoading = false;
+    //   state.saveFarmCheckError = action.payload;
+    // },
   },
 });
 
