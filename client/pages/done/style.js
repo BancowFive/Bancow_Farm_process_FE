@@ -37,7 +37,12 @@ export const Container = styled(StyledContainer)`
 `;
 
 export const ImgContainer = styled.div.attrs(props => ({
-  margin: props.step ? "64px" : "102px",
+  margin:
+    props.step === "final"
+      ? "64px"
+      : props.step === "upload"
+      ? "84px"
+      : "102px",
 }))`
   ${flexbox()}
   width: 100%;

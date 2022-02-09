@@ -201,7 +201,7 @@ const uploadPicture = () => {
           />
         </div>
         <div className="aside">
-          <ButtonGroup fixed>
+          <ButtonGroup>
             <Button variant="primary" size={60} onClick={moveToPrev}>
               이전
             </Button>

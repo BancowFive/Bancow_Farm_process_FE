@@ -296,7 +296,7 @@ const docsCheck = () => {
           </Wrapper>
         </div>
         <div className="aside">
-          <ButtonGroup fixed>
+          <ButtonGroup>
             <Button onClick={moveToPrev} variant="primary" size={60}>
               이전
             </Button>
