@@ -42,28 +42,18 @@ export const checkInProgress = phoneNumber => {
 };
 
 // 단계에 맞는 데이터 fetch하기
-export const fetchData = async (step, data) => {
-  const formBody =
-    Object.keys(data)[0] +
-    "=" +
-    data["id"] +
-    "&" +
-    Object.keys(data)[1] +
-    "=" +
-    data["inProgress"];
+export const fetchData = async (step, id) => {
   try {
     const response = await axios({
       method: "GET",
-      url: DOMAIN + `/api/farm/checkStep${step}?${formBody}`,
+      url: DOMAIN + `/api/farm/${id}/checkStep${step}`,
       headers: { ...authHeader() },
     });
-    console.log(response);
     return response;
   } catch (error) {
     console.error(error);
     throw error.response;
   }
-  // return request("get", `/api/farm/checkStep${step}`, data);
 };
 
 export { auth } from "./auth";
