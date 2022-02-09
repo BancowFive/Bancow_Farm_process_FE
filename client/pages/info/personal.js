@@ -7,7 +7,6 @@ import {
   Input,
   DropDown,
   Footer,
-  Header,
   ProgressHeader,
   Confirm,
 } from "../../components";
@@ -69,7 +68,6 @@ const Personal = () => {
   return (
     <>
       <Container>
-        <Header />
         <ProgressHeader className="progressHeader" growLineBorder="1px" />
         <div className="content">
           {isValid ? (

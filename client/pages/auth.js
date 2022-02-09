@@ -6,7 +6,6 @@ import {
   Modal,
   Footer,
   ToastBar,
-  Header,
   ProgressHeader,
 } from "../components";
 import { useCallback, useEffect, useState } from "react";
@@ -101,7 +100,6 @@ const Auth = () => {
   return (
     <>
       <Container>
-        <Header />
         <ProgressHeader className="progressHeader" growLineBorder="1px" />
         <div className="content">
           <h2>

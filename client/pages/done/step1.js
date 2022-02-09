@@ -1,8 +1,8 @@
 import { Container, ButtonInfo, ImgContainer } from "./style";
-import { Header, Footer, ProgressHeader } from "../../components";
+import { Footer, ProgressHeader } from "../../components";
 import Image from "next/image";
 import cowAndMePic from "../../public/cow_plus_me.svg";
-import { Button, AverageDate, ProgressStep } from "../../components/atoms";
+import { Button, AverageDate } from "../../components/atoms";
 
 const step1 = () => {
   return (
