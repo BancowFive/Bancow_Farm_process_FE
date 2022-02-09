@@ -32,7 +32,7 @@ export const DropDown = ({ onClick, isOpen, type, block }) => {
   const dispatch = useDispatch();
   const { email } = useSelector(state => state.step1.data);
   const [value, setValue] = useState(
-    type === "email"
+    type === "email" && email !== null
       ? (email.split("@")[1] && "@" + email.split("@")[1]) ||
           getDataType(type)[0]
       : getDataType(type)[0],

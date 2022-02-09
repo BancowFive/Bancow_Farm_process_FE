@@ -192,7 +192,6 @@ const Auth = () => {
         subMessage="확인을 누르시면 계속 진행합니다."
         icon="done"
         onClick={fetchData}
-        to={fetchUserDataDone ? "/terms" : null}
       >
         확인
       </Modal>
