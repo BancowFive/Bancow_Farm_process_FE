@@ -3,9 +3,9 @@ import { personalInfo, farmInfo } from "../api";
 
 export const saveFarmOwnerInfo = createAsyncThunk(
   "step1/info/saveFarmOwnerInfo",
-  async ({ data, pageNum }, { rejectWithValue }) => {
+  async ({ data, id, pageNum }, { rejectWithValue }) => {
     try {
-      const result = await personalInfo.savePersonalInfo(data, pageNum);
+      const result = await personalInfo.savePersonalInfo(data, id, pageNum);
       return result;
     } catch (error) {
       return rejectWithValue(err.response.data);
@@ -15,9 +15,9 @@ export const saveFarmOwnerInfo = createAsyncThunk(
 
 export const saveFarmInfo = createAsyncThunk(
   "step1/info/saveFarmInfo",
-  async ({ data, pageNum }, { rejectWithValue }) => {
+  async ({ data, id, pageNum }, { rejectWithValue }) => {
     try {
-      const result = await farmInfo.saveFarmInfo(data, pageNum);
+      const result = await farmInfo.saveFarmInfo(data, id, pageNum);
       return result;
     } catch (error) {
       return rejectWithValue(err.response.data);

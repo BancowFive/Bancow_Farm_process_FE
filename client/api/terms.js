@@ -1,10 +1,10 @@
 import { request } from ".";
 
 export const terms = {
-  saveServiceTerms(serviceTerms, pageNum) {
+  saveServiceTerms(serviceTerms, id, pageNum) {
     const { conditionOfUse, trustOfInformation, collectionOfInformation } =
       serviceTerms;
-    return request("put", "/api/farm/{id}/agreement", {
+    return request("put", `/api/farm/${id}/agreement`, {
       serviceTerms1: conditionOfUse,
       serviceTerms2: trustOfInformation,
       serviceTerms3: collectionOfInformation,

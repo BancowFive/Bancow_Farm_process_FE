@@ -3,9 +3,8 @@ import authHeader from "../utils/authHeader";
 export const DOMAIN = "http://15.164.228.240:8080";
 
 export const request = async (method, url, data) => {
-  let json = JSON.stringify(data);
   try {
-    console.log(json);
+    let json = JSON.stringify(data);
     const result = await axios({
       method,
       url: DOMAIN + url,
@@ -55,9 +54,8 @@ export const fetchData = async (step, data) => {
   try {
     const response = await axios({
       method: "GET",
-      url: DOMAIN + `/api/farm/checkStep${step}`,
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      data: formBody,
+      url: DOMAIN + `/api/farm/checkStep${step}?${formBody}`,
+      headers: { ...authHeader() },
     });
     console.log(response);
     return response;

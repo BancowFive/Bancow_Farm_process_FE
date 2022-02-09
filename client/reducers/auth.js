@@ -20,7 +20,7 @@ export const authorize = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const result = await auth.authorize(data);
-      return result.data.data;
+      console.log(result);
     } catch (error) {
       return rejectWithValue(error.response.data);
     }

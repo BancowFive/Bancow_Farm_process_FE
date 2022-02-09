@@ -19,7 +19,7 @@ import { saveServiceTerms } from "../../reducers/terms";
 
 const ServiceTerms = () => {
   const dispatch = useDispatch();
-  const { id } = useSelector(state => state.terms);
+  const { id } = useSelector(state => state.auth);
   const { conditionOfUse, trustOfInformation, collectionOfInformation } =
     useSelector(state => state.terms);
 
@@ -47,10 +47,11 @@ const ServiceTerms = () => {
           trustOfInformation,
           collectionOfInformation,
         },
-        "1",
+        id,
+        1,
       ),
     );
-    dispatch(changePage(2, id));
+    // dispatch(changePage(2, id));
   }, [conditionOfUse, trustOfInformation, collectionOfInformation, id]);
   return (
     <>

@@ -2,14 +2,13 @@ import { DOMAIN } from ".";
 import axios from "axios";
 
 const axiosAuth = async (method, url, data) => {
-  let json = JSON.stringify(data);
   try {
+    let json = JSON.stringify(data);
     const response = await axios({
       method,
       url: DOMAIN + url,
       data: json,
     });
-    console.log(response);
     if (response.headers.authorization) {
       localStorage.setItem("token", response.headers.authorization);
     }

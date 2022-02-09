@@ -23,7 +23,7 @@ const Farm = () => {
   const { farmName, farmPostCode, farmAddress, fodder } = useSelector(
     state => state.step1.data,
   );
-  const { id } = useSelector(state => state.step1);
+  const { id } = useSelector(state => state.auth);
 
   const postcodeRef = useRef(null);
   const [selfInput, setSelfInput] = useState("");
@@ -71,8 +71,10 @@ const Farm = () => {
 
   const movePage = useCallback(() => {
     saveFarm();
-    dispatch(saveFarmInfo({ farmName, farmAddress, farmPostCode, fodder }, 3));
-    dispatch(changePage(4, id));
+    dispatch(
+      saveFarmInfo({ farmName, farmAddress, farmPostCode, fodder }, id, 3),
+    );
+    // dispatch(changePage(4, id));
   }, [farmName, farmAddress, farmPostCode, fodder, id]);
 
   return (
