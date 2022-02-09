@@ -58,6 +58,6 @@ export const fetchData = async (step, id) => {
 
 export { auth } from "./auth";
 export { terms } from "./terms";
-export { farmInfo, personalInfo } from "./info";
+export { farmInfo, personalInfo, farmCheck } from "./info";
 export { submit } from "./submit";
 export { schedule } from "./schedule";

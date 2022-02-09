@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { personalInfo, farmInfo, farmCheck } from "../api/info";
+import { personalInfo, farmInfo, farmCheck } from "../api";
 
 export const saveFarmOwnerInfo = createAsyncThunk(
   "step1/info/saveFarmOwnerInfo",
