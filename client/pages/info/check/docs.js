@@ -1,21 +1,18 @@
 import styled from "styled-components";
 import { flexbox, textStyle } from "../../../styles/utils";
-import {
-  Button,
-  ButtonGroup,
-  Container,
-  Footer,
-  Radio,
-} from "../../../components";
+import { Button, ButtonGroup, Container } from "../../../components";
+import { Radio } from "../../../components/atoms/Button/Radio";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { inputCheckDocs } from "../../../reducers/step1";
 
 export const Wrapper = styled.div`
   width: 100%;
   div:not(:last-of-type) {
     margin-bottom: 30px;
   }
-  padding-bottom: ${({ showError }) => (showError ? "80px" : "60px")};
+  padding-bottom: ${({ showError }) => (showError ? "80px" : "68px")};
 `;
 
 export const InfoTitle = styled.h3`
@@ -51,15 +48,44 @@ const docsCheck = () => {
   });
 
   const router = useRouter();
+  const dispatch = useDispatch();
+
+  const {
+    livestockFarmingBusinessRegistration,
+    facilitiesStructure,
+    annualFodderCostSpecification,
+    annualInspectionReport,
+    businessLicense,
+  } = useSelector(state => ({
+    livestockFarmingBusinessRegistration:
+      state.step1.data.livestockFarmingBusinessRegistration,
+    facilitiesStructure: state.step1.data.facilitiesStructure,
+    annualFodderCostSpecification:
+      state.step1.data.annualFodderCostSpecification,
+    annualInspectionReport: state.step1.data.annualInspectionReport,
+    businessLicense: state.step1.data.businessLicense,
+  }));
+
+  //페이지가 렌더링될 때 리덕스에 있는 데이터를 userAnswers에 넣어준다.
+  useEffect(() => {
+    setUserAnswers({
+      livestockFarmingBusinessRegistration,
+      facilitiesStructure,
+      annualFodderCostSpecification,
+      annualInspectionReport,
+      businessLicense,
+    });
+  }, []);
 
   useEffect(() => {
     //유저의 대답이 바뀔 때 마다 모든항목이 체크되었는지 확인하는 함수 호출(isCheckedAll)
     if (!checkedAll) {
       isCheckedAll();
     }
+    //유저 대답이 바뀔 때마다 리덕스에 업데이트
+    updateReduxState();
+    // console.log(userAnswers);
   }, [userAnswers]);
-
-  console.log(userAnswers);
 
   const isCheckedAll = () => {
     //선택되지 않은 항목이 있으면(값이 "" 인 객체가 있는지 검사) 다음버튼 비활성화
@@ -80,12 +106,27 @@ const docsCheck = () => {
     }
   };
 
-  const callApi = () => {
+  //리덕스에 상태 업데이트
+  const updateReduxState = () => {
+    dispatch(
+      inputCheckDocs({
+        ...userAnswers,
+      }),
+    );
+  };
+  const moveToPrev = () => {
+    router.push("/info/check/farm");
+  };
+
+  const moveToNext = () => {
     if (!checkedAll) {
       handleError();
     } else {
       //api로 데이터 보내기
-      router.push("/check/docs");
+
+      //리덕스에 상태 업데이트
+      updateReduxState();
+      router.push("/done/start_upload");
     }
   };
   return (
@@ -107,6 +148,10 @@ const docsCheck = () => {
                   value={true}
                   name="livestockFarmingBusinessRegistration"
                   setUserAnswers={setUserAnswers}
+                  //초기값이 빈 문자열이라 falsy하기 때문에 이하의 삼항연산자 필요
+                  prevAnswer={
+                    livestockFarmingBusinessRegistration === true ? true : false
+                  }
                 >
                   있어요
                 </Radio>
@@ -115,6 +160,11 @@ const docsCheck = () => {
                   value={false}
                   name="livestockFarmingBusinessRegistration"
                   setUserAnswers={setUserAnswers}
+                  prevAnswer={
+                    livestockFarmingBusinessRegistration === false
+                      ? true
+                      : false
+                  }
                 >
                   없어요
                 </Radio>
@@ -135,6 +185,7 @@ const docsCheck = () => {
                   value={true}
                   name="facilitiesStructure"
                   setUserAnswers={setUserAnswers}
+                  prevAnswer={facilitiesStructure === true ? true : false}
                 >
                   있어요
                 </Radio>
@@ -143,6 +194,7 @@ const docsCheck = () => {
                   value={false}
                   name="facilitiesStructure"
                   setUserAnswers={setUserAnswers}
+                  prevAnswer={facilitiesStructure === false ? true : false}
                 >
                   없어요
                 </Radio>
@@ -161,6 +213,9 @@ const docsCheck = () => {
                   value={true}
                   name="annualFodderCostSpecification"
                   setUserAnswers={setUserAnswers}
+                  prevAnswer={
+                    annualFodderCostSpecification === true ? true : false
+                  }
                 >
                   있어요
                 </Radio>
@@ -169,6 +224,9 @@ const docsCheck = () => {
                   value={false}
                   name="annualFodderCostSpecification"
                   setUserAnswers={setUserAnswers}
+                  prevAnswer={
+                    annualFodderCostSpecification === false ? true : false
+                  }
                 >
                   없어요
                 </Radio>
@@ -187,6 +245,7 @@ const docsCheck = () => {
                   value={true}
                   name="annualInspectionReport"
                   setUserAnswers={setUserAnswers}
+                  prevAnswer={annualInspectionReport === true ? true : false}
                 >
                   있어요
                 </Radio>
@@ -195,6 +254,7 @@ const docsCheck = () => {
                   value={false}
                   name="annualInspectionReport"
                   setUserAnswers={setUserAnswers}
+                  prevAnswer={annualInspectionReport === false ? true : false}
                 >
                   없어요
                 </Radio>
@@ -213,6 +273,7 @@ const docsCheck = () => {
                   value={true}
                   name="businessLicense"
                   setUserAnswers={setUserAnswers}
+                  prevAnswer={businessLicense === true ? true : false}
                 >
                   있어요
                 </Radio>
@@ -221,11 +282,12 @@ const docsCheck = () => {
                   value={false}
                   name="businessLicense"
                   setUserAnswers={setUserAnswers}
+                  prevAnswer={businessLicense === false ? true : false}
                 >
                   없어요
                 </Radio>
               </div>
-              {showError && userAnswers.facilitiesStructure === "" ? (
+              {showError && userAnswers.businessLicense === "" ? (
                 <h4 className="invalid">
                   사업자 등록증 보유 여부를 선택해주세요.
                 </h4>
@@ -235,18 +297,17 @@ const docsCheck = () => {
         </div>
         <div className="aside">
           <ButtonGroup fixed>
-            <Button variant="primary" size={60} to="/">
+            <Button onClick={moveToPrev} variant="primary" size={60}>
               이전
             </Button>
             <Button
-              onClick={callApi}
+              onClick={moveToNext}
               variant={checkedAll ? "primary" : "ghost"}
               size={60}
             >
               다음
             </Button>
           </ButtonGroup>
-          <Footer />
         </div>
       </Container>
     </>

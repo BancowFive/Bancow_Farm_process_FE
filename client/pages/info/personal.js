@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
   Container,
@@ -10,13 +11,8 @@ import {
   ProgressHeader,
   Confirm,
 } from "../../components";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  inputEmail,
-  inputName,
-  changeStep1,
-  saveFarmOwnerInfo,
-} from "../../reducers/step1";
+import { inputEmail, inputName, saveFarmOwnerInfo } from "../../reducers/step1";
+import { changePage } from "../../reducers/move";
 import { emailValidator } from "../../utils";
 
 const Personal = () => {
@@ -55,14 +51,6 @@ const Personal = () => {
     }
   }, [emailDomain]);
 
-  // const isValid = useMemo(() => {
-  //   if (emailDomain === "직접입력") {
-  //     return name && emailValidator(email);
-  //   } else {
-  //     return name && emailValidator(emailLocal + emailDomain);
-  //   }
-  // }, [name, emailLocal, emailDomain, email]);
-
   const savePersonalInfo = useCallback(() => {
     if (emailDomain === "직접입력") {
       dispatch(inputEmail(email));
@@ -74,10 +62,9 @@ const Personal = () => {
   }, [name, email, emailLocal, emailDomain]);
 
   const movePage = useCallback(() => {
-    dispatch(saveFarmOwnerInfo({ name, email }, "4"));
-    //pageNum, inProgress, id
-    dispatch(changeStep1("4", "STEP1_IN_PROGRESS", id));
-  }, []);
+    dispatch(saveFarmOwnerInfo({ name, email }, 2));
+    dispatch(changePage(3, id));
+  }, [name, email, id]);
 
   return (
     <>

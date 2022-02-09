@@ -1,4 +1,5 @@
 import { useCallback, useState, useRef, useEffect, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Container,
   FormGroup,
@@ -10,14 +11,13 @@ import {
   ProgressHeader,
   Header,
 } from "../../components";
-import { setDaumPost, openDaumPost } from "../../utils";
-import { useDispatch, useSelector } from "react-redux";
 import {
   inputFarmName,
   inputFarmFodder,
-  changeStep1,
   saveFarmInfo,
 } from "../../reducers/step1";
+import { changePage } from "../../reducers/move";
+import { setDaumPost, openDaumPost } from "../../utils";
 
 const Farm = () => {
   const dispatch = useDispatch();
@@ -72,12 +72,9 @@ const Farm = () => {
 
   const movePage = useCallback(() => {
     saveFarm();
-    dispatch(
-      saveFarmInfo({ farmName, farmAddress, farmPostCode, fodder }, "5"),
-    );
-    //pageNum, inProgress, id
-    dispatch(changeStep1("5", "STEP1_IN_PROGRESS", id));
-  }, []);
+    dispatch(saveFarmInfo({ farmName, farmAddress, farmPostCode, fodder }, 3));
+    dispatch(changePage(4, id));
+  }, [farmName, farmAddress, farmPostCode, fodder, id]);
 
   return (
     <>

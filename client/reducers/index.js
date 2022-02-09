@@ -8,6 +8,7 @@ import terms from "./terms";
 import step1 from "./step1";
 import step2 from "./step2";
 import step3 from "./step3";
+import move from "./move";
 
 const persistConfig = {
   key: "root",
@@ -27,6 +28,7 @@ const rootReducer = (state, action) => {
         step1,
         step2,
         step3,
+        move,
       });
       return combinedReducer(state, action);
     }
