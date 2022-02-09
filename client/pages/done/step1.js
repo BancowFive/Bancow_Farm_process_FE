@@ -8,19 +8,14 @@ const step1 = () => {
   return (
     <>
       <Container>
-        <Header />
         <ProgressHeader
           ProgressType="step"
           activeStep={1}
           className="progressHeader"
+          showProgress={true}
+          growLineBorder="4px"
         />
         <div className="content">
-          <ProgressStep
-            className="mobileProgressStep"
-            lineStyle={"dashed"}
-            activeStep={1}
-            growLineBorder={"4px"}
-          />
           <h1>1차 신청이 완료되었어요</h1>
           <h2>
             평균 <AverageDate>2일 이내</AverageDate>로
