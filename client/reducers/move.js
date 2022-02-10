@@ -16,7 +16,6 @@ export const changeStep = createAsyncThunk(
 export const changePage = createAsyncThunk(
   "move/changePage",
   async ({ pageNum, id }, thunkApi) => {
-    console.log("페이지 이동", pageNum, id);
     try {
       const result = await movePage(pageNum, id);
       // return result;
