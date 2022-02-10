@@ -68,7 +68,6 @@ const Personal = () => {
   }, [name, email, emailLocal, emailDomain]);
 
   const movePage = useCallback(() => {
-    savePersonalInfo();
     dispatch(saveFarmOwnerInfo({ data: { name, email }, id, pageNum: 2 }));
     dispatch(changePage({ PageNum: 3, id }));
   }, [name, email, id]);
@@ -148,7 +147,7 @@ const Personal = () => {
             size={60}
             variant={isValid ? "primary" : "ghost"}
             block
-            onClick={isValid ? movePage : null}
+            onClick={!isValid ? savePersonalInfo : movePage}
           >
             다음
           </Button>
