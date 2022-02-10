@@ -11,10 +11,7 @@ const Continue = () => {
   const [path, setPath] = useState("");
 
   useEffect(() => {
-    console.log(status);
-    console.log(pageNum);
     if (status === "STEP1_IN_PROGRESS") {
-      console.log("if문 스텝1 실행됨");
       switch (pageNum) {
         case 1:
           setPath(`/terms`);
@@ -40,17 +37,11 @@ const Continue = () => {
           return;
       }
     } else if (status === "STEP2_IN_PROGRESS") {
-      console.log("if문 스텝2 실행됨");
       setPath(`/submit/${id}`);
     } else if (status === "STEP3_IN_PROGRESS") {
-      console.log("if문 스텝2 실행됨");
       setPath(`/schedule/${id}`);
     }
   }, []);
-
-  useEffect(() => {
-    console.log("변경된값", path);
-  }, [path]);
 
   return (
     <>
