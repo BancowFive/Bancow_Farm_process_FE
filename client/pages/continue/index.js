@@ -8,13 +8,14 @@ import { useSelector } from "react-redux";
 
 const Continue = () => {
   const { userId, status } = useSelector(state => state.auth);
-  // const { pageNum } = useSelector(state => state.data.step1)
-  const pageNum = "5";
+  const { pageNum } = useSelector(state => state.data.step1);
   const [path, setPath] = useState("");
 
   useEffect(() => {
     if (status === "STEP1_IN_PROGRESS") {
       switch (pageNum) {
+        case "1":
+          setPath(`/terms`);
         case "2":
           setPath(`/info/farm/${userId}`);
           break;
@@ -42,6 +43,10 @@ const Continue = () => {
       setPath(`/schedule/${userId}`);
     }
   }, []);
+
+  useEffect(() => {
+    console.log("변경된값", path);
+  }, [path]);
 
   return (
     <>
