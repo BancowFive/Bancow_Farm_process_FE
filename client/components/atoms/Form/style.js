@@ -205,7 +205,6 @@ export const Preview = styled.div`
   margin: 20px 0 40px;
   width: 100%;
   height: 160px;
-  padding: 10px 0;
   border-radius: 10px;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
@@ -222,30 +221,33 @@ export const Preview = styled.div`
     position: relative;
     width: 360px;
     height: 140px;
+    margin: 10px 0;
 
     @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-      width: 400px;
+      width: 380px;
       height: 180px;
+      margin: 10px 0;
     }
 
     @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
-      width: 400px;
+      width: 380px;
       height: 180px;
+      margin: 10px 0;
     }
     margin-bottom: 6px;
     border-radius: 10px;
     overflow: hidden;
 
-    /* > div {
-      position: unset !important;
+    .delete-button {
+      position: absolute;
+      background-repeat: no-repeat;
+      background-size: cover;
+      top: 10px;
+      right: 10px;
+      width: 34px;
+      height: 34px;
+      background-image: url("/delete.svg");
     }
-
-    .image {
-      object-fit: contain;
-      width: 100% !important;
-      position: relative !important;
-      height: unset !important;
-    } */
   }
   display: ${({ showPreview }) => !showPreview && "none"};
 `;
