@@ -1,18 +1,18 @@
 import styled from "styled-components";
-import { flexbox, textStyle } from "../../../styles/utils";
+import { flexbox, textStyle } from "../../../../styles/utils/";
 import {
   Button,
   ButtonGroup,
   Container,
   Footer,
   ProgressHeader,
-} from "../../../components";
-import { Radio } from "../../../components/atoms/Button/Radio";
+} from "../../../../components";
+import { Radio } from "../../../../components/atoms/Button/Radio";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { inputCheckFarm, saveFarmCheck } from "../../../reducers/step1";
-import { changePage } from "../../../reducers/move";
+import { inputCheckFarm, saveFarmCheck } from "../../../../reducers/step1";
+import { changePage } from "../../../../reducers/move";
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -120,7 +120,7 @@ const farmCheck = () => {
     );
   };
   const moveToPrev = () => {
-    router.push("/info/farm");
+    router.push(`/info/farm/${userId}`);
   };
 
   const moveToNext = () => {
@@ -144,7 +144,7 @@ const farmCheck = () => {
       // 페이지 변경 api
       console.log("페이지 변경 api");
       dispatch(changePage({ pageNum: 5, id: userId }));
-      router.push("/info/check/docs");
+      router.push(`/info/check/docs/${userId}`);
     }
   };
   return (

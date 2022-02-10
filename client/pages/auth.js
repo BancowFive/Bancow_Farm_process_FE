@@ -104,7 +104,7 @@ const Auth = () => {
 
   useEffect(() => {
     if (fetchUserDataDone) {
-      movePage(pageNum, id, router);
+      movePage(pageNum, router);
     }
   }, [fetchUserDataDone, pageNum, id]);
   return (
