@@ -16,7 +16,7 @@ const uploadPicture = () => {
     CATTLE_SIDE: false,
     WATER_BUCKET: false,
     FARM_FLOOR: false,
-    FARM_VENTILATOR: false,
+    FARM_VENTILATION: false,
   });
   // 각 ImageInput에 error표현을 위한 border 노출 여부
   const [showError, setShowError] = useState(false);
@@ -194,7 +194,7 @@ const uploadPicture = () => {
           <ImageInput
             savedImage={imageArray[6].imageUrl}
             imageIndex={6}
-            pictureId="FARM_VENTILATOR"
+            pictureId="FARM_VENTILATION"
             previewAlt="환풍기 사진"
             setuploadedImages={setuploadedImages}
             showError={showError}
