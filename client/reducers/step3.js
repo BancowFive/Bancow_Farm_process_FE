@@ -13,6 +13,18 @@ export const submitAvailableDate = createAsyncThunk(
   },
 );
 
+export const startStep3 = createAsyncThunk(
+  "step3/startStep3",
+  async ({ PageNum, inProgress, userId }, { rejectWithValue }) => {
+    try {
+      const result = await moveStep(PageNum, inProgress, userId);
+      return result.data;
+    } catch (error) {
+      rejectWithValue(error.response.data);
+    }
+  },
+);
+
 export const changeStep3 = createAsyncThunk(
   "step3/changeStep3",
   async ({ PageNum, inProgress, userId }, { rejectWithValue }) => {
@@ -26,6 +38,7 @@ export const changeStep3 = createAsyncThunk(
 );
 
 const initialState = {
+  startStatus: "",
   submitStatus: "",
   changeStatus: "",
 };
@@ -44,6 +57,17 @@ const step3Slice = createSlice({
     });
     builder.addCase(submitAvailableDate.rejected, (state, action) => {
       state.submitStatus = "rejected";
+    });
+
+    //startStep3
+    builder.addCase(startStep3.pending, (state, action) => {
+      state.startStatus = "pending";
+    });
+    builder.addCase(startStep3.fulfilled, (state, action) => {
+      state.startStatus = "fulfilled";
+    });
+    builder.addCase(startStep3.rejected, (state, action) => {
+      state.startStatus = "rejected";
     });
 
     //changeStep3

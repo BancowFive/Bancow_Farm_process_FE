@@ -7,40 +7,44 @@ import { Button } from "../../components/atoms";
 import { useSelector } from "react-redux";
 
 const Continue = () => {
-  const { userId, status } = useSelector(state => state.auth);
-  const { pageNum } = useSelector(state => state.data.step1);
+  const { id, status, pageNum } = useSelector(state => state.auth);
   const [path, setPath] = useState("");
 
   useEffect(() => {
+    console.log(status);
+    console.log(pageNum);
     if (status === "STEP1_IN_PROGRESS") {
+      console.log("if문 스텝1 실행됨");
       switch (pageNum) {
-        case "1":
+        case 1:
           setPath(`/terms`);
-        case "2":
-          setPath(`/info/farm/${userId}`);
+        case 2:
+          setPath(`/info/farm/${id}`);
           break;
-        case "3":
-          setPath(`/info/personal/${userId}`);
+        case 3:
+          setPath(`/info/personal/${id}`);
           break;
-        case "4":
-          setPath(`/info/check/farm/${userId}`);
+        case 4:
+          setPath(`/info/check/farm/${id}`);
           break;
-        case "5":
-          setPath(`/info/check/docs/${userId}`);
+        case 5:
+          setPath(`/info/check/docs/${id}`);
           break;
-        case "6":
+        case 6:
           setPath(`/done/start_upload`);
           break;
-        case "7":
-          setPath(`/upload_pictures/${userId}`);
+        case 7:
+          setPath(`/upload_pictures/${id}`);
           break;
         default:
           return;
       }
     } else if (status === "STEP2_IN_PROGRESS") {
-      setPath(`/submit/${userId}`);
+      console.log("if문 스텝2 실행됨");
+      setPath(`/submit/${id}`);
     } else if (status === "STEP3_IN_PROGRESS") {
-      setPath(`/schedule/${userId}`);
+      console.log("if문 스텝2 실행됨");
+      setPath(`/schedule/${id}`);
     }
   }, []);
 
