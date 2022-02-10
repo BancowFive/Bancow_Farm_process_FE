@@ -41,13 +41,13 @@ export const Modal = ({
   const router = useRouter();
   useEffect(() => {
     if (to === null) {
-      router.replace("/auth");
+      router.push("/auth");
     }
   }, []);
 
   useEffect(() => {
     if (fetchUserDataDone) {
-      router.replace("/terms");
+      router.push("/terms");
     }
   }, [fetchUserDataDone]);
 
