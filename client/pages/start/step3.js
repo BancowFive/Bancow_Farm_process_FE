@@ -1,13 +1,28 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import { Button } from "../../components/atoms";
 import { Footer, ProgressHeader } from "../../components";
 import { Container, ImgContainer } from "./style";
+import { startStep3 } from "../../reducers/step2";
 import Image from "next/image";
 import cowAndMePic from "../../public/cow_plus_me.svg";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useRouter } from "next/router";
 
 const Step3 = () => {
   const userId = useSelector(state => state.auth.id);
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const moveAllowed = useSelector(state => state.step2.startStatus);
+
+  useEffect(() => {
+    if (moveAllowed === "fulfilled") router.replace(`/schedule/${userId}`);
+  }, [moveAllowed]);
+
+  const movePage = useCallback(() => {
+    dispatch(
+      startStep3({ PageNum: "13", inProgress: "STEP3_IN_PROGRESS", userId }),
+    );
+  }, []);
 
   return (
     <>
@@ -34,7 +49,7 @@ const Step3 = () => {
             variant="primary"
             size={60}
             block
-            to={`schedule/${userId}`}
+            onClick={movePage}
           >
             확인
           </Button>

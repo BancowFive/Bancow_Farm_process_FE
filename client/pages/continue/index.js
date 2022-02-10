@@ -1,10 +1,48 @@
+import React, { useEffect, useState } from "react";
 import { Container, ImgContainer } from "./style";
 import { Footer, ProgressHeader } from "../../components";
 import Image from "next/image";
 import cowAndMePic from "../../public/cow_plus_me.svg";
 import { Button } from "../../components/atoms";
+import { useSelector } from "react-redux";
 
 const Continue = () => {
+  const { id, status, pageNum } = useSelector(state => state.auth);
+  const [path, setPath] = useState("");
+
+  useEffect(() => {
+    if (status === "STEP1_IN_PROGRESS") {
+      switch (pageNum) {
+        case 1:
+          setPath(`/terms`);
+        case 2:
+          setPath(`/info/farm/${id}`);
+          break;
+        case 3:
+          setPath(`/info/personal/${id}`);
+          break;
+        case 4:
+          setPath(`/info/check/farm/${id}`);
+          break;
+        case 5:
+          setPath(`/info/check/docs/${id}`);
+          break;
+        case 6:
+          setPath(`/done/start_upload`);
+          break;
+        case 7:
+          setPath(`/upload_pictures/${id}`);
+          break;
+        default:
+          return;
+      }
+    } else if (status === "STEP2_IN_PROGRESS") {
+      setPath(`/submit/${id}`);
+    } else if (status === "STEP3_IN_PROGRESS") {
+      setPath(`/schedule/${id}`);
+    }
+  }, []);
+
   return (
     <>
       <Container>
@@ -21,7 +59,7 @@ const Continue = () => {
           </ImgContainer>
         </div>
         <div className="aside">
-          <Button className="link" variant="primary" size={60} block to="/">
+          <Button className="link" variant="primary" size={60} block to={path}>
             확인
           </Button>
           <Footer className="footer" />

@@ -11,8 +11,7 @@ export const saveFarmOwnerInfo = createAsyncThunk(
   "step1/info/saveFarmOwnerInfo",
   async ({ data, id, pageNum }, { rejectWithValue }) => {
     try {
-      const result = await personalInfo.savePersonalInfo(data, id, pageNum);
-      return result;
+      await personalInfo.savePersonalInfo(data, id, pageNum);
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
@@ -23,8 +22,7 @@ export const saveFarmInfo = createAsyncThunk(
   "step1/info/saveFarmInfo",
   async ({ data, id, pageNum }, { rejectWithValue }) => {
     try {
-      const result = await farmInfo.saveFarmInfo(data, id, pageNum);
-      return result;
+      await farmInfo.saveFarmInfo(data, id, pageNum);
     } catch (error) {
       return rejectWithValue(error.response.data);
     }

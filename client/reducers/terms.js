@@ -5,7 +5,6 @@ export const saveServiceTerms = createAsyncThunk(
   "terms/saveServiceTerms",
   async ({ serviceTerms, id, pageNum }, { rejectWithValue }) => {
     try {
-      console.log(id);
       await terms.saveServiceTerms(serviceTerms, id, pageNum);
     } catch (error) {
       return rejectWithValue(error.response.data);

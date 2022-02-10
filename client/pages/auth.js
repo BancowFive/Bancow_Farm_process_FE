@@ -15,6 +15,7 @@ import {
   phoneNumberValidator,
   replacePhoneNumberRegx,
   printPhoneNumber,
+  movePage,
 } from "../utils";
 import {
   inputPhoneNumber,
@@ -22,8 +23,10 @@ import {
   checkUserInProgress,
   getCertification,
 } from "../reducers/auth";
+import { useRouter } from "next/router";
 
 const Auth = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const {
     password,
@@ -31,6 +34,8 @@ const Auth = () => {
     authorizationDone,
     authorizationError,
     fetchUserDataDone,
+    pageNum,
+    id,
   } = useSelector(state => state.auth);
 
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -97,6 +102,11 @@ const Auth = () => {
     dispatch(checkUserInProgress(printPhoneNumber(phoneNumber)));
   }, [phoneNumber]);
 
+  useEffect(() => {
+    if (fetchUserDataDone) {
+      movePage(pageNum, id, router);
+    }
+  }, [fetchUserDataDone, pageNum, id]);
   return (
     <>
       <Container>

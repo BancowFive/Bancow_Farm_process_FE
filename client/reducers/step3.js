@@ -1,13 +1,24 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { schedule, moveStep } from "../api";
-import { router } from "next/router";
 
 export const submitAvailableDate = createAsyncThunk(
   "step3/submitAvailableDate",
   async ({ date, PageNum, userId }, { rejectWithValue }) => {
     try {
       const result = await schedule.submitAvailableDate(date, PageNum, userId);
-      return result;
+      return result.data;
+    } catch (error) {
+      rejectWithValue(error.response.data);
+    }
+  },
+);
+
+export const startStep3 = createAsyncThunk(
+  "step3/startStep3",
+  async ({ PageNum, inProgress, userId }, { rejectWithValue }) => {
+    try {
+      const result = await moveStep(PageNum, inProgress, userId);
+      return result.data;
     } catch (error) {
       rejectWithValue(error.response.data);
     }
@@ -19,7 +30,7 @@ export const changeStep3 = createAsyncThunk(
   async ({ PageNum, inProgress, userId }, { rejectWithValue }) => {
     try {
       const result = await moveStep(PageNum, inProgress, userId);
-      return result;
+      return result.data;
     } catch (error) {
       rejectWithValue(error.response.data);
     }
@@ -27,7 +38,7 @@ export const changeStep3 = createAsyncThunk(
 );
 
 const initialState = {
-  id: "",
+  startStatus: "",
   submitStatus: "",
   changeStatus: "",
 };
@@ -35,12 +46,7 @@ const initialState = {
 const step3Slice = createSlice({
   name: "step3",
   initialState,
-  reducers: {
-    fetchStep3Data: (state, action) => {
-      //id값 받기
-      state.id = action.payload.id;
-    },
-  },
+  reducers: {},
   extraReducers: builder => {
     //submitAvailableDate
     builder.addCase(submitAvailableDate.pending, (state, action) => {
@@ -53,14 +59,23 @@ const step3Slice = createSlice({
       state.submitStatus = "rejected";
     });
 
+    //startStep3
+    builder.addCase(startStep3.pending, (state, action) => {
+      state.startStatus = "pending";
+    });
+    builder.addCase(startStep3.fulfilled, (state, action) => {
+      state.startStatus = "fulfilled";
+    });
+    builder.addCase(startStep3.rejected, (state, action) => {
+      state.startStatus = "rejected";
+    });
+
     //changeStep3
     builder.addCase(changeStep3.pending, (state, action) => {
       state.changeStatus = "pending";
     });
     builder.addCase(changeStep3.fulfilled, (state, action) => {
       state.changeStatus = "fulfilled";
-      //페이지 이동
-      router.replace("/done/step3");
     });
     builder.addCase(changeStep3.rejected, (state, action) => {
       state.changeStatus = "rejected";

@@ -32,8 +32,8 @@ export const checkUserInProgress = createAsyncThunk(
   async (phoneNumber, thunkApi) => {
     try {
       const result = await checkInProgress(phoneNumber);
-      const { inProgress, id } = result.data.data;
-      thunkApi.dispatch(getUserInfo({ id, inProgress }));
+      const { inProgress, id, pageNum } = result.data.data;
+      thunkApi.dispatch(getUserInfo({ id, inProgress, pageNum }));
       checkProgressStep(inProgress, id, thunkApi);
     } catch (error) {
       return thunkApi.rejectWithValue(error.response.data);
@@ -57,6 +57,7 @@ export const fetchUserData = createAsyncThunk(
 const initialState = {
   id: "",
   status: "",
+  pageNum: "",
   phoneNumber: "",
   password: "",
   certificationLoading: false,
@@ -83,6 +84,7 @@ const authSlice = createSlice({
     getUserInfo: (state, action) => {
       state.id = action.payload.id;
       state.status = action.payload.inProgress;
+      state.pageNum = action.payload.pageNum;
     },
   },
   extraReducers: {

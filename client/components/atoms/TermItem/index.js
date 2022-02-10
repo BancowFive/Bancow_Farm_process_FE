@@ -5,9 +5,11 @@ import { useRouter } from "next/router";
 
 function getIcon(icon, to) {
   const router = useRouter();
-  const moveToPage = e => {
-    e.stopPropagation();
-    router.push(to);
+  const moveToPage = event => {
+    if (to) {
+      event.stopPropagation();
+      router.push(to);
+    }
   };
   switch (icon) {
     case "unchecked":
