@@ -58,7 +58,7 @@ const farmCheck = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   // 리덕스에서 아이디 불러오기
-  const { id } = useSelector(state => state.auth);
+  const userId = useSelector(state => state.auth.id);
   const { saveFarmCheckError } = useSelector(state => state.step1);
 
   //기존에 저장 값이 있다면 불러오기.
@@ -133,17 +133,17 @@ const farmCheck = () => {
 
       //농가 정보 체크 api로 데이터 보내기
       console.log("농가 정보 체크 api로 데이터 보내기");
-      dispatch(saveFarmCheck({ data: userAnswers, pageNum: 4, id }));
+      dispatch(saveFarmCheck({ data: userAnswers, pageNum: 4, id: userId }));
 
       if (saveFarmCheckError) {
         //통신 실패시 다음화면 X
-        console.log("sdsdsdsd", saveFarmCheckError);
+        console.log("에러메세지 : ", saveFarmCheckError);
         alert("데이터 저장에 실패 했습니다.");
         return;
       }
       // 페이지 변경 api
       console.log("페이지 변경 api");
-      dispatch(changePage({ pageNum: 5, id }));
+      dispatch(changePage({ pageNum: 5, id: userId }));
       router.push("/info/check/docs");
     }
   };
@@ -298,10 +298,6 @@ const farmCheck = () => {
           </Wrapper>
         </div>
         <div className="aside">
-<<<<<<< HEAD
-          <ButtonGroup>
-            <Button onClick={moveToPrev} variant="primary" size={60}>
-=======
           <ButtonGroup className="link">
             <Button
               className="link"
@@ -309,7 +305,6 @@ const farmCheck = () => {
               variant="ghost"
               size={60}
             >
->>>>>>> a4c79d17e61f9089a1e991c359dafcfe526ab808
               이전
             </Button>
             <Button
