@@ -20,9 +20,9 @@ const uploadPicture = () => {
     FARM_INSIDE: false,
     CATTLE_FRONT: false,
     CATTLE_SIDE: false,
-    WATER_BUCKET: false,
-    FARM_FLOOR: false,
-    FARM_VENTILATION: false,
+    BUCKET: false,
+    FLOOR: false,
+    VENTILATION_FAN: false,
   });
   // 각 ImageInput에 error표현을 위한 border 노출 여부
   const [showError, setShowError] = useState(false);
@@ -165,7 +165,7 @@ const uploadPicture = () => {
           <ImageInput
             savedImage={imageArray[4].imageUrl}
             imageIndex={4}
-            pictureId="WATER_BUCKET"
+            pictureId="BUCKET"
             previewAlt="물통 사진"
             setuploadedImages={setuploadedImages}
             showError={showError}
@@ -183,7 +183,7 @@ const uploadPicture = () => {
           <ImageInput
             savedImage={imageArray[5].imageUrl}
             imageIndex={5}
-            pictureId="FARM_FLOOR"
+            pictureId="FLOOR"
             previewAlt="우사 바닥 사진"
             setuploadedImages={setuploadedImages}
             showError={showError}
@@ -201,7 +201,7 @@ const uploadPicture = () => {
           <ImageInput
             savedImage={imageArray[6].imageUrl}
             imageIndex={6}
-            pictureId="FARM_VENTILATION"
+            pictureId="VENTILATION_FAN"
             previewAlt="환풍기 사진"
             setuploadedImages={setuploadedImages}
             showError={showError}
