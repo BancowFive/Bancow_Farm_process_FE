@@ -1,31 +1,24 @@
-import { Container, ButtonInfo, ImgContainer } from "./style";
+import { Container, ImgContainer } from "./style";
 import { Footer, ProgressHeader } from "../../components";
 import Image from "next/image";
 import cowAndMePic from "../../public/cow_plus_me.svg";
-import { Button, AverageDate } from "../../components/atoms";
+import { Button } from "../../components/atoms";
 
-const step1 = () => {
+const Continue = () => {
   return (
     <>
       <Container>
-        <ProgressHeader
-          ProgressType="step"
-          activeStep={1}
-          className="progressHeader"
-          showProgress={true}
-          growLineBorder="4px"
-        />
+        <ProgressHeader className="progressHeader" growLineBorder="1px" />
         <div className="content">
-          <h1>1차 신청이 완료되었어요</h1>
           <h2>
-            평균 <AverageDate>2일 이내</AverageDate>로
+            입점 신청을
             <br />
-            뱅카우가 연락드릴게요
+            완료하지 않으셨네요
           </h2>
+          <h1>이어서 진행할까요?</h1>
           <ImgContainer>
             <Image src={cowAndMePic} alt="소와 나" />
           </ImgContainer>
-          <ButtonInfo>확인을 누르시면 메인페이지로 이동합니다</ButtonInfo>
         </div>
         <div className="aside">
           <Button className="link" variant="primary" size={60} block to="/">
@@ -38,4 +31,4 @@ const step1 = () => {
   );
 };
 
-export default step1;
+export default Continue;

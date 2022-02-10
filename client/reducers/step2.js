@@ -1,34 +1,35 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { submit, moveStep } from "../api";
-import { uploadToS3 } from "../utils";
+import { uploadToS3 } from "../utils/S3";
+import { router } from "next/router";
 
 export const submitFiles = createAsyncThunk(
   "step2/submitFiles",
-  async (data, { rejectWithValue }) => {
+  async ({ file, targetId, userId }, { rejectWithValue }) => {
     try {
-      const s3 = await uploadToS3(data.file, data.targetId, data.userId);
+      const s3 = await uploadToS3(file, targetId);
 
       const fileInfo = {
-        originalFileName: data.file.name,
+        originalFileName: file.name,
         changedFileName: s3.Key,
         fileUrl: s3.Location,
-        fileType: data.targetId,
+        fileType: targetId,
       };
 
-      const result = await submit.submitFiles(fileInfo, data.userId);
-      return data.targetId; //result 불필요
+      const result = await submit.submitFiles(fileInfo, userId);
+
+      return targetId; //result 불필요
     } catch (error) {
       rejectWithValue(error.response.data);
-      console.log(error);
     }
   },
 );
 
 export const changeStep2 = createAsyncThunk(
   "step2/changeStep2",
-  async (data, { rejectWithValue }) => {
+  async ({ PageNum, inProgress, userId }, { rejectWithValue }) => {
     try {
-      const result = await moveStep(data.PageNum, data.inProgress, data.userId);
+      const result = await moveStep(PageNum, inProgress, userId);
       return result;
     } catch (error) {
       rejectWithValue(error.response.data);
@@ -37,7 +38,8 @@ export const changeStep2 = createAsyncThunk(
 );
 
 const initialState = {
-  id: "",
+  submitStatus: "",
+  changeStatus: "",
   fileType: {
     LIVESTOCK_REGISTRATION: null,
     STRUCTURAL_DIAGRAM: null,
@@ -46,37 +48,25 @@ const initialState = {
     BUSINESS_REGISTRATION: null,
     ID_CARD: null,
   },
-  submitStatus: "",
-  moveStatus: "",
 };
 
 const step2Slice = createSlice({
   name: "step2",
   initialState,
   reducers: {
-    getUserFileInfo: (state, action) => {
+    fetchStep2Data: (state, action) => {
       //id값 받기
-      state.id = action.payload.data.id;
+      state.id = action.payload.id;
 
       //fileType 정보 받기
-      if (action.payload.data.farmFile.length === 0) {
+      if (action.payload.farmFile.length === 0) {
         return;
       } else {
-        action.payload.data.farmFile.forEach(file => {
+        action.payload.farmFile.forEach(file => {
           let name = file.fileType;
           state.fileType = { ...state.fileType, [name]: name };
         });
       }
-    },
-    fetchStep2Data: (state, action) => {
-      state.id = action.payload.id;
-      state.fileType = {
-        ...state.fileType,
-        ...action.payload.farmFile.reduce((acc, cur) => {
-          acc[cur.fileType] = cur.fileType;
-          return acc;
-        }, state.fileType),
-      };
     },
   },
   extraReducers: builder => {
@@ -94,13 +84,15 @@ const step2Slice = createSlice({
 
     //changeStep2
     builder.addCase(changeStep2.pending, (state, action) => {
-      state.moveStatus = "pending";
+      state.changeStatus = "pending";
     });
     builder.addCase(changeStep2.fulfilled, (state, action) => {
-      state.moveStatus = "fulfilled";
+      state.changeStatus = "fulfilled";
+      //페이지 이동
+      router.replace("/done/step2");
     });
     builder.addCase(changeStep2.rejected, (state, action) => {
-      state.moveStatus = "rejected";
+      state.changeStatus = "rejected";
     });
   },
 });
