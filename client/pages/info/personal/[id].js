@@ -9,10 +9,14 @@ import {
   Footer,
   ProgressHeader,
   Confirm,
-} from "../../components";
-import { inputEmail, inputName, saveFarmOwnerInfo } from "../../reducers/step1";
-import { changePage } from "../../reducers/move";
-import { emailValidator } from "../../utils";
+} from "../../../components";
+import {
+  inputEmail,
+  inputName,
+  saveFarmOwnerInfo,
+} from "../../../reducers/step1";
+import { changePage } from "../../../reducers/move";
+import { emailValidator } from "../../../utils";
 
 const Personal = () => {
   const dispatch = useDispatch();
@@ -62,7 +66,7 @@ const Personal = () => {
 
   const movePage = useCallback(() => {
     dispatch(saveFarmOwnerInfo({ data: { name, email }, id, pageNum: 2 }));
-    // dispatch(changePage(3, id));
+    dispatch(changePage({ PageNum: 3, id }));
   }, [name, email, id]);
 
   return (
@@ -136,7 +140,7 @@ const Personal = () => {
             variant={isValid ? "primary" : "ghost"}
             block
             onClick={!isValid ? savePersonalInfo : movePage}
-            to={isValid ? "/info/farm" : null}
+            to={isValid ? `/info/farm/${id}` : null}
           >
             다음
           </Button>
