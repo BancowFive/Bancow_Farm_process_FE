@@ -35,9 +35,9 @@ const Step3 = () => {
             검토가 완료되었어요
           </h2>
           <h1>
-            이어서 서류를
+            뱅카우가 농장을
             <br />
-            제출해주세요
+            방문할 예정이에요
           </h1>
           <ImgContainer>
             <Image src={cowAndMePic} alt="소와 나" />
