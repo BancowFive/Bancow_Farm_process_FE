@@ -39,6 +39,7 @@ const ServiceTerms = () => {
     },
     [conditionOfUse, trustOfInformation, collectionOfInformation],
   );
+
   const movePage = useCallback(() => {
     dispatch(
       saveServiceTerms({
@@ -53,6 +54,7 @@ const ServiceTerms = () => {
     );
     // dispatch(changePage(2, id));
   }, [conditionOfUse, trustOfInformation, collectionOfInformation, id]);
+
   return (
     <>
       <Container>
