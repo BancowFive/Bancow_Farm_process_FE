@@ -7,8 +7,7 @@ import { Button } from "../../components/atoms";
 import { useSelector } from "react-redux";
 
 const Continue = () => {
-  const { userId, status } = useSelector(state => state.auth);
-  const { pageNum } = useSelector(state => state.data.step1);
+  const { id, status, pageNum } = useSelector(state => state.auth);
   const [path, setPath] = useState("");
 
   useEffect(() => {
@@ -17,30 +16,30 @@ const Continue = () => {
         case "1":
           setPath(`/terms`);
         case "2":
-          setPath(`/info/farm/${userId}`);
+          setPath(`/info/farm/${id}`);
           break;
         case "3":
-          setPath(`/info/personal/${userId}`);
+          setPath(`/info/personal/${id}`);
           break;
         case "4":
-          setPath(`/info/check/farm/${userId}`);
+          setPath(`/info/check/farm/${id}`);
           break;
         case "5":
-          setPath(`/info/check/docs/${userId}`);
+          setPath(`/info/check/docs/${id}`);
           break;
         case "6":
           setPath(`/done/start_upload`);
           break;
         case "7":
-          setPath(`/upload_pictures/${userId}`);
+          setPath(`/upload_pictures/${id}`);
           break;
         default:
           return;
       }
     } else if (status === "STEP2_IN_PROGRESS") {
-      setPath(`/submit/${userId}`);
+      setPath(`/submit/${id}`);
     } else if (status === "STEP3_IN_PROGRESS") {
-      setPath(`/schedule/${userId}`);
+      setPath(`/schedule/${id}`);
     }
   }, []);
 
