@@ -178,6 +178,14 @@ export const StyledImageInput = styled.label`
     ${flexbox()}
     flex-direction: column;
     height: 160px;
+
+    @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+      height: 200px;
+    }
+
+    @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
+      height: 200px;
+    }
     .image-container {
       margin-bottom: 6px;
     }

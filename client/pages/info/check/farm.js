@@ -1,6 +1,12 @@
 import styled from "styled-components";
 import { flexbox, textStyle } from "../../../styles/utils";
-import { Button, ButtonGroup, Container } from "../../../components";
+import {
+  Button,
+  ButtonGroup,
+  Container,
+  Footer,
+  ProgressHeader,
+} from "../../../components";
 import { Radio } from "../../../components/atoms/Button/Radio";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
@@ -28,6 +34,7 @@ export const InfoTitle = styled.h3`
 
 export const RadioWrapper = styled.div`
   .button-wrapper {
+    width: 100%;
     ${flexbox("between")}
   }
   .invalid {
@@ -37,8 +44,6 @@ export const RadioWrapper = styled.div`
 `;
 
 const farmCheck = () => {
-  console.log("안녕");
-
   const [checkedAll, setCheckedAll] = useState(false);
   const [showError, setShowError] = useState(false);
   const [userAnswers, setUserAnswers] = useState({
@@ -128,6 +133,7 @@ const farmCheck = () => {
   return (
     <>
       <Container>
+        <ProgressHeader className="progressHeader" growLineBorder="1px" />
         <div className="content">
           <h2>
             농가에 대한 정보를 <br /> 알려주세요
@@ -275,11 +281,17 @@ const farmCheck = () => {
           </Wrapper>
         </div>
         <div className="aside">
-          <ButtonGroup>
-            <Button onClick={moveToPrev} variant="primary" size={60}>
+          <ButtonGroup className="link">
+            <Button
+              className="link"
+              onClick={moveToPrev}
+              variant="ghost"
+              size={60}
+            >
               이전
             </Button>
             <Button
+              className="link"
               onClick={moveToNext}
               variant={checkedAll ? "primary" : "ghost"}
               size={60}
@@ -287,6 +299,7 @@ const farmCheck = () => {
               다음
             </Button>
           </ButtonGroup>
+          <Footer />
         </div>
       </Container>
     </>

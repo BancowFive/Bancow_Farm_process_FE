@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { flexbox, textStyle } from "../../../styles/utils";
-import { Button, ButtonGroup, Container } from "../../../components";
+import { Button, ButtonGroup, Container, Footer } from "../../../components";
 import { Radio } from "../../../components/atoms/Button/Radio";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
@@ -296,11 +296,17 @@ const docsCheck = () => {
           </Wrapper>
         </div>
         <div className="aside">
-          <ButtonGroup>
-            <Button onClick={moveToPrev} variant="primary" size={60}>
+          <ButtonGroup className="link">
+            <Button
+              className="link"
+              onClick={moveToPrev}
+              variant="ghost"
+              size={60}
+            >
               이전
             </Button>
             <Button
+              className="link"
               onClick={moveToNext}
               variant={checkedAll ? "primary" : "ghost"}
               size={60}
@@ -308,6 +314,7 @@ const docsCheck = () => {
               다음
             </Button>
           </ButtonGroup>
+          <Footer />
         </div>
       </Container>
     </>

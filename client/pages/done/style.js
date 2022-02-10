@@ -73,13 +73,25 @@ export const ButtonInfo = styled.div`
     margin-top: 39px;
   }
 `;
-export const TryLater = styled.div`
+export const TryLaterMobile = styled.div`
+  @media (min-width: 540px) {
+    display: none;
+  }
   margin-top: 20px;
   width: 100%;
   border: 1px solid ${({ theme }) => theme.colors.borderGray};
   border-radius: 10px;
   padding: 16px;
   ${flexbox("between")}
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    display: none;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
+    display: none;
+  }
+
   .button-info {
     ${textStyle("body3")};
     color: ${({ theme }) => theme.colors.guide};
@@ -87,6 +99,34 @@ export const TryLater = styled.div`
 
   .try-later-button {
     ${textStyle("body3")};
+    color: ${({ theme }) => theme.colors.tertiary};
+    text-decoration: underline;
+    font-weight: 700;
+  }
+`;
+
+export const TryLaterWeb = styled.div`
+  @media (max-width: 540px) {
+    display: none;
+  }
+
+  /* @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
+  } */
+
+  margin-top: 44px;
+  width: 100%;
+  /* ${flexbox("between")} */
+  .button-info {
+    ${textStyle("body2")};
+    color: ${({ theme }) => theme.colors.guide};
+  }
+
+  .try-later-button {
+    ${textStyle("body2")};
+    margin-top: 10px;
     color: ${({ theme }) => theme.colors.tertiary};
     text-decoration: underline;
     font-weight: 700;

@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, ButtonGroup, Container } from "../../components";
+import {
+  Button,
+  ButtonGroup,
+  Container,
+  Footer,
+  ProgressHeader,
+} from "../../components";
 import { inputPicture } from "../../reducers/step1";
 import ImageInput from "../../components/atoms/Form/ImageInput";
 import { PictureGuide } from "../../components/blocks/PictureGuide/PictureGuide";
@@ -64,7 +70,8 @@ const uploadPicture = () => {
   };
   return (
     <>
-      <Container>
+      <Container className="upload-padding">
+        <ProgressHeader className="progressHeader" growLineBorder="1px" />
         <div className="content upload-padding">
           <h2>
             1차 심사를 위해
@@ -201,11 +208,17 @@ const uploadPicture = () => {
           />
         </div>
         <div className="aside">
-          <ButtonGroup>
-            <Button variant="primary" size={60} onClick={moveToPrev}>
+          <ButtonGroup className="link">
+            <Button
+              className="link"
+              variant="ghost"
+              size={60}
+              onClick={moveToPrev}
+            >
               이전
             </Button>
             <Button
+              className="link"
               onClick={moveToNext}
               variant={isUploadedAll ? "primary" : "ghost"}
               size={60}
@@ -213,6 +226,7 @@ const uploadPicture = () => {
               다음
             </Button>
           </ButtonGroup>
+          <Footer />
         </div>
       </Container>
     </>
