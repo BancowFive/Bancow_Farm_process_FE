@@ -35,9 +35,14 @@ export const ImageInput = ({
     getS3Auth();
     // console.log(savedImage);
     //Props로 전달받은 이미지 URL(saveImage)
-    if (savedImage) {
+    const pictureIndex = savedImage.findIndex(
+      image => image.imageType === pictureId,
+    );
+    if (pictureIndex !== -1) {
+      //현재 이미지 찾기
+      console.log("체크 ", savedImage[pictureIndex]);
       setShowPreview(true);
-      setPreviewURL(savedImage);
+      setPreviewURL(savedImage[pictureIndex].imageUrl);
       //중간저장 불러오기
       setuploadedImages(prev => ({ ...prev, [pictureId]: true }));
     }
@@ -127,6 +132,7 @@ export const ImageInput = ({
             layout="fill"
             className={"image"}
           />
+          <button className="delete-button" />
         </div>
       </Preview>
     </>
