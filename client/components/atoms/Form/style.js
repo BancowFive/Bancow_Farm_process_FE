@@ -205,12 +205,47 @@ export const Preview = styled.div`
   margin: 20px 0 40px;
   width: 100%;
   height: 160px;
+  padding: 10px 0;
+  border-radius: 10px;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    height: 200px;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
+    height: 200px;
+  }
 
   background-color: ${({ theme }) => theme.colors.backgroundGray};
+
   .image-container {
+    position: relative;
+    width: 360px;
+    height: 140px;
+
+    @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+      width: 400px;
+      height: 180px;
+    }
+
+    @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
+      width: 400px;
+      height: 180px;
+    }
     margin-bottom: 6px;
     border-radius: 10px;
     overflow: hidden;
+
+    /* > div {
+      position: unset !important;
+    }
+
+    .image {
+      object-fit: contain;
+      width: 100% !important;
+      position: relative !important;
+      height: unset !important;
+    } */
   }
   display: ${({ showPreview }) => !showPreview && "none"};
 `;

@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Preview, StyledImageInput } from "./style";
 import { getS3Auth, uploadToS3 } from "../../../utils/S3";
-import { inputPicture } from "../../../reducers/step1";
+import { inputPicture, saveFarmPicture } from "../../../reducers/step1";
 import { useDispatch, useSelector } from "react-redux";
 
 export const ImageInput = ({
@@ -24,9 +24,12 @@ export const ImageInput = ({
     imageUrl: "",
     imageType: "",
   });
+
   const dispatch = useDispatch();
 
-  //처음 페이지가 렌더링 되었을 때, 기존 데이터가 있을 경우 불러오기
+  // 리덕스에서 아이디 불러오기
+  const userId = useSelector(state => state.auth.id);
+
   useEffect(() => {
     //s3 인증 정보 불러오기
     getS3Auth();
@@ -40,48 +43,60 @@ export const ImageInput = ({
     }
   }, []);
 
-  //이전으로 다녀오더라도 새로 업로드한 사진 반영하기 위해
-  // 사용자가 새로 사진을 올리면 redux state 업데이트;
   useEffect(() => {
     if (imageData.imageUrl !== "") {
+      // 사용자가 새로 사진을 올리면 redux state 업데이트;
       dispatch(
         inputPicture({
           imageIndex,
           ...imageData,
         }),
       );
+      //농가 사진 업로드 API  호출
+      s3ImageToServer();
     }
+    console.log("useEffect:", imageData);
   }, [imageData]);
+
+  const setPreview = s3imageURL => {
+    //미리보기 URL 저장
+    setPreviewURL(s3imageURL);
+
+    //preview 노출 여부 변경
+    setShowPreview(prev => !prev);
+  };
 
   const handleChange = async e => {
     //input에 파일을 올리면 s3 업로드에 필요한 매개변수 저장
     const file = e.target.files[0];
     const targetId = e.target.id;
-    //s3에 업로드하는 함수 호출
-    await uploadImage(file, targetId);
-  };
 
-  const uploadImage = async (file, targetId) => {
-    //이미지 S3업로드
-    const result = await uploadToS3(file, targetId);
-    //미리보기 URL 저장
-    setPreviewURL(result.Location);
-    //preview 노출 여부 변경
-    setShowPreview(prev => !prev);
+    //s3에 업로드하는 함수 호출(이 함수의 리턴 값에 s3 이미지 URL도 들어있음.)
+    console.log("s3에 업로드하는 함수 호출");
+    const s3Data = await uploadToS3(file, targetId, userId);
+
+    console.log("s3데이터: ", s3Data);
+
+    //미리보기 URL 세팅
+    console.log("미리보기 URL 세팅");
+    setPreview(s3Data.Location);
+
     //API 호출에 필요한 값 세팅
     setImageData(prev => ({
       ...prev,
       originalImageName: file.name,
-      changedImageName: result.Key,
-      imageUrl: result.Location,
-      ImageType: pictureId,
+      changedImageName: s3Data.Key,
+      imageUrl: s3Data.Location,
+      imageType: pictureId,
     }));
     //사진 업로드 후 업로드 여부 갱신
     setuploadedImages(prev => ({ ...prev, [pictureId]: true }));
   };
 
-  const uploadToServer = () => {
-    //api call
+  const s3ImageToServer = () => {
+    console.log("농가이미지 업로드 API 호출");
+
+    dispatch(saveFarmPicture({ data: imageData, id: userId }));
   };
   return (
     <>
@@ -106,7 +121,12 @@ export const ImageInput = ({
 
       <Preview showPreview={showPreview}>
         <div className="image-container">
-          <Image src={previewURL} alt={previewAlt} width={312} height={160} />
+          <Image
+            src={previewURL}
+            alt={previewAlt}
+            layout="fill"
+            className={"image"}
+          />
         </div>
       </Preview>
     </>
