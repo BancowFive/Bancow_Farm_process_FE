@@ -1,4 +1,4 @@
-export const movePage = (pageNum, id, router) => {
+export const movePage = (pageNum, router) => {
   if (pageNum === 1) {
     router.push("/terms");
   } else if (
@@ -14,11 +14,11 @@ export const movePage = (pageNum, id, router) => {
   } else if (pageNum === 8) {
     router.push("/done/step1");
   } else if (pageNum === 9) {
-    router.push(`/submit/${id}`);
+    router.push("/start/step2");
   } else if (pageNum === 11) {
     router.push("/done/step2");
   } else if (pageNum === 12) {
-    router.push(`/schedule/${id}`);
+    router.push("/start/step3");
   } else if (pageNum === 14) {
     router.push("/done/step3");
   }

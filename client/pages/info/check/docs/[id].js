@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import { flexbox, textStyle } from "../../../styles/utils";
-import { Button, ButtonGroup, Container, Footer } from "../../../components";
-import { Radio } from "../../../components/atoms/Button/Radio";
+import { flexbox, textStyle } from "../../../../styles/utils";
+import { Button, ButtonGroup, Container, Footer } from "../../../../components";
+import { Radio } from "../../../../components/atoms/Button/Radio";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { inputCheckDocs, saveDocsCheck } from "../../../reducers/step1";
-import { changePage } from "../../../reducers/move";
+import { inputCheckDocs, saveDocsCheck } from "../../../../reducers/step1";
+import { changePage } from "../../../../reducers/move";
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -119,7 +119,7 @@ const docsCheck = () => {
     );
   };
   const moveToPrev = () => {
-    router.push("/info/check/farm");
+    router.push(`/info/check/farm/${userId}`);
   };
 
   const moveToNext = () => {
