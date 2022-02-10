@@ -10,7 +10,6 @@ import {
   REGISTER,
 } from "redux-persist";
 import logger from "redux-logger";
-// import { customMiddleware1, customMiddleware2 } from "./middlewares";
 import reducer from "../reducers/index";
 
 export const store = configureStore({

@@ -64,9 +64,7 @@ const Required = () => {
   }, []);
 
   const movePage = useCallback(() => {
-    dispatch(
-      changeStep2({ PageNum: "11", inProgress: "STEP2_COMPLETED", userId }),
-    );
+    dispatch(changeStep2({ PageNum: "12", inProgress: "STEP3_START", userId }));
   }, []);
 
   return (

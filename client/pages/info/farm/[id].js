@@ -177,7 +177,7 @@ const Farm = () => {
               disabled={!isValid}
               size={60}
               onClick={movePage}
-              to="/"
+              to={`/info/check/farm/${id}`}
             >
               다음
             </Button>
