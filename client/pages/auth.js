@@ -33,7 +33,7 @@ const Auth = () => {
     certificationError,
     authorizationDone,
     authorizationError,
-    fetchUserDataDone,
+    checkUserInProgressDone,
     pageNum,
     id,
   } = useSelector(state => state.auth);
@@ -103,10 +103,10 @@ const Auth = () => {
   }, [phoneNumber]);
 
   useEffect(() => {
-    if (fetchUserDataDone) {
-      movePage(pageNum, id, router);
+    if (checkUserInProgressDone) {
+      movePage(pageNum, router);
     }
-  }, [fetchUserDataDone, pageNum, id]);
+  }, [checkUserInProgressDone, pageNum, id]);
   return (
     <>
       <Container>

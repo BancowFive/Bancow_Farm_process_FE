@@ -5,8 +5,7 @@ export const changeStep = createAsyncThunk(
   "move/changeStep",
   async ({ pageNum, inProgress, id }, thunkApi) => {
     try {
-      const result = await moveStep(pageNum, inProgress, id);
-      return result;
+      await moveStep(pageNum, inProgress, id);
     } catch (error) {
       thunkApi.rejectWithValue(error.response.data);
     }
@@ -17,8 +16,7 @@ export const changePage = createAsyncThunk(
   "move/changePage",
   async ({ pageNum, id }, thunkApi) => {
     try {
-      const result = await movePage(pageNum, id);
-      // return result;
+      await movePage(pageNum, id);
     } catch (error) {
       thunkApi.rejectWithValue(error.response.data);
     }

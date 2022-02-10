@@ -4,18 +4,22 @@ import Image from "next/image";
 import cowAndMePic from "../../public/cow_plus_me.svg";
 import { Button, ButtonGroup, Footer, ProgressHeader } from "../../components";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 
 const startUpload = () => {
   const router = useRouter();
+
+  // 리덕스에서 아이디 불러오기
+  const userId = useSelector(state => state.auth.id);
 
   const tryLater = () => {
     //로그아웃 api
   };
   const moveToPrev = () => {
-    router.push("/info/check/docs");
+    router.push(`/info/check/docs/${userId}`);
   };
   const moveToNext = () => {
-    router.push("/upload_pictures");
+    router.push(`/upload_pictures/${userId}`);
   };
   return (
     <>

@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Button } from "../../components/atoms/Button";
 import { FileInput } from "../../components/atoms/Form";
 import { ProgressHeader } from "../../components/blocks";
+import { Header } from "../../components";
 import { Container, FileInputGroup } from "./style";
 import { getS3Auth } from "../../utils";
 import { submitFiles, changeStep2 } from "../../reducers/step2";
@@ -25,8 +26,8 @@ const Required = () => {
       }),
       shallowEqual,
     );
-  const moveAllowed = useSelector(state => state.step2.changeStatus);
-  const userId = useSelector(state => state.auth.id);
+  const moveAllowed = useSelector(state => state.step2.moveStatus);
+  const userId = useSelector(state => state.step2.id);
 
   const [hasSubmit, setHasSubmit] = useState(false);
 
@@ -64,12 +65,15 @@ const Required = () => {
   }, []);
 
   const movePage = useCallback(() => {
-    dispatch(changeStep2({ PageNum: "12", inProgress: "STEP3_START", userId }));
+    dispatch(
+      changeStep2({ PageNum: "11", inProgress: "STEP2_COMPLETED", userId }),
+    );
   }, []);
 
   return (
     <>
       <Container>
+        <Header />
         <ProgressHeader className="progressHeader" growLineBorder="1px" />
         <div className="content">
           <h2>필수 서류를 제출해 주세요</h2>
