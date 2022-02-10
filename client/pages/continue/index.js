@@ -11,34 +11,39 @@ const Continue = () => {
   const [path, setPath] = useState("");
 
   useEffect(() => {
+    console.log(status);
+    console.log(pageNum);
     if (status === "STEP1_IN_PROGRESS") {
+      console.log("if문 스텝1 실행됨");
       switch (pageNum) {
-        case "1":
+        case 1:
           setPath(`/terms`);
-        case "2":
+        case 2:
           setPath(`/info/farm/${id}`);
           break;
-        case "3":
+        case 3:
           setPath(`/info/personal/${id}`);
           break;
-        case "4":
+        case 4:
           setPath(`/info/check/farm/${id}`);
           break;
-        case "5":
+        case 5:
           setPath(`/info/check/docs/${id}`);
           break;
-        case "6":
+        case 6:
           setPath(`/done/start_upload`);
           break;
-        case "7":
+        case 7:
           setPath(`/upload_pictures/${id}`);
           break;
         default:
           return;
       }
     } else if (status === "STEP2_IN_PROGRESS") {
+      console.log("if문 스텝2 실행됨");
       setPath(`/submit/${id}`);
     } else if (status === "STEP3_IN_PROGRESS") {
+      console.log("if문 스텝2 실행됨");
       setPath(`/schedule/${id}`);
     }
   }, []);
