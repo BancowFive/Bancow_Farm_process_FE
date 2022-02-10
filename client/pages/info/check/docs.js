@@ -5,7 +5,8 @@ import { Radio } from "../../../components/atoms/Button/Radio";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { inputCheckDocs } from "../../../reducers/step1";
+import { inputCheckDocs, saveDocsCheck } from "../../../reducers/step1";
+import { changePage } from "../../../reducers/move";
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -49,6 +50,9 @@ const docsCheck = () => {
 
   const router = useRouter();
   const dispatch = useDispatch();
+
+  const userId = useSelector(state => state.auth.id);
+  const { saveDocsCheckError } = useSelector(state => state.step1);
 
   const {
     livestockFarmingBusinessRegistration,
@@ -126,6 +130,21 @@ const docsCheck = () => {
 
       //리덕스에 상태 업데이트
       updateReduxState();
+      router.push("/done/start_upload");
+
+      //서류 보유 체크 api로 데이터 보내기
+      console.log("서류 보유 체크 api로 데이터 보내기");
+      dispatch(saveDocsCheck({ data: userAnswers, pageNum: 5, id: userId }));
+
+      if (saveDocsCheckError) {
+        //통신 실패시 다음화면 X
+        console.log("에러메세지 : ", saveFarmCheckError);
+        alert("데이터 저장에 실패 했습니다.");
+        return;
+      }
+      // 페이지 변경 api
+      console.log("페이지 변경 api");
+      dispatch(changePage({ pageNum: 6, id: userId }));
       router.push("/done/start_upload");
     }
   };

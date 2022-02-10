@@ -1,5 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { personalInfo, farmInfo } from "../api";
+import {
+  personalInfo,
+  farmInfo,
+  farmCheck,
+  docsCheck,
+  uploadPicture,
+} from "../api";
 
 export const saveFarmOwnerInfo = createAsyncThunk(
   "step1/info/saveFarmOwnerInfo",
@@ -7,7 +13,7 @@ export const saveFarmOwnerInfo = createAsyncThunk(
     try {
       await personalInfo.savePersonalInfo(data, id, pageNum);
     } catch (error) {
-      return rejectWithValue(err.response.data);
+      return rejectWithValue(error.response.data);
     }
   },
 );
@@ -18,7 +24,57 @@ export const saveFarmInfo = createAsyncThunk(
     try {
       await farmInfo.saveFarmInfo(data, id, pageNum);
     } catch (error) {
-      return rejectWithValue(err.response.data);
+      return rejectWithValue(error.response.data);
+    }
+  },
+);
+
+export const saveFarmCheck = createAsyncThunk(
+  "step1/info/check/saveFarmCheck",
+  async (data, { rejectWithValue }) => {
+    try {
+      console.log("데이터 : ", data);
+      const result = await farmCheck.saveFarmCheck(
+        data.data,
+        data.pageNum,
+        data.id,
+      );
+      // return result;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error.response.data);
+    }
+  },
+);
+
+export const saveDocsCheck = createAsyncThunk(
+  "step1/info/check/saveDocsCheck",
+  async (data, { rejectWithValue }) => {
+    try {
+      console.log("데이터 : ", data);
+      const result = await docsCheck.saveDocsCheck(
+        data.data,
+        data.pageNum,
+        data.id,
+      );
+      // return result;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error.response.data);
+    }
+  },
+);
+
+export const saveFarmPicture = createAsyncThunk(
+  "step1/info/check/saveDocsCheck",
+  async (data, { rejectWithValue }) => {
+    try {
+      console.log("데이터 : ", data);
+      const result = await uploadPicture.saveFarmPicture(data.data, data.id);
+      // return result;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error.response.data);
     }
   },
 );
@@ -32,11 +88,11 @@ const initialState = {
     farmAddress: "",
     fodder: "",
     // farm-check
-    indentification: "",
+    identification: "",
     ownFarm: "",
     breedingType: "",
     population: "",
-    ownCCTV: "",
+    cctv: "",
     // docs-check
     livestockFarmingBusinessRegistration: "",
     facilitiesStructure: "",
@@ -95,6 +151,12 @@ const initialState = {
   saveFarmOwnerInfoLoading: false,
   saveFarmOwnerInfoDone: false,
   saveFarmOwnerInfoError: null,
+  saveFarmCheckLoading: false,
+  saveFarmCheckDone: false,
+  saveFarmCheckError: null,
+  saveDocsCheckLoading: false,
+  saveDocsCheckDone: false,
+  saveDocsCheckError: null,
 };
 
 const step1Slice = createSlice({
@@ -121,11 +183,11 @@ const step1Slice = createSlice({
       state.data = action.payload;
     },
     inputCheckFarm: (state, action) => {
-      state.data.indentification = action.payload.indentification;
+      state.data.identification = action.payload.identification;
       state.data.ownFarm = action.payload.ownFarm;
       state.data.breedingType = action.payload.breedingType;
       state.data.population = action.payload.population;
-      state.data.ownCCTV = action.payload.ownCCTV;
+      state.data.cctv = action.payload.cctv;
     },
     inputCheckDocs: (state, action) => {
       state.data.livestockFarmingBusinessRegistration =
@@ -172,6 +234,32 @@ const step1Slice = createSlice({
     [saveFarmInfo.rejected.type]: (state, action) => {
       state.saveFarmInfoLoading = false;
       state.saveFarmInfoError = action.payload;
+    },
+    [saveFarmCheck.pending.type]: (state, action) => {
+      state.saveFarmCheckLoading = true;
+      state.saveFarmCheckDone = false;
+      state.saveFarmCheckError = null;
+    },
+    [saveFarmCheck.fulfilled.type]: (state, action) => {
+      state.saveFarmCheckLoading = false;
+      state.saveFarmCheckDone = true;
+    },
+    [saveFarmCheck.rejected.type]: (state, action) => {
+      state.saveFarmCheckLoading = false;
+      state.saveFarmCheckError = action.payload;
+    },
+    [saveDocsCheck.pending.type]: (state, action) => {
+      state.saveDocsCheckLoading = true;
+      state.saveDocsCheckDone = false;
+      state.saveDocsCheckError = null;
+    },
+    [saveDocsCheck.fulfilled.type]: (state, action) => {
+      state.saveDocsCheckLoading = false;
+      state.saveDocsCheckDone = true;
+    },
+    [saveDocsCheck.rejected.type]: (state, action) => {
+      state.saveDocsCheckLoading = false;
+      state.saveDocsCheckError = action.payload;
     },
   },
 });
