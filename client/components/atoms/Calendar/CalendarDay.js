@@ -21,7 +21,9 @@ export const CalendarDay = ({
     ) {
       if (e.target.classList.contains("isSelected")) {
         return;
-      } else onDisabledAction(true);
+      } else {
+        onDisabledAction(true);
+      }
     } else {
       setIsSelected(everydayFormat);
       onDisabledAction(false);
