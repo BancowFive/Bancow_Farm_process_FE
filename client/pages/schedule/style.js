@@ -32,8 +32,11 @@ export const Container = styled(StyledContainer)`
   }
 `;
 
-export const Toast = styled.div`
+export const Toast = styled.div.attrs(props => ({
+  display: `${props.show ? "block" : "none"}`,
+}))`
   ${flexbox()};
+  display: ${props => props.display};
   margin: 38px auto 20px;
 
   @media (min-width: 540px) {

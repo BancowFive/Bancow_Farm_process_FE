@@ -18,7 +18,7 @@ const Schedule = () => {
   const [selectedDate, setselectedDate] = useState();
   const [isDisabledDay, setIsDisabledDay] = useState(false);
   //공휴일 등 실사요청 불가능한 날짜, YYYYMMDD 형태
-  const isDisable = ["20220210", "20220216", "20220213"];
+  const isDisable = ["20220216", "20220213"];
 
   //페이지 이동
   useEffect(() => {
@@ -44,7 +44,7 @@ const Schedule = () => {
     try {
       const fulldate = selectedDate.fulldate;
       await dispatch(
-        submitAvailableDate({ fulldate, PageNum: "14", userId }),
+        submitAvailableDate({ date: fulldate, pageNum: "14", userId }),
       ).unwrap();
 
       await dispatch(
@@ -79,7 +79,7 @@ const Schedule = () => {
             coloredDayInfo="실사 요청 가능일"
             onDisabledAction={onDisabledAction}
           ></Calendar>
-          <Toast>
+          <Toast show={isDisabledDay}>
             <ToastBar show={isDisabledDay} width={"196.5px"}>
               해당 날짜는 선택할 수 없습니다
             </ToastBar>
