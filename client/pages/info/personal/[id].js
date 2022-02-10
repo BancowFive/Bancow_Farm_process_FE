@@ -17,11 +17,14 @@ import {
 } from "../../../reducers/step1";
 import { changePage } from "../../../reducers/move";
 import { emailValidator } from "../../../utils";
+import { useRouter } from "next/router";
 
 const Personal = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const { name, email } = useSelector(state => state.step1.data);
   const { id } = useSelector(state => state.auth);
+  const { changePageDone } = useSelector(state => state.move);
 
   const [emailLocal, setEmailLocal] = useState(email?.split("@")[0] || "");
   const [emailDomain, setEmailDomain] = useState(email?.split("@")[1] || "");
@@ -65,10 +68,16 @@ const Personal = () => {
   }, [name, email, emailLocal, emailDomain]);
 
   const movePage = useCallback(() => {
+    savePersonalInfo();
     dispatch(saveFarmOwnerInfo({ data: { name, email }, id, pageNum: 2 }));
     dispatch(changePage({ PageNum: 3, id }));
   }, [name, email, id]);
 
+  useEffect(() => {
+    if (changePageDone) {
+      router.push(`/info/farm/${id}`);
+    }
+  }, [id, changePageDone]);
   return (
     <>
       <Container>
@@ -139,8 +148,7 @@ const Personal = () => {
             size={60}
             variant={isValid ? "primary" : "ghost"}
             block
-            onClick={!isValid ? savePersonalInfo : movePage}
-            to={isValid ? `/info/farm/${id}` : null}
+            onClick={isValid ? movePage : null}
           >
             다음
           </Button>

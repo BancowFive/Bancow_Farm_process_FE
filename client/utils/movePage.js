@@ -1,6 +1,5 @@
 export const movePage = (pageNum, router) => {
-  console.log(pageNum);
-  if (pageNum === 1) {
+  if (pageNum === 1 || pageNum === "") {
     router.push("/terms");
   } else if (pageNum === 6) {
     router.push("/done/start_upload");
