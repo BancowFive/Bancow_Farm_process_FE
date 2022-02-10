@@ -16,10 +16,10 @@ const Continue = () => {
         case 1:
           setPath(`/terms`);
         case 2:
-          setPath(`/info/farm/${id}`);
+          setPath(`/info/personal/${id}`);
           break;
         case 3:
-          setPath(`/info/personal/${id}`);
+          setPath(`/info/farm/${id}`);
           break;
         case 4:
           setPath(`/info/check/farm/${id}`);
