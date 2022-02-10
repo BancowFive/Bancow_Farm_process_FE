@@ -1,5 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { personalInfo, farmInfo, farmCheck } from "../api";
+import {
+  personalInfo,
+  farmInfo,
+  farmCheck,
+  docsCheck,
+  uploadPicture,
+} from "../api";
 
 export const saveFarmOwnerInfo = createAsyncThunk(
   "step1/info/saveFarmOwnerInfo",
@@ -38,7 +44,39 @@ export const saveFarmCheck = createAsyncThunk(
       // return result;
     } catch (error) {
       console.log(error);
-      return rejectWithValue(error.data.error);
+      return rejectWithValue(error.response.data);
+    }
+  },
+);
+
+export const saveDocsCheck = createAsyncThunk(
+  "step1/info/check/saveDocsCheck",
+  async (data, { rejectWithValue }) => {
+    try {
+      console.log("데이터 : ", data);
+      const result = await docsCheck.saveDocsCheck(
+        data.data,
+        data.pageNum,
+        data.id,
+      );
+      // return result;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error.response.data);
+    }
+  },
+);
+
+export const saveFarmPicture = createAsyncThunk(
+  "step1/info/check/saveDocsCheck",
+  async (data, { rejectWithValue }) => {
+    try {
+      console.log("데이터 : ", data);
+      const result = await uploadPicture.saveFarmPicture(data.data, data.id);
+      // return result;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error.response.data);
     }
   },
 );
@@ -118,6 +156,9 @@ const initialState = {
   saveFarmCheckLoading: false,
   saveFarmCheckDone: false,
   saveFarmCheckError: null,
+  saveDocsCheckLoading: false,
+  saveDocsCheckDone: false,
+  saveDocsCheckError: null,
 };
 
 const step1Slice = createSlice({
@@ -208,6 +249,19 @@ const step1Slice = createSlice({
     [saveFarmCheck.rejected.type]: (state, action) => {
       state.saveFarmCheckLoading = false;
       state.saveFarmCheckError = action.payload;
+    },
+    [saveDocsCheck.pending.type]: (state, action) => {
+      state.saveDocsCheckLoading = true;
+      state.saveDocsCheckDone = false;
+      state.saveDocsCheckError = null;
+    },
+    [saveDocsCheck.fulfilled.type]: (state, action) => {
+      state.saveDocsCheckLoading = false;
+      state.saveDocsCheckDone = true;
+    },
+    [saveDocsCheck.rejected.type]: (state, action) => {
+      state.saveDocsCheckLoading = false;
+      state.saveDocsCheckError = action.payload;
     },
   },
 });
