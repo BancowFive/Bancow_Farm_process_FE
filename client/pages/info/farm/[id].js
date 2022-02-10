@@ -9,14 +9,14 @@ import {
   DropDown,
   Footer,
   ProgressHeader,
-} from "../../components";
+} from "../../../components";
 import {
   inputFarmName,
   inputFarmFodder,
   saveFarmInfo,
-} from "../../reducers/step1";
-import { changePage } from "../../reducers/move";
-import { setDaumPost, openDaumPost } from "../../utils";
+} from "../../../reducers/step1";
+import { changePage } from "../../../reducers/move";
+import { setDaumPost, openDaumPost } from "../../../utils";
 
 const Farm = () => {
   const dispatch = useDispatch();
@@ -78,7 +78,7 @@ const Farm = () => {
         pageNum: 3,
       }),
     );
-    // dispatch(changePage(4, id));
+    dispatch(changePage({ PageNum: 4, id }));
   }, [farmName, farmAddress, farmPostCode, fodder, id]);
 
   return (
@@ -167,7 +167,7 @@ const Farm = () => {
               className="link"
               variant="ghost"
               size={60}
-              to="/info/personal"
+              to={`/info/personal/${id}`}
             >
               이전
             </Button>

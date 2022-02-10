@@ -14,7 +14,7 @@ import {
   Footer,
   ProgressHeader,
 } from "../../components";
-import { changePage } from "../../reducers/move";
+import { changePage, changeStep } from "../../reducers/move";
 import { saveServiceTerms } from "../../reducers/terms";
 
 const ServiceTerms = () => {
@@ -52,7 +52,8 @@ const ServiceTerms = () => {
         pageNum: 1,
       }),
     );
-    // dispatch(changePage(2, id));
+    dispatch(changeStep({ PageNum: 1, inProgress: "STEP1_IN_PROGRESS", id }));
+    dispatch(changePage({ PageNum: 2, id }));
   }, [conditionOfUse, trustOfInformation, collectionOfInformation, id]);
 
   return (
@@ -110,7 +111,7 @@ const ServiceTerms = () => {
             size={60}
             variant={conditionOfUse && trustOfInformation ? "primary" : "ghost"}
             disabled={!(conditionOfUse && trustOfInformation)}
-            to="/info/personal"
+            to={`/info/personal/${id}`}
             block
             onClick={movePage}
           >
