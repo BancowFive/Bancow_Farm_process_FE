@@ -4,7 +4,6 @@ import Image from "next/image";
 import { ButtonGroup, Button } from "../..";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
 
 function getModalIcon(icon) {
   switch (icon) {
@@ -37,19 +36,12 @@ export const Modal = ({
   onClick,
   children,
 }) => {
-  const { fetchUserDataDone } = useSelector(state => state.auth);
   const router = useRouter();
   useEffect(() => {
     if (to === null) {
       router.push("/auth");
     }
   }, []);
-
-  useEffect(() => {
-    if (fetchUserDataDone) {
-      router.push("/terms");
-    }
-  }, [fetchUserDataDone]);
 
   return open ? (
     <ModalBackGround>

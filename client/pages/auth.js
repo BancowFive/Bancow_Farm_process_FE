@@ -22,8 +22,10 @@ import {
   checkUserInProgress,
   getCertification,
 } from "../reducers/auth";
+import { useRouter } from "next/router";
 
 const Auth = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const {
     password,
@@ -97,6 +99,11 @@ const Auth = () => {
     dispatch(checkUserInProgress(printPhoneNumber(phoneNumber)));
   }, [phoneNumber]);
 
+  useEffect(() => {
+    if (fetchUserDataDone) {
+      router.push("/terms");
+    }
+  }, [fetchUserDataDone]);
   return (
     <>
       <Container>
