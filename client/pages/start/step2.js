@@ -2,25 +2,25 @@ import React, { useCallback, useEffect } from "react";
 import { Button } from "../../components/atoms";
 import { Footer, ProgressHeader } from "../../components";
 import { Container, ImgContainer } from "./style";
-import { startStep2 } from "../../reducers/step2";
+import { startStep3 } from "../../reducers/step2";
 import Image from "next/image";
 import cowAndMePic from "../../public/cow_plus_me.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 
-const Step2 = () => {
+const Step3 = () => {
   const userId = useSelector(state => state.auth.id);
   const dispatch = useDispatch();
   const router = useRouter();
   const moveAllowed = useSelector(state => state.step2.startStatus);
 
   useEffect(() => {
-    if (moveAllowed === "fulfilled") router.replace(`/submit/${userId}`);
+    if (moveAllowed === "fulfilled") router.replace(`/schedule/${userId}`);
   }, [moveAllowed]);
 
   const movePage = useCallback(() => {
     dispatch(
-      startStep2({ PageNum: "10", inProgress: "STEP2_IN_PROGRESS", userId }),
+      startStep3({ PageNum: "13", inProgress: "STEP3_IN_PROGRESS", userId }),
     );
   }, []);
 
@@ -35,9 +35,9 @@ const Step2 = () => {
             검토가 완료되었어요
           </h2>
           <h1>
-            뱅카우가 농장을
+            이어서 서류를
             <br />
-            방문할 예정이에요
+            제출해주세요
           </h1>
           <ImgContainer>
             <Image src={cowAndMePic} alt="소와 나" />
@@ -60,4 +60,4 @@ const Step2 = () => {
   );
 };
 
-export default Step2;
+export default Step3;
