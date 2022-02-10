@@ -15,6 +15,7 @@ import {
   phoneNumberValidator,
   replacePhoneNumberRegx,
   printPhoneNumber,
+  movePage,
 } from "../utils";
 import {
   inputPhoneNumber,
@@ -33,6 +34,8 @@ const Auth = () => {
     authorizationDone,
     authorizationError,
     fetchUserDataDone,
+    pageNum,
+    id,
   } = useSelector(state => state.auth);
 
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -101,9 +104,9 @@ const Auth = () => {
 
   useEffect(() => {
     if (fetchUserDataDone) {
-      router.push("/terms");
+      movePage(pageNum, id, router);
     }
-  }, [fetchUserDataDone]);
+  }, [fetchUserDataDone, pageNum, id]);
   return (
     <>
       <Container>
