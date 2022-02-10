@@ -1,13 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { submit, moveStep } from "../api";
 import { uploadToS3 } from "../utils/S3";
-import { router } from "next/router";
 
 export const submitFiles = createAsyncThunk(
   "step2/submitFiles",
   async ({ file, targetId, userId }, { rejectWithValue }) => {
     try {
-      const s3 = await uploadToS3(file, targetId);
+      const s3 = await uploadToS3(file, targetId, userId);
 
       const fileInfo = {
         originalFileName: file.name,
@@ -30,7 +29,7 @@ export const changeStep2 = createAsyncThunk(
   async ({ PageNum, inProgress, userId }, { rejectWithValue }) => {
     try {
       const result = await moveStep(PageNum, inProgress, userId);
-      return result;
+      return result.data;
     } catch (error) {
       rejectWithValue(error.response.data);
     }
@@ -88,8 +87,6 @@ const step2Slice = createSlice({
     });
     builder.addCase(changeStep2.fulfilled, (state, action) => {
       state.changeStatus = "fulfilled";
-      //페이지 이동
-      router.replace("/done/step2");
     });
     builder.addCase(changeStep2.rejected, (state, action) => {
       state.changeStatus = "rejected";
