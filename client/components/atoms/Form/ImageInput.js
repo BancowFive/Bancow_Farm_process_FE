@@ -38,9 +38,13 @@ export const ImageInput = ({
     );
     if (pictureIndex !== -1) {
       //현재 이미지 찾기
-      console.log("체크 ", savedImage[pictureIndex]);
       setShowPreview(true);
-      setPreviewURL(savedImage[pictureIndex].imageUrl);
+      //브라우저 캐싱 방지
+      setPreviewURL(
+        `${savedImage[pictureIndex].imageUrl}?a=${Math.floor(
+          Math.random() * 1000,
+        )}`,
+      );
       setuploadedImages(prev => ({ ...prev, [pictureId]: true }));
     }
   }, []);
@@ -56,15 +60,13 @@ export const ImageInput = ({
       //농가 사진 업로드 API  호출
       s3ImageToServer();
 
-      console.log("바뀐 이미지 데이터", imageData.imageUrl);
-      setPreview(imageData.imageUrl);
+      setPreview(`${imageData.imageUrl}?a=${Math.floor(Math.random() * 1000)}`);
     }
   }, [imageData]);
 
   const setPreview = s3imageURL => {
     //미리보기 URL 저장
     setPreviewURL(s3imageURL);
-
     //preview 노출 여부 변경
     setShowPreview(true);
   };
@@ -73,37 +75,34 @@ export const ImageInput = ({
     //input에 파일을 올리면 s3 업로드에 필요한 매개변수 저장
     const file = e.target.files[0];
     const targetId = e.target.id;
+    //파일 사이즈 제한
+    const fileSize = file.size;
+    const maxSize = 10 * 1024 * 1024;
 
-    console.log("이미지정보 :", file, targetId);
+    if (fileSize > maxSize) {
+      alert("첨부파일 사이즈는 10MB 이내로 등록 가능합니다.");
+      return;
+    } else {
+      //s3에 업로드하는 함수 호출(이 함수의 리턴 값에 s3 이미지 URL도 들어있음.)
+      console.log("s3에 업로드하는 함수 호출");
+      const s3Data = await uploadToS3(file, targetId, userId);
 
-    // const fileSize = file.size;
-    // const maxSize = 10 * 1024 * 1024;
+      console.log("s3데이터: ", s3Data);
 
-    // if (fileSize > maxSize) {
-    //   alert("첨부파일 사이즈는 10MB 이내로 등록 가능합니다.");
-    //   return;
-    // } else {
-    //s3에 업로드하는 함수 호출(이 함수의 리턴 값에 s3 이미지 URL도 들어있음.)
-    console.log("s3에 업로드하는 함수 호출");
-    const s3Data = await uploadToS3(file, targetId, userId);
+      //미리보기 URL
+      setPreview(s3Data.Location);
 
-    console.log("s3데이터: ", s3Data);
-
-    //미리보기 URL 세팅
-    console.log("미리보기 URL 세팅");
-    setPreview(s3Data.Location);
-
-    //API 호출에 필요한 값 세팅
-    setImageData(prev => ({
-      ...prev,
-      originalImageName: file.name,
-      changedImageName: s3Data.Key,
-      imageUrl: s3Data.Location,
-      imageType: pictureId,
-    }));
-    //사진 업로드 후 업로드 여부 갱신
-    setuploadedImages(prev => ({ ...prev, [pictureId]: true }));
-    // }
+      //API 호출에 필요한 값 세팅
+      setImageData(prev => ({
+        ...prev,
+        originalImageName: file.name,
+        changedImageName: s3Data.Key,
+        imageUrl: s3Data.Location,
+        imageType: pictureId,
+      }));
+      //사진 업로드 후 업로드 여부 갱신
+      setuploadedImages(prev => ({ ...prev, [pictureId]: true }));
+    }
   };
 
   const s3ImageToServer = () => {
@@ -142,19 +141,19 @@ export const ImageInput = ({
             layout="fill"
             className={"image"}
           />
+          <Replace
+            showError={showError}
+            showPreview={showPreview}
+            htmlFor={pictureId}
+          >
+            <input
+              onChange={handleChange}
+              type="file"
+              id={pictureId}
+              accept="image/*"
+            />
+          </Replace>
         </div>
-        <Replace
-          showError={showError}
-          showPreview={showPreview}
-          htmlFor={pictureId}
-        >
-          <input
-            onChange={handleChange}
-            type="file"
-            id={pictureId}
-            accept="image/*"
-          />
-        </Replace>
       </Preview>
     </>
   );
