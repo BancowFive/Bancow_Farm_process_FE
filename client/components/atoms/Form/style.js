@@ -198,10 +198,13 @@ export const StyledImageInput = styled.label`
       display: none;
     }
   }
+
   display: ${({ showPreview }) => showPreview && "none"};
 `;
+
 export const Preview = styled.div`
   ${flexbox()}
+  position: relative;
   margin: 20px 0 40px;
   width: 100%;
   height: 160px;
@@ -237,17 +240,21 @@ export const Preview = styled.div`
     margin-bottom: 6px;
     border-radius: 10px;
     overflow: hidden;
-
-    .delete-button {
-      position: absolute;
-      background-repeat: no-repeat;
-      background-size: cover;
-      top: 10px;
-      right: 10px;
-      width: 34px;
-      height: 34px;
-      background-image: url("/delete.svg");
-    }
   }
   display: ${({ showPreview }) => !showPreview && "none"};
+`;
+
+export const Replace = styled.label`
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: cover;
+  top: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  background-image: url("/replace.svg");
+  input {
+    display: none;
+  }
+  /* display: ${({ showPreview }) => !showPreview && "none"}; */
 `;

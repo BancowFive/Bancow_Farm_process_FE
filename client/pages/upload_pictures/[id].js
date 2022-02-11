@@ -100,7 +100,6 @@ const uploadPicture = () => {
           />
           <ImageInput
             savedImage={imageArray}
-            imageIndex={0}
             pictureId="FARM_OUTSIDE"
             previewAlt="농장 외부사진"
             setuploadedImages={setuploadedImages}
@@ -118,7 +117,6 @@ const uploadPicture = () => {
           />
           <ImageInput
             savedImage={imageArray}
-            imageIndex={1}
             pictureId="FARM_INSIDE"
             previewAlt="농장 내부사진"
             setuploadedImages={setuploadedImages}
@@ -137,7 +135,6 @@ const uploadPicture = () => {
           />
           <ImageInput
             savedImage={imageArray}
-            imageIndex={2}
             pictureId="CATTLE_FRONT"
             previewAlt="소 정면사진"
             setuploadedImages={setuploadedImages}
@@ -155,7 +152,6 @@ const uploadPicture = () => {
           />
           <ImageInput
             savedImage={imageArray}
-            imageIndex={3}
             pictureId="CATTLE_SIDE"
             previewAlt="소 측면사진"
             setuploadedImages={setuploadedImages}
@@ -174,7 +170,6 @@ const uploadPicture = () => {
           />
           <ImageInput
             savedImage={imageArray}
-            imageIndex={4}
             pictureId="BUCKET"
             previewAlt="물통 사진"
             setuploadedImages={setuploadedImages}
@@ -192,7 +187,6 @@ const uploadPicture = () => {
           />
           <ImageInput
             savedImage={imageArray}
-            imageIndex={5}
             pictureId="FLOOR"
             previewAlt="우사 바닥 사진"
             setuploadedImages={setuploadedImages}
@@ -210,7 +204,6 @@ const uploadPicture = () => {
           />
           <ImageInput
             savedImage={imageArray}
-            imageIndex={6}
             pictureId="VENTILATION_FAN"
             previewAlt="환풍기 사진"
             setuploadedImages={setuploadedImages}

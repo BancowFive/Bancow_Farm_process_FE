@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { Preview, StyledImageInput } from "./style";
+import { Preview, Replace, StyledImageInput } from "./style";
 import { getS3Auth, uploadToS3 } from "../../../utils/S3";
 import { inputPicture, saveFarmPicture } from "../../../reducers/step1";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,8 +33,6 @@ export const ImageInput = ({
   useEffect(() => {
     //s3 인증 정보 불러오기
     getS3Auth();
-    // console.log(savedImage);
-    //Props로 전달받은 이미지 URL(saveImage)
     const pictureIndex = savedImage.findIndex(
       image => image.imageType === pictureId,
     );
@@ -43,7 +41,6 @@ export const ImageInput = ({
       console.log("체크 ", savedImage[pictureIndex]);
       setShowPreview(true);
       setPreviewURL(savedImage[pictureIndex].imageUrl);
-      //중간저장 불러오기
       setuploadedImages(prev => ({ ...prev, [pictureId]: true }));
     }
   }, []);
@@ -53,14 +50,15 @@ export const ImageInput = ({
       // 사용자가 새로 사진을 올리면 redux state 업데이트;
       dispatch(
         inputPicture({
-          imageIndex,
           ...imageData,
         }),
       );
       //농가 사진 업로드 API  호출
       s3ImageToServer();
+
+      console.log("바뀐 이미지 데이터", imageData.imageUrl);
+      setPreview(imageData.imageUrl);
     }
-    console.log("useEffect:", imageData);
   }, [imageData]);
 
   const setPreview = s3imageURL => {
@@ -68,7 +66,7 @@ export const ImageInput = ({
     setPreviewURL(s3imageURL);
 
     //preview 노출 여부 변경
-    setShowPreview(prev => !prev);
+    setShowPreview(true);
   };
 
   const handleChange = async e => {
@@ -76,6 +74,15 @@ export const ImageInput = ({
     const file = e.target.files[0];
     const targetId = e.target.id;
 
+    console.log("이미지정보 :", file, targetId);
+
+    // const fileSize = file.size;
+    // const maxSize = 10 * 1024 * 1024;
+
+    // if (fileSize > maxSize) {
+    //   alert("첨부파일 사이즈는 10MB 이내로 등록 가능합니다.");
+    //   return;
+    // } else {
     //s3에 업로드하는 함수 호출(이 함수의 리턴 값에 s3 이미지 URL도 들어있음.)
     console.log("s3에 업로드하는 함수 호출");
     const s3Data = await uploadToS3(file, targetId, userId);
@@ -96,13 +103,16 @@ export const ImageInput = ({
     }));
     //사진 업로드 후 업로드 여부 갱신
     setuploadedImages(prev => ({ ...prev, [pictureId]: true }));
+    // }
   };
 
   const s3ImageToServer = () => {
     console.log("농가이미지 업로드 API 호출");
-
     dispatch(saveFarmPicture({ data: imageData, id: userId }));
   };
+
+  const replacePicture = () => {};
+
   return (
     <>
       <StyledImageInput
@@ -132,8 +142,19 @@ export const ImageInput = ({
             layout="fill"
             className={"image"}
           />
-          <button className="delete-button" />
         </div>
+        <Replace
+          showError={showError}
+          showPreview={showPreview}
+          htmlFor={pictureId}
+        >
+          <input
+            onChange={handleChange}
+            type="file"
+            id={pictureId}
+            accept="image/*"
+          />
+        </Replace>
       </Preview>
     </>
   );
