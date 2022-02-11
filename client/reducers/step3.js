@@ -6,7 +6,6 @@ export const submitAvailableDate = createAsyncThunk(
   async ({ date, PageNum, userId }, { rejectWithValue }) => {
     try {
       const result = await schedule.submitAvailableDate(date, PageNum, userId);
-      return result.data;
     } catch (error) {
       rejectWithValue(error.response.data);
     }

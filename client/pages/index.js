@@ -1,7 +1,12 @@
 import { Button, Container, Footer, ProgressHeader } from "../components";
 import Image from "next/image";
+import { useEffect } from "react";
+import { auth } from "../api";
 
 export default function Home() {
+  useEffect(() => {
+    auth.logout();
+  }, []);
   return (
     <>
       <Container>

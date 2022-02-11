@@ -73,10 +73,10 @@ const Personal = () => {
   }, [name, email, id]);
 
   useEffect(() => {
-    if (changePageDone) {
+    if (changePageDone && isValid) {
       router.push(`/info/farm/${id}`);
     }
-  }, [id, changePageDone]);
+  }, [id, changePageDone, isValid]);
   return (
     <>
       <Container>
