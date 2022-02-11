@@ -11,6 +11,7 @@ import ImageInput from "../../components/atoms/Form/ImageInput";
 import { PictureGuide } from "../../components/blocks/PictureGuide/PictureGuide";
 import { useRouter } from "next/router";
 import { changePage, changeStep } from "../../reducers/move";
+import { changeStep2 } from "../../reducers/step2";
 
 const uploadPicture = () => {
   const [isUploadedAll, setIsUploadedAll] = useState(false);
@@ -34,11 +35,9 @@ const uploadPicture = () => {
 
   //리덕스에서 중간 저장 값 가져오기
   const imageArray = useSelector(state => state.step1.data.farmImageUrl);
-  // console.log(imageArray);
 
   useEffect(() => {
     //각 사진을 모두 업로드 하면 버튼 시각적 활성화
-    // console.log(uploadedImages);
     for (const [key, value] of Object.entries(uploadedImages)) {
       if (value === false) return;
     }
@@ -66,16 +65,14 @@ const uploadPicture = () => {
   const moveToNext = () => {
     const result = checkUploadedAll();
     if (result) {
-      console.log("통과");
-      // 스텝 업데이트 api
-      console.log("change step API 호출");
-      dispatch(
-        changeStep({ PageNum: 6, inProgress: "STEP2_START", id: userId }),
-      );
-
       //페이지 이동
-      dispatch(changePage({ PageNum: 7, id: userId }));
+      dispatch(changePage({ PageNum: 8, id: userId }));
       router.push("/done/step1");
+
+      // 스텝 업데이트 api
+      dispatch(
+        changeStep2({ PageNum: "8", inProgress: "STEP2_START", userId }),
+      );
     }
   };
   return (
