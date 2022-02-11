@@ -6,8 +6,18 @@ import GlobalStyle from "../styles/globalStyle";
 import AppLayout from "../components/AppLayout";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor } from "../store";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 function App({ Component, pageProps }) {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (localStorage.getItem(process.env.AUTHCHECK) === null) {
+      router.replace("/");
+    }
+  }, []);
+
   return (
     <>
       <Head>
