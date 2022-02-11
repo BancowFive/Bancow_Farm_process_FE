@@ -14,11 +14,11 @@ const Schedule = () => {
   const router = useRouter();
 
   const userId = useSelector(state => state.auth.id);
+  //공휴일 등 실사요청 불가능한 날짜, YYYYMMDD 형태
+  const isDisable = useSelector(state => state.step3.noReservationDate);
   const moveAllowed = useSelector(state => state.step3.changeStatus);
   const [selectedDate, setselectedDate] = useState();
   const [isDisabledDay, setIsDisabledDay] = useState(false);
-  //공휴일 등 실사요청 불가능한 날짜, YYYYMMDD 형태
-  const isDisable = ["20220216", "20220213"];
 
   //페이지 이동
   useEffect(() => {
