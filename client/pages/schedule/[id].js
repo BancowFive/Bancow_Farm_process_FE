@@ -44,7 +44,7 @@ const Schedule = () => {
     try {
       const fulldate = selectedDate.fulldate;
       await dispatch(
-        submitAvailableDate({ date: fulldate, pageNum: "14", userId }),
+        submitAvailableDate({ date: fulldate, PageNum: "14", userId }),
       ).unwrap();
 
       await dispatch(

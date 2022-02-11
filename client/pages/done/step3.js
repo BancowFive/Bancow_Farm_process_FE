@@ -11,7 +11,7 @@ const step3 = () => {
       <Container>
         <ProgressHeader
           ProgressType="step"
-          activeStep={1}
+          activeStep={3}
           className="progressHeader"
           showProgress={true}
           growLineBorder="4px"
