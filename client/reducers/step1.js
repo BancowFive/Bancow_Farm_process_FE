@@ -157,13 +157,13 @@ const step1Slice = createSlice({
     },
     inputPicture: (state, action) => {
       state.data.farmImageUrl = [
-        ...state.data.farmImageUrl,
         {
           originalImageName: action.payload.originalImageName,
           changedImageName: action.payload.changedImageName,
           imageUrl: action.payload.imageUrl,
           imageType: action.payload.imageType,
         },
+        ...state.data.farmImageUrl,
       ];
     },
   },
