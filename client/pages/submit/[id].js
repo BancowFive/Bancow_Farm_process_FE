@@ -64,6 +64,7 @@ const Required = () => {
   }, []);
 
   const movePage = useCallback(() => {
+    //작동 테스트를 위해 STPE2_COMPLETE 가 아닌 STEP3_START로 변경
     dispatch(changeStep2({ PageNum: "12", inProgress: "STEP3_START", userId }));
   }, []);
 
