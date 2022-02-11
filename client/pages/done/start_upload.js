@@ -4,16 +4,19 @@ import Image from "next/image";
 import cowAndMePic from "../../public/cow_plus_me.svg";
 import { Button, ButtonGroup, Footer, ProgressHeader } from "../../components";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { changePage } from "../../reducers/move";
 
 const startUpload = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   // 리덕스에서 아이디 불러오기
   const userId = useSelector(state => state.auth.id);
 
   const tryLater = () => {
-    //로그아웃 api
+    dispatch(changePage({ PageNum: 7, id: userId }));
+    router.push(`/`);
   };
   const moveToPrev = () => {
     router.push(`/info/check/docs/${userId}`);
