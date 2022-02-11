@@ -49,7 +49,6 @@ const step3Slice = createSlice({
   reducers: {
     fetchStep3Data: (state, action) => {
       const days = [];
-      console.log("fetchStpe3실행됨", action.payload);
       action.payload.noReservationDate.forEach(day => {
         days.push(day.date);
       });
