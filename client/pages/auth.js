@@ -89,21 +89,22 @@ const Auth = () => {
       setIsError(true);
       return;
     }
-    if (authorizationDone) {
+    if (authorizationDone && phoneNumber) {
       toggleModal();
       return;
-    } else if (authorizationError) {
+    } else if (authorizationError && phoneNumber) {
       setIsError(true);
       return;
     }
-  }, [certificationError, authorizationDone, authorizationError]);
+  }, [certificationError, authorizationDone, authorizationError, phoneNumber]);
 
   const fetchData = useCallback(() => {
     dispatch(checkUserInProgress(printPhoneNumber(phoneNumber)));
   }, [phoneNumber]);
 
   useEffect(() => {
-    if (checkUserInProgressDone) {
+    const token = localStorage.getItem("token");
+    if (checkUserInProgressDone && token) {
       movePage(pageNum, router);
     }
   }, [checkUserInProgressDone, pageNum, id]);
