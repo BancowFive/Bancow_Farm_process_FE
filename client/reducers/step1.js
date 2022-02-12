@@ -100,50 +100,7 @@ const initialState = {
     annualInspectionReport: "",
     businessLicense: "",
     //upload pictures
-    farmImage: [
-      {
-        originalImageName: "",
-        changedImageName: "",
-        imageUrl: "",
-        imageType: "",
-      },
-      {
-        originalImageName: "",
-        changedImageName: "",
-        imageUrl: "",
-        imageType: "",
-      },
-      {
-        originalImageName: "",
-        changedImageName: "",
-        imageUrl: "",
-        imageType: "",
-      },
-      {
-        originalImageName: "",
-        changedImageName: "",
-        imageUrl: "",
-        imageType: "",
-      },
-      {
-        originalImageName: "",
-        changedImageName: "",
-        imageUrl: "",
-        imageType: "",
-      },
-      {
-        originalImageName: "",
-        changedImageName: "",
-        imageUrl: "",
-        imageType: "",
-      },
-      {
-        originalImageName: "",
-        changedImageName: "",
-        imageUrl: "",
-        imageType: "",
-      },
-    ],
+    farmImageUrl: [],
   },
   saveFarmInfoLoading: false,
   saveFarmInfoDone: false,
@@ -199,13 +156,15 @@ const step1Slice = createSlice({
       state.data.businessLicense = action.payload.businessLicense;
     },
     inputPicture: (state, action) => {
-      const imageIndex = action.payload.imageIndex;
-      state.data.farmImage[imageIndex].originalImageName =
-        action.payload.originalImageName;
-      state.data.farmImage[imageIndex].changedImageName =
-        action.payload.changedImageName;
-      state.data.farmImage[imageIndex].imageUrl = action.payload.imageUrl;
-      state.data.farmImage[imageIndex].imageType = action.payload.imageType;
+      state.data.farmImageUrl = [
+        {
+          originalImageName: action.payload.originalImageName,
+          changedImageName: action.payload.changedImageName,
+          imageUrl: action.payload.imageUrl,
+          imageType: action.payload.imageType,
+        },
+        ...state.data.farmImageUrl,
+      ];
     },
   },
   extraReducers: {

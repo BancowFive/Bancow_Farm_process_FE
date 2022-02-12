@@ -88,7 +88,6 @@ const docsCheck = () => {
     }
     //유저 대답이 바뀔 때마다 리덕스에 업데이트
     updateReduxState();
-    // console.log(userAnswers);
   }, [userAnswers]);
 
   const isCheckedAll = () => {
@@ -133,18 +132,15 @@ const docsCheck = () => {
       router.push("/done/start_upload");
 
       //서류 보유 체크 api로 데이터 보내기
-      console.log("서류 보유 체크 api로 데이터 보내기");
       dispatch(saveDocsCheck({ data: userAnswers, pageNum: 5, id: userId }));
 
       if (saveDocsCheckError) {
         //통신 실패시 다음화면 X
-        console.log("에러메세지 : ", saveFarmCheckError);
         alert("데이터 저장에 실패 했습니다.");
         return;
       }
       // 페이지 변경 api
-      console.log("페이지 변경 api");
-      dispatch(changePage({ pageNum: 6, id: userId }));
+      dispatch(changePage({ PageNum: 6, id: userId }));
       router.push("/done/start_upload");
     }
   };
