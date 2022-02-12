@@ -143,7 +143,7 @@ const farmCheck = () => {
       }
       // 페이지 변경 api
       console.log("페이지 변경 api");
-      dispatch(changePage({ pageNum: 5, id: userId }));
+      dispatch(changePage({ PageNum: 5, id: userId }));
       router.push(`/info/check/docs/${userId}`);
     }
   };

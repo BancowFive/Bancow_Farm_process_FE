@@ -7,10 +7,11 @@ import {
   Footer,
   ProgressHeader,
 } from "../../components";
-import { inputPicture } from "../../reducers/step1";
 import ImageInput from "../../components/atoms/Form/ImageInput";
 import { PictureGuide } from "../../components/blocks/PictureGuide/PictureGuide";
 import { useRouter } from "next/router";
+import { changePage, changeStep } from "../../reducers/move";
+import { changeStep2 } from "../../reducers/step2";
 
 const uploadPicture = () => {
   const [isUploadedAll, setIsUploadedAll] = useState(false);
@@ -28,14 +29,15 @@ const uploadPicture = () => {
   const [showError, setShowError] = useState(false);
 
   const router = useRouter();
+  const dispatch = useDispatch();
+
+  const userId = useSelector(state => state.auth.id);
 
   //리덕스에서 중간 저장 값 가져오기
-  const imageArray = useSelector(state => state.step1.data.farmImage);
-  // console.log(imageArray);
+  const imageArray = useSelector(state => state.step1.data.farmImageUrl);
 
   useEffect(() => {
     //각 사진을 모두 업로드 하면 버튼 시각적 활성화
-    // console.log(uploadedImages);
     for (const [key, value] of Object.entries(uploadedImages)) {
       if (value === false) return;
     }
@@ -63,9 +65,14 @@ const uploadPicture = () => {
   const moveToNext = () => {
     const result = checkUploadedAll();
     if (result) {
-      //다음페이지로 라우팅하는 코드
-      console.log("통과");
+      //페이지 이동
+      dispatch(changePage({ PageNum: 8, id: userId }));
       router.push("/done/step1");
+
+      // 스텝 업데이트 api
+      dispatch(
+        changeStep2({ PageNum: "8", inProgress: "STEP2_START", userId }),
+      );
     }
   };
   return (
@@ -89,8 +96,7 @@ const uploadPicture = () => {
             }}
           />
           <ImageInput
-            savedImage={imageArray[0].imageUrl}
-            imageIndex={0}
+            savedImage={imageArray}
             pictureId="FARM_OUTSIDE"
             previewAlt="농장 외부사진"
             setuploadedImages={setuploadedImages}
@@ -107,8 +113,7 @@ const uploadPicture = () => {
             }}
           />
           <ImageInput
-            savedImage={imageArray[1].imageUrl}
-            imageIndex={1}
+            savedImage={imageArray}
             pictureId="FARM_INSIDE"
             previewAlt="농장 내부사진"
             setuploadedImages={setuploadedImages}
@@ -126,8 +131,7 @@ const uploadPicture = () => {
             }}
           />
           <ImageInput
-            savedImage={imageArray[2].imageUrl}
-            imageIndex={2}
+            savedImage={imageArray}
             pictureId="CATTLE_FRONT"
             previewAlt="소 정면사진"
             setuploadedImages={setuploadedImages}
@@ -144,8 +148,7 @@ const uploadPicture = () => {
             }}
           />
           <ImageInput
-            savedImage={imageArray[3].imageUrl}
-            imageIndex={3}
+            savedImage={imageArray}
             pictureId="CATTLE_SIDE"
             previewAlt="소 측면사진"
             setuploadedImages={setuploadedImages}
@@ -163,8 +166,7 @@ const uploadPicture = () => {
             }}
           />
           <ImageInput
-            savedImage={imageArray[4].imageUrl}
-            imageIndex={4}
+            savedImage={imageArray}
             pictureId="BUCKET"
             previewAlt="물통 사진"
             setuploadedImages={setuploadedImages}
@@ -181,8 +183,7 @@ const uploadPicture = () => {
             }}
           />
           <ImageInput
-            savedImage={imageArray[5].imageUrl}
-            imageIndex={5}
+            savedImage={imageArray}
             pictureId="FLOOR"
             previewAlt="우사 바닥 사진"
             setuploadedImages={setuploadedImages}
@@ -199,8 +200,7 @@ const uploadPicture = () => {
             }}
           />
           <ImageInput
-            savedImage={imageArray[6].imageUrl}
-            imageIndex={6}
+            savedImage={imageArray}
             pictureId="VENTILATION_FAN"
             previewAlt="환풍기 사진"
             setuploadedImages={setuploadedImages}
