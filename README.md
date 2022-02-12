@@ -64,35 +64,6 @@
 - target: 시니어층 (농가 주인)
 - user: 시니어층이 타겟이지만, 실질적인 사용자로는 농장주의 자식 혹은 손자, 농장과 계약된 회사의 영업사원등으로 20 ~ 70까지 다양한 연령층이 사용자로 예상된다.
 
-### tech stack
-
-**FE**
-
-```
-- Next.js
-- redux-toolkit
-- styled-components
-- AWS S3
-- Storybook
-- ESLint + Prettier
-- Git/GitHub
-```
-
-**BE**
-
-```
-- Java 11
-- spring5
-- spring-web
-- spring-boot-devtools
-- spring-data-jpa
-- lombok
-- gradle
-- Spirng Security
-- JAVA-JWT
-- mysql DB
-- H2 DB
-```
 
 ### And coding style tests
 
@@ -1003,10 +974,29 @@ async function sendSMS() {
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
-- [MongoDB](https://www.mongodb.com/) - Database
-- [Express](https://expressjs.com/) - Server Framework
-- [VueJs](https://vuejs.org/) - Web Framework
-- [NodeJs](https://nodejs.org/en/) - Server Environment
+### FE
+
+- [Next.js](https://nextjs.org/) - Web Framework
+- [redux-toolkit](https://redux-toolkit.js.org/) - 상태관리 및 데이터 패칭
+- [styled-components](https://styled-components.com/) - 스타일 (CSS in JS)
+- [AWS S3](https://aws.amazon.com/ko/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Categories=categories%23storage&trk=ps_a134p000006gGiOAAU&trkCampaign=acq_paid_search_brand&sc_channel=PS&sc_campaign=acquisition_KR&sc_publisher=Google&sc_category=Storage&sc_country=KR&sc_geo=APAC&sc_outcome=acq&sc_detail=s3&sc_content=S3_e&sc_matchtype=e&sc_segment=489215169070&sc_medium=ACQ-P|PS-GO|Brand|Desktop|SU|Storage|S3|KR|EN|Text&s_kwcid=AL!4422!3!489215169070!e!!g!!s3&ef_id=Cj0KCQiA0p2QBhDvARIsAACSOON95Wh5xmccoT61AnrrudAu06pEgyxu46djeqLXdgMLhqyqjAaD6KIaAtYmEALw_wcB:G:s&s_kwcid=AL!4422!3!489215169070!e!!g!!s3&awsf.Free%20Tier%20Types=*all) - 이미지 업로드 클라우드
+- [Storybook](https://storybook.js.org/) - UI 개발 툴 및 테스트
+- [ESLint + Prettier](https://eslint.org/) - 코드 컨벤션 툴
+- [Git/GitHub](https://github.com/) - 형상 관리
+
+### BE
+
+- Java 11
+- spring5
+- spring-web
+- spring-boot-devtools
+- spring-data-jpa
+- lombok
+- gradle
+- Spirng Security
+- JAVA-JWT
+- mysql DB
+- H2 DB
 
 ## ✍️ Authors <a name = "authors"></a>
 
