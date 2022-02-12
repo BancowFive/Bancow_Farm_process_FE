@@ -28,11 +28,12 @@
 
 - [About](#about)
 - [Getting Started](#getting_started)
-- [Deployment](#deployment)
+- [Prerequisites](#Prerequisites)
 - [Usage](#usage)
+  - [Page Description](#페이지-설명)
+  - [API](#API-사용서)
+- [Deployment](#deployment)
 - [Built Using](#built_using)
-- [TODO](../TODO.md)
-- [Contributing](../CONTRIBUTING.md)
 - [Authors](#authors)
 - [Acknowledgments](#acknowledgement)
 
@@ -64,8 +65,7 @@
 - target: 시니어층 (농가 주인)
 - user: 시니어층이 타겟이지만, 실질적인 사용자로는 농장주의 자식 혹은 손자, 농장과 계약된 회사의 영업사원등으로 20 ~ 70까지 다양한 연령층이 사용자로 예상된다.
 
-
-### And coding style tests
+### Coding convention
 
 **FE**
 
