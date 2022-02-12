@@ -13,15 +13,19 @@ const Step2 = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const moveAllowed = useSelector(state => state.step2.startStatus);
+  const [askMove, setAskMove] = useState(false);
 
   useEffect(() => {
-    if (moveAllowed === "fulfilled") router.replace(`/submit/${userId}`);
-  }, [moveAllowed]);
+    if (askMove) router.replace(`/submit/${userId}`);
+  }, [askMove]);
 
   const movePage = useCallback(() => {
     dispatch(
       startStep2({ PageNum: "10", inProgress: "STEP2_IN_PROGRESS", userId }),
     );
+    if (moveAllowed === "fulfilled") {
+      setAskMove(true);
+    }
   }, []);
 
   return (

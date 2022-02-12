@@ -27,8 +27,8 @@ const Required = () => {
     );
   const moveAllowed = useSelector(state => state.step2.changeStatus);
   const userId = useSelector(state => state.auth.id);
-
   const [hasSubmit, setHasSubmit] = useState(false);
+  const [askMove, setAskMove] = useState(false);
 
   //S3 관리자정보 가져오기
   useEffect(() => {
@@ -37,8 +37,8 @@ const Required = () => {
 
   //페이지 이동
   useEffect(() => {
-    if (moveAllowed === "fulfilled") router.replace("/done/step2");
-  }, [moveAllowed]);
+    if (askMove) router.replace("/done/step2");
+  }, [askMove]);
 
   //제출 Valid check
   useEffect(() => {
@@ -66,6 +66,9 @@ const Required = () => {
   const movePage = useCallback(() => {
     //작동 테스트를 위해 STPE2_COMPLETE 가 아닌 STEP3_START로 변경
     dispatch(changeStep2({ PageNum: "12", inProgress: "STEP3_START", userId }));
+    if (moveAllowed === "fulfilled") {
+      setAskMove(true);
+    }
   }, []);
 
   return (
