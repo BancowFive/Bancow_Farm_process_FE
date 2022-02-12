@@ -21,6 +21,11 @@ export const request = async (method, url, data) => {
   }
 };
 
+//로그인체크
+export const checkLogin = () => {
+  return request("post", "/api/auth/token");
+};
+
 //단순 페이지 이동하기
 export const movePage = (pageNum, id) => {
   return request("put", `/api/farm/${id}/move`, {
