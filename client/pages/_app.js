@@ -6,8 +6,28 @@ import GlobalStyle from "../styles/globalStyle";
 import AppLayout from "../components/AppLayout";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor } from "../store";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import { checkLogin } from "../api";
 
 function App({ Component, pageProps }) {
+  const router = useRouter();
+
+  useEffect(async () => {
+    const result = await checkLogin();
+    try {
+      if (
+        result.data.data === "BAD_REQUEST" ||
+        result.data.data === undefined ||
+        result.data.data === null
+      ) {
+        router.replace("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
   return (
     <>
       <Head>

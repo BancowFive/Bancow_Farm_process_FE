@@ -17,9 +17,9 @@ export const checkProgressStep = (inProgress, id, thunkApi) => {
     // thunkApi.dispatch(changePage({ PageNum: 11, id }));
   } else if (inProgress === "STEP3_START") {
     // thunkApi.dispatch(changePage({ PageNum: 12, id }));
-  } else if (inProgress === "INVESTIGATION_REQUEST") {
+  } else if (inProgress === "STEP3_IN_PROGRESS") {
     thunkApi.dispatch(fetchUserData({ step: 3, id }));
-  } else if (inProgress === "INVESTIGATION_CONFIRM") {
+  } else if (inProgress === "STEP3_COMPLETE") {
     // thunkApi.dispatch(changePage({ PageNum: 14, id }));
   } else if (inProgress === "PROCESS_DONE") {
     // thunkApi.dispatch(changePage({ PageNum: 14, id }));

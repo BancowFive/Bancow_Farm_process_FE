@@ -14,16 +14,17 @@ const Schedule = () => {
   const router = useRouter();
 
   const userId = useSelector(state => state.auth.id);
+  //공휴일 등 실사요청 불가능한 날짜, YYYYMMDD 형태
+  const isDisable = useSelector(state => state.step3.noReservationDate);
   const moveAllowed = useSelector(state => state.step3.changeStatus);
+  const [askMove, setAskMove] = useState(false);
   const [selectedDate, setselectedDate] = useState();
   const [isDisabledDay, setIsDisabledDay] = useState(false);
-  //공휴일 등 실사요청 불가능한 날짜, YYYYMMDD 형태
-  const isDisable = ["20220216", "20220213"];
 
   //페이지 이동
   useEffect(() => {
-    if (moveAllowed === "fulfilled") router.replace("/done/step3");
-  }, [moveAllowed]);
+    if (askMove) router.replace("/done/step3");
+  }, [askMove]);
 
   const getSelectedDay = useCallback(
     day =>
@@ -54,6 +55,9 @@ const Schedule = () => {
           userId,
         }),
       ).unwrap();
+      if (moveAllowed === "fulfilled") {
+        setAskMove(true);
+      }
     } catch (error) {
       console.log(error);
     }

@@ -4,6 +4,7 @@ module.exports = {
     IDENTITYPOOLID: process.env.IDENTITYPOOLID,
     BUCKETNAME: process.env.BUCKETNAME,
     REGION: process.env.REGION,
+    AUTHCHECK: process.env.AUTHCHECK,
   },
   images: {
     domains: [

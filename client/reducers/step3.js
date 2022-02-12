@@ -40,12 +40,21 @@ const initialState = {
   startStatus: "",
   submitStatus: "",
   changeStatus: "",
+  noReservationDate: [],
 };
 
 const step3Slice = createSlice({
   name: "step3",
   initialState,
-  reducers: {},
+  reducers: {
+    fetchStep3Data: (state, action) => {
+      const days = [];
+      action.payload.noReservationDate.forEach(day => {
+        days.push(day.date);
+      });
+      state.noReservationDate = days;
+    },
+  },
   extraReducers: builder => {
     //submitAvailableDate
     builder.addCase(submitAvailableDate.pending, (state, action) => {
@@ -82,4 +91,5 @@ const step3Slice = createSlice({
   },
 });
 
+export const { fetchStep3Data } = step3Slice.actions;
 export default step3Slice.reducer;
