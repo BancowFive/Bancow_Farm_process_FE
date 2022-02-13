@@ -2,10 +2,14 @@ import { Button, Container, Footer, ProgressHeader } from "../components";
 import Image from "next/image";
 import { useEffect } from "react";
 import { auth } from "../api";
+import { useDispatch } from "react-redux";
+import { logout } from "../reducers/auth";
 
 export default function Home() {
+  const dispatch = useDispatch();
   useEffect(() => {
     auth.logout();
+    dispatch(logout());
   }, []);
   return (
     <>

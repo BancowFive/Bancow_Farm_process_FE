@@ -86,6 +86,14 @@ const authSlice = createSlice({
       state.status = action.payload.inProgress;
       state.pageNum = action.payload.pageNum;
     },
+    logout: (state, action) => {
+      state.authorizationLoading = false;
+      state.authorizationDone = false;
+      state.authorizationError = null;
+      state.certificationLoading = false;
+      state.certificationDone = false;
+      state.certificationError = null;
+    },
   },
   extraReducers: {
     [getCertification.pending.type]: (state, action) => {
@@ -144,5 +152,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { inputPhoneNumber, getUserInfo } = authSlice.actions;
+export const { inputPhoneNumber, getUserInfo, logout } = authSlice.actions;
 export default authSlice.reducer;
