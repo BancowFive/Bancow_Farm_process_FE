@@ -74,6 +74,10 @@ export const StyledContainer = styled.div`
   @media (min-width: 540px) {
     padding: 0;
 
+    .content {
+      padding: 0;
+    }
+
     div.aside {
       width: 100%;
       .link {
