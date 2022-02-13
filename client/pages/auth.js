@@ -92,7 +92,7 @@ const Auth = () => {
     if (authorizationDone && phoneNumber && authNumber) {
       toggleModal();
       return;
-    } else if (authorizationError && phoneNumber) {
+    } else if (authorizationError && phoneNumber && authNumber) {
       setIsError(true);
       return;
     }

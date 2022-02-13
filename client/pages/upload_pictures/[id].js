@@ -71,7 +71,7 @@ const uploadPicture = () => {
 
       // 스텝 업데이트 api
       dispatch(
-        changeStep2({ PageNum: "8", inProgress: "STEP2_START", userId }),
+        changeStep2({ PageNum: "9", inProgress: "STEP2_START", userId }),
       );
     }
   };
