@@ -89,14 +89,20 @@ const Auth = () => {
       setIsError(true);
       return;
     }
-    if (authorizationDone && phoneNumber) {
+    if (authorizationDone && phoneNumber && authNumber) {
       toggleModal();
       return;
     } else if (authorizationError && phoneNumber) {
       setIsError(true);
       return;
     }
-  }, [certificationError, authorizationDone, authorizationError, phoneNumber]);
+  }, [
+    certificationError,
+    authorizationDone,
+    authorizationError,
+    phoneNumber,
+    authNumber,
+  ]);
 
   const fetchData = useCallback(() => {
     dispatch(checkUserInProgress(printPhoneNumber(phoneNumber)));
