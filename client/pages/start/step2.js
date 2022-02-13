@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Button } from "../../components/atoms";
 import { Footer, ProgressHeader } from "../../components";
 import { Container, ImgContainer } from "./style";
@@ -16,16 +16,15 @@ const Step2 = () => {
   const [askMove, setAskMove] = useState(false);
 
   useEffect(() => {
-    if (askMove) router.replace(`/submit/${userId}`);
-  }, [askMove]);
+    if (askMove && moveAllowed === "fulfilled")
+      router.replace(`/submit/${userId}`);
+  }, [askMove, moveAllowed]);
 
   const movePage = useCallback(() => {
     dispatch(
       startStep2({ PageNum: "10", inProgress: "STEP2_IN_PROGRESS", userId }),
     );
-    if (moveAllowed === "fulfilled") {
-      setAskMove(true);
-    }
+    setAskMove(true);
   }, []);
 
   return (
