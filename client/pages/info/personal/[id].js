@@ -70,13 +70,9 @@ const Personal = () => {
   const movePage = useCallback(() => {
     dispatch(saveFarmOwnerInfo({ data: { name, email }, id, pageNum: 2 }));
     dispatch(changePage({ PageNum: 3, id }));
+    router.push(`/info/farm/${id}`);
   }, [name, email, id]);
 
-  useEffect(() => {
-    if (changePageDone && isValid) {
-      router.push(`/info/farm/${id}`);
-    }
-  }, [id, changePageDone, isValid]);
   return (
     <>
       <Container>

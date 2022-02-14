@@ -23,8 +23,8 @@ const Schedule = () => {
 
   //페이지 이동
   useEffect(() => {
-    if (askMove) router.replace("/done/step3");
-  }, [askMove]);
+    if (askMove && moveAllowed === "fulfilled") router.replace("/done/step3");
+  }, [askMove, moveAllowed]);
 
   const getSelectedDay = useCallback(
     day =>
@@ -55,9 +55,7 @@ const Schedule = () => {
           userId,
         }),
       ).unwrap();
-      if (moveAllowed === "fulfilled") {
-        setAskMove(true);
-      }
+      setAskMove(true);
     } catch (error) {
       console.log(error);
     }
