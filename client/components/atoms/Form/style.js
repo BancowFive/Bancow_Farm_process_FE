@@ -223,17 +223,14 @@ export const Preview = styled.div`
   .image-container {
     position: relative;
     width: 100%;
-    height: 140px;
-    margin: 10px 0;
+    height: 160px;
 
     @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-      height: 180px;
-      margin: 10px 0;
+      height: 200px;
     }
 
     @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
-      height: 180px;
-      margin: 10px 0;
+      height: 200px;
     }
     margin-bottom: 6px;
     border-radius: 10px;
