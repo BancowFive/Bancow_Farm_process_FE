@@ -222,18 +222,16 @@ export const Preview = styled.div`
 
   .image-container {
     position: relative;
-    width: 360px;
+    width: 100%;
     height: 140px;
     margin: 10px 0;
 
     @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-      width: 380px;
       height: 180px;
       margin: 10px 0;
     }
 
     @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
-      width: 380px;
       height: 180px;
       margin: 10px 0;
     }
