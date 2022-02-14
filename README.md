@@ -1000,12 +1000,12 @@ async function sendSMS() {
 
 ## ✍️ Authors <a name = "authors"></a>
 
-- [@imparang](https://github.com/imparang) - FrontEnd Develop
-- [@dozukwang](https://github.com/dozukwang) - FrontEnd Develop
-- [@imhaeunk](https://github.com/imhaeunk) - FrontEnd Develop
-- [@cjsrhd94](https://github.com/cjsrhd94) - BackEnd Develop
-- [@kimdaehee90](https://github.com/kimdaehee90) - BackEnd Develop
-- [@limhaekyu](https://github.com/limhaekyu) - BackEnd Develop
+- [@imparang](https://github.com/imparang) - FrontEnd Developer
+- [@dozukwang](https://github.com/dozukwang) - FrontEnd Developer
+- [@imhaeunk](https://github.com/imhaeunk) - FrontEnd Developer
+- [@cjsrhd94](https://github.com/cjsrhd94) - BackEnd Developer
+- [@kimdaehee90](https://github.com/kimdaehee90) - BackEnd Developer
+- [@limhaekyu](https://github.com/limhaekyu) - BackEnd Developer
   See also the list of [contributors](https://github.com/BancowFive) who participated in this project.
 
 ## 🎉 Acknowledgements <a name = "acknowledgement"></a>
