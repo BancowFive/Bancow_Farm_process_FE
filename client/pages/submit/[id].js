@@ -37,8 +37,8 @@ const Required = () => {
 
   //페이지 이동
   useEffect(() => {
-    if (askMove) router.replace("/done/step2");
-  }, [askMove]);
+    if (askMove && moveAllowed === "fulfilled") router.replace("/done/step2");
+  }, [askMove, moveAllowed]);
 
   //제출 Valid check
   useEffect(() => {
@@ -66,9 +66,7 @@ const Required = () => {
   const movePage = useCallback(() => {
     //작동 테스트를 위해 STPE2_COMPLETE 가 아닌 STEP3_START로 변경
     dispatch(changeStep2({ PageNum: "12", inProgress: "STEP3_START", userId }));
-    if (moveAllowed === "fulfilled") {
-      setAskMove(true);
-    }
+    setAskMove(true);
   }, []);
 
   return (
