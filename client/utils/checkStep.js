@@ -7,24 +7,16 @@ import { fetchStep3Data } from "../reducers/step3";
 export const checkProgressStep = (inProgress, id, thunkApi) => {
   if (inProgress === "STEP1_IN_PROGRESS") {
     thunkApi.dispatch(fetchUserData({ step: 1, id }));
-  } else if (inProgress === "STEP1_COMPLETED") {
-    // thunkApi.dispatch(changePage({ PageNum: 8, id }));
-  } else if (inProgress === "STEP2_START") {
-    // thunkApi.dispatch(changePage({ PageNum: 9, id }));
-  } else if (inProgress === "STEP2_IN_PROGRESS") {
+  } else if (
+    inProgress === "STEP2_IN_PROGRESS" ||
+    inProgress === "STEP2_START"
+  ) {
     thunkApi.dispatch(fetchUserData({ step: 2, id }));
-  } else if (inProgress === "STEP2_COMPLETED") {
-    // thunkApi.dispatch(changePage({ PageNum: 11, id }));
-  } else if (inProgress === "STEP3_START") {
-    // thunkApi.dispatch(changePage({ PageNum: 12, id }));
-  } else if (inProgress === "STEP3_IN_PROGRESS") {
+  } else if (
+    inProgress === "STEP3_IN_PROGRESS" ||
+    inProgress === "STEP3_START"
+  ) {
     thunkApi.dispatch(fetchUserData({ step: 3, id }));
-  } else if (inProgress === "STEP3_COMPLETE") {
-    // thunkApi.dispatch(changePage({ PageNum: 14, id }));
-  } else if (inProgress === "PROCESS_DONE") {
-    // thunkApi.dispatch(changePage({ PageNum: 14, id }));
-  } else {
-    // thunkApi.dispatch(changePage({ PageNum: 1, id }));
   }
 };
 
