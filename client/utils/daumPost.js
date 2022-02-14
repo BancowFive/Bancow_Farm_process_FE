@@ -20,8 +20,8 @@ export const openDaumPost = dispatch => {
       oncomplete: function (data) {
         dispatch(
           inputFarmAddress({
-            address: data.zonecode,
-            postCode: data.roadAddress,
+            address: data.roadAddress,
+            postCode: data.zonecode,
           }),
         );
       },
